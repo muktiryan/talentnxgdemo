@@ -243,7 +243,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 	public Iterable<MModule> getMenuAppEmployee() {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabEmployee));
-		tabMenus.addAll((Collection<? extends MModule>) temp);
+//		tabMenus.addAll((Collection<? extends MModule>) temp);
 		for(Map<String,Object> i:temp){
 			tabMenus.add((MModule) i.values());
 	    }
@@ -255,7 +255,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 	public Iterable<MModule> getMenuAppPayroll() {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabPayroll));
-		tabMenus.addAll((Collection<? extends MModule>) temp);
+//		tabMenus.addAll((Collection<? extends MModule>) temp);
 		for(Map<String,Object> i:temp){
 			tabMenus.add((MModule) i.values());
 	    }
