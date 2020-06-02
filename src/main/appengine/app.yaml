@@ -1,5 +1,4 @@
-instance_class: F4
-runtime: java
+runtime: java11
 instance_class: F4
 runtime_config:
   jdk: openjdk8
