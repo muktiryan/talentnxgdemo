@@ -42,7 +42,19 @@ public class MApplicationDaoImpl implements MApplicationDao{
 	public Iterable<MApplication> getMApplication() {
 		List<MApplication> result = new ArrayList<MApplication>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMApplication);
-		result.addAll((Collection<? extends MApplication>) rows);
+//		result.addAll((Collection<? extends MApplication>) rows);
+		for (Map<String, Object> row : rows) {
+			MApplication mApplication = new MApplication();
+			mApplication.setAppid(Integer.parseInt(row.get("appid").toString()));
+			mApplication.setAppname((String)row.get("appname"));
+			mApplication.setDescription((String)row.get("description"));
+			mApplication.setCreatedBy((String)row.get("created_by"));
+			mApplication.setCreatedDate((Date)row.get("created_date"));
+			mApplication.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mApplication.setUpdatedBy((String)row.get("updated_by"));
+			mApplication.setUpdatedDate((Date)row.get("updated_date"));
+            result.add(mApplication);
+        }
 		return (Iterable<MApplication>) result;
 	}
 
