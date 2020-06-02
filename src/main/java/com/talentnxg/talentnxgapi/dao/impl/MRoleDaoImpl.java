@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MRoleDao;
+import com.talentnxg.talentnxgapi.models.MProfile;
 import com.talentnxg.talentnxgapi.models.MRole;
 
 @Repository
@@ -43,7 +44,10 @@ public class MRoleDaoImpl implements MRoleDao{
 	public Iterable<MRole> getMRole() {
 		List<MRole> result = new ArrayList<MRole>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMRole);
-		result.addAll((Collection<? extends MRole>) rows);
+//		result.addAll((Collection<? extends MRole>) rows);
+		for(Map<String,Object> i:rows){
+			result.add((MRole) i.values());
+	    }
 		return (Iterable<MRole>) result;
 	}
 

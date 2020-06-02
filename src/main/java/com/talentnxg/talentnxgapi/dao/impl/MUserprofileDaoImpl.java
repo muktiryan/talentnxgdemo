@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MUserprofileDao;
+import com.talentnxg.talentnxgapi.models.MTenant;
 import com.talentnxg.talentnxgapi.models.MUserprofile;
 
 @Repository
@@ -52,7 +53,10 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 	public Iterable<MUserprofile> getMUserprofile() {
 		List<MUserprofile> result = new ArrayList<MUserprofile>();
 		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMUserprofile);
-		result.addAll((Collection <? extends MUserprofile>) rows);
+//		result.addAll((Collection <? extends MUserprofile>) rows);
+		for(Map<String,Object> i:rows){
+			result.add((MUserprofile) i.values());
+	    }
 		return (Iterable<MUserprofile>) result;
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MProfileDao;
+import com.talentnxg.talentnxgapi.models.DRole;
 import com.talentnxg.talentnxgapi.models.MProfile;
 
 @Repository
@@ -41,7 +42,11 @@ public class MProfileDaoImpl implements MProfileDao{
 	public Iterable<MProfile> getMProfile() {
 		List<MProfile> result = new ArrayList<MProfile>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMProfile);
-		result.addAll((Collection<? extends MProfile>) rows);
+//		result.addAll((Collection<? extends MProfile>) rows);
+		for(Map<String,Object> i:rows){
+			result.add((MProfile) i.values());
+	    }
+		
 		return (Iterable<MProfile>) result;
 	}
 

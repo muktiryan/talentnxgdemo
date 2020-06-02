@@ -41,10 +41,10 @@ public class DRoleDaoImpl implements DRoleDao{
 		List<DRole> result = new ArrayList<DRole>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDRole);
 		
-		result.addAll((Collection<? extends DRole>) rows);
-//		for(Map<String,Object> i:rows){
-//			result.add((DRole) i.values());
-//	    }
+//		result.addAll((Collection<? extends DRole>) rows);
+		for(Map<String,Object> i:rows){
+			result.add((DRole) i.values());
+	    }
 //		
 		return (Iterable<DRole>) result;
 	}

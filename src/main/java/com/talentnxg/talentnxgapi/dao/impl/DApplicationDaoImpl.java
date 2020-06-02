@@ -42,7 +42,22 @@ public class DApplicationDaoImpl implements DApplicationDao{
 	public Iterable<DApplication> getDApplication() {
 		List<DApplication> result = new ArrayList<DApplication>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDApplication);
-		result.addAll((Collection<? extends DApplication>) rows);
+//		result.addAll((Collection<? extends DApplication>) rows);
+		for (Map<String, Object> row: rows) {
+			DApplication dApplication = new DApplication();
+			dApplication.setIntegid(Integer.parseInt(row.get("integid").toString()));
+			dApplication.setAppid(Integer.parseInt(row.get("appid").toString()));
+			dApplication.setModid(Integer.parseInt(row.get("modid").toString()));
+			dApplication.setCreatedBy((String)row.get("created_by"));
+			dApplication.setCreatedDate((Date)row.get("created_date"));
+			dApplication.setUpdatedBy((String)row.get("updated_by"));
+			dApplication.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(dApplication);
+		}
+		
+		
+		
+		
 		return (Iterable<DApplication>) result;
 	}
 

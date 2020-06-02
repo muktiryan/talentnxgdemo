@@ -40,7 +40,15 @@ public class DProfileDaoImpl implements DProfileDao{
 	public Iterable<DProfile> getDProfile() {
 		List<DProfile> result = new ArrayList<DProfile>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDProfile);
-		result.addAll((Collection<? extends DProfile>) rows);
+//		result.addAll((Collection<? extends DProfile>) rows);
+		for (Map<String, Object> row: rows) {
+			DProfile dProfile = new DProfile();
+			dProfile.setObjid(Integer.parseInt(row.get("objid").toString()));
+			dProfile.setAppid(Integer.parseInt(row.get("appid").toString()));
+			dProfile.setRolesid(Integer.parseInt(row.get("rolesid").toString()));
+			dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
+			result.add(dProfile);
+		}
 		return (Iterable<DProfile>) result;
 	}
 

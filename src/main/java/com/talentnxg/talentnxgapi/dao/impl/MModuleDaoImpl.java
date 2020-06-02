@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MModuleDao;
+import com.talentnxg.talentnxgapi.models.DRole;
 import com.talentnxg.talentnxgapi.models.MModule;
 
 @Repository
@@ -91,7 +92,13 @@ public class MModuleDaoImpl implements MModuleDao{
 	public Iterable<MModule> getModules() {
 		List<MModule> result = new ArrayList<MModule>();
 		List<Map<String, Object>> rows = (ArrayList<Map<String, Object>>)jdbcTemplate.queryForList(AppConfig.selectModule);
-		result.addAll((Collection<? extends MModule>) rows);
+//		result.addAll((Collection<? extends MModule>) rows);
+		
+		for(Map<String,Object> i:rows){
+			result.add((MModule) i.values());
+	    }
+		
+		
 		return (Iterable<MModule>) result;
 	}
 

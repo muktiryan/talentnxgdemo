@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MTenantDao;
+import com.talentnxg.talentnxgapi.models.MRole;
 import com.talentnxg.talentnxgapi.models.MTenant;
 
 @Repository
@@ -43,7 +44,10 @@ public class MTenantDaoImpl implements MTenantDao{
 	public Iterable<MTenant> getMTenant() {
 		List<MTenant> result = new ArrayList<MTenant>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMTenant);
-		result.addAll((Collection<? extends MTenant>) rows);
+//		result.addAll((Collection<? extends MTenant>) rows);
+		for(Map<String,Object> i:rows){
+			result.add((MTenant) i.values());
+	    }
 		return (Iterable<MTenant>) result;
 	}
 
