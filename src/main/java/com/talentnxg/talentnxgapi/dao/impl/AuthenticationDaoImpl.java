@@ -133,13 +133,20 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 			///////////Array list for tabMenu///////////
 			List<MModule> tabMenus = new ArrayList<MModule>();
 			List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabWorkStructure, tmpuserid));
-			tabMenus.addAll((Collection<? extends MModule>) temp);
+//			tabMenus.addAll((Collection<? extends MModule>) temp);
+			for(Map<String,Object> i:temp){
+				tabMenus.add((MModule) i.values());
+		    }
 			result.setTabmenu(tabMenus);
 			
 			///////////Array list for mainMenu///////////
 			List<MApplication> mainMenus = new ArrayList<MApplication>();
 			List<Map<String, Object>> temporary = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectMainMenu, tmpuserid));
-			mainMenus.addAll((Collection<? extends MApplication>) temporary);
+//			mainMenus.addAll((Collection<? extends MApplication>) temporary);
+			for(Map<String,Object> i:temporary){
+				mainMenus.add((MApplication) i.values());
+		    }
+			
 			result.setMainmenu(mainMenus);
 			
 			//////////////////Active Tab////////////////////
@@ -224,7 +231,10 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 	public Iterable<MModule> getMenuAppWorkStructure() {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabWorkStructure));
-		tabMenus.addAll((Collection<? extends MModule>) temp);
+//		tabMenus.addAll((Collection<? extends MModule>) temp);
+		for(Map<String,Object> i:temp){
+			tabMenus.add((MModule) i.values());
+	    }
 		return tabMenus;
 	}
 	
@@ -234,6 +244,9 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabEmployee));
 		tabMenus.addAll((Collection<? extends MModule>) temp);
+		for(Map<String,Object> i:temp){
+			tabMenus.add((MModule) i.values());
+	    }
 		return tabMenus;
 	}
 	
@@ -243,6 +256,9 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabPayroll));
 		tabMenus.addAll((Collection<? extends MModule>) temp);
+		for(Map<String,Object> i:temp){
+			tabMenus.add((MModule) i.values());
+	    }
 		return tabMenus;
 	}
 
