@@ -53,7 +53,7 @@ public class AppConfig {
 	 
 //	 public static final String selectTabWorkStructure = "SELECT * from m_modules where modid in (SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid where dp.rolesid in (SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=1));";
 	 
-	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle, modrealpath from m_modules where modid in (SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid where dp.rolesid in (SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?));";
+	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle,modroute, modrealpath from m_modules where modid in (SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid where dp.rolesid in (SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?));";
 	 
 	 public static final String selectTabEmployee = "SELECT modid, modname, modtitle, modrealpath "
 			 + "FROM public.m_modules "

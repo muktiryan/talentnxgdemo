@@ -94,8 +94,21 @@ public class MModuleDaoImpl implements MModuleDao{
 		List<Map<String, Object>> rows = (ArrayList<Map<String, Object>>)jdbcTemplate.queryForList(AppConfig.selectModule);
 //		result.addAll((Collection<? extends MModule>) rows);
 		
-		for(Map<String,Object> i:rows){
-			result.add((MModule) i.values());
+		for(Map<String,Object> row:rows){
+//			result.add((MModule) i.values());
+			MModule module = new MModule();
+			module.setModid(Integer.parseInt(row.get("modid").toString()));
+			module.setModname((String)row.get("modname"));
+			module.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			module.setModtitle((String)row.get("modtitle"));
+			module.setModroute((String)row.get("modroute"));
+			module.setModrealpath((String)row.get("modrealpath"));
+			module.setModicon((String)row.get("modicon"));
+			module.setCreatedBy((String)row.get("created_by"));
+			module.setCreatedDate((Date)row.get("created_date"));
+			module.setUpdatedBy((String)row.get("updated_by"));
+			module.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(module);
 	    }
 		
 		

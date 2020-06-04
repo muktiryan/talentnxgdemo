@@ -43,8 +43,17 @@ public class MProfileDaoImpl implements MProfileDao{
 		List<MProfile> result = new ArrayList<MProfile>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMProfile);
 //		result.addAll((Collection<? extends MProfile>) rows);
-		for(Map<String,Object> i:rows){
-			result.add((MProfile) i.values());
+		for(Map<String,Object> row:rows){
+//			result.add((MProfile) i.values());
+			MProfile mProfile = new MProfile();
+			mProfile.setProfilesid(Integer.parseInt(row.get("profilesid").toString()));
+			mProfile.setProfilesname((String)row.get("profilesname"));
+			mProfile.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mProfile.setCreatedBy((String)row.get("created_by"));
+			mProfile.setCreatedDate((Date)row.get("created_date"));
+			mProfile.setUpdatedBy((String)row.get("updated_by"));
+			mProfile.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(mProfile);
 	    }
 		
 		return (Iterable<MProfile>) result;

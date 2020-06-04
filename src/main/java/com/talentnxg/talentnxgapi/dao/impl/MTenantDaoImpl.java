@@ -45,8 +45,19 @@ public class MTenantDaoImpl implements MTenantDao{
 		List<MTenant> result = new ArrayList<MTenant>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMTenant);
 //		result.addAll((Collection<? extends MTenant>) rows);
-		for(Map<String,Object> i:rows){
-			result.add((MTenant) i.values());
+		for(Map<String,Object> row:rows){
+			MTenant mTenant = new MTenant();
+			mTenant.setId(Integer.parseInt(row.get("id").toString()));
+			mTenant.setTenantCode((String)row.get("tenant_code"));
+			mTenant.setTenantActivationCode((String)row.get("tenant_activation_code"));
+			mTenant.setIsActive((Boolean)row.get("is_active"));
+			mTenant.setCreatedBy((String)row.get("created_by"));
+			mTenant.setCreatedDate((Date)row.get("created_date"));
+			mTenant.setUpdatedBy((String)row.get("updated_by"));
+			mTenant.setUpdatedDate((Date)row.get("updated_date"));
+			mTenant.setTenantName((String)row.get("tenant_name"));
+
+			result.add(mTenant);
 	    }
 		return (Iterable<MTenant>) result;
 	}

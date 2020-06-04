@@ -3,6 +3,7 @@ package com.talentnxg.talentnxgapi.dao.impl;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -134,8 +135,15 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 			List<MModule> tabMenus = new ArrayList<MModule>();
 			List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabWorkStructure, tmpuserid));
 //			tabMenus.addAll((Collection<? extends MModule>) temp);
-			for(Map<String,Object> i:temp){
-				tabMenus.add((MModule) i.values());
+//			modid, modname,modroute, modtitle, modrealpath
+			for(Map<String,Object> row:temp){
+				MModule module = new MModule();
+				module.setModid(Integer.parseInt(row.get("modid").toString()));
+				module.setModname((String)row.get("modname"));
+				module.setModtitle((String)row.get("modtitle"));
+				module.setModroute((String)row.get("modroute"));
+				module.setModrealpath((String)row.get("modrealpath"));
+				tabMenus.add(module);
 		    }
 			result.setTabmenu(tabMenus);
 			
@@ -143,8 +151,14 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 			List<MApplication> mainMenus = new ArrayList<MApplication>();
 			List<Map<String, Object>> temporary = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectMainMenu, tmpuserid));
 //			mainMenus.addAll((Collection<? extends MApplication>) temporary);
-			for(Map<String,Object> i:temporary){
-				mainMenus.add((MApplication) i.values());
+//			dp.profileid,dp.appid,ma.appname,ma.description,ma.tenantid
+			for(Map<String,Object> row:temporary){
+				MApplication mApplication = new MApplication();
+				mApplication.setAppid(Integer.parseInt(row.get("appid").toString()));
+				mApplication.setAppname((String)row.get("appname"));
+				mApplication.setDescription((String)row.get("description"));
+				mApplication.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+				mainMenus.add(mApplication);
 		    }
 			
 			result.setMainmenu(mainMenus);
@@ -232,8 +246,22 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabWorkStructure));
 //		tabMenus.addAll((Collection<? extends MModule>) temp);
-		for(Map<String,Object> i:temp){
-			tabMenus.add((MModule) i.values());
+		for(Map<String,Object> row:temp){
+//			tabMenus.add((MModule) i.values());
+			MModule module = new MModule();
+			module.setModid(Integer.parseInt(row.get("modid").toString()));
+			module.setModname((String)row.get("modname"));
+			module.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			module.setModtitle((String)row.get("modtitle"));
+			module.setModroute((String)row.get("modroute"));
+			module.setModrealpath((String)row.get("modrealpath"));
+			module.setModicon((String)row.get("modicon"));
+			module.setCreatedBy((String)row.get("created_by"));
+			module.setCreatedDate((Date)row.get("created_date"));
+			module.setUpdatedBy((String)row.get("updated_by"));
+			module.setUpdatedDate((Date)row.get("updated_date"));
+			tabMenus.add(module);
+			
 	    }
 		return tabMenus;
 	}
@@ -244,8 +272,21 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabEmployee));
 //		tabMenus.addAll((Collection<? extends MModule>) temp);
-		for(Map<String,Object> i:temp){
-			tabMenus.add((MModule) i.values());
+		for(Map<String,Object> row:temp){
+//			tabMenus.add((MModule) i.values());
+			MModule module = new MModule();
+			module.setModid(Integer.parseInt(row.get("modid").toString()));
+			module.setModname((String)row.get("modname"));
+			module.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			module.setModtitle((String)row.get("modtitle"));
+			module.setModroute((String)row.get("modroute"));
+			module.setModrealpath((String)row.get("modrealpath"));
+			module.setModicon((String)row.get("modicon"));
+			module.setCreatedBy((String)row.get("created_by"));
+			module.setCreatedDate((Date)row.get("created_date"));
+			module.setUpdatedBy((String)row.get("updated_by"));
+			module.setUpdatedDate((Date)row.get("updated_date"));
+			tabMenus.add(module);
 	    }
 		return tabMenus;
 	}
@@ -257,7 +298,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabPayroll));
 //		tabMenus.addAll((Collection<? extends MModule>) temp);
 		for(Map<String,Object> i:temp){
-			tabMenus.add((MModule) i.values());
+//			tabMenus.add((MModule) i.values());
 	    }
 		return tabMenus;
 	}

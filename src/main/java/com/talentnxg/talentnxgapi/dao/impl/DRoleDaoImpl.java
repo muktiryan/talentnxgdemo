@@ -42,8 +42,13 @@ public class DRoleDaoImpl implements DRoleDao{
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDRole);
 		
 //		result.addAll((Collection<? extends DRole>) rows);
-		for(Map<String,Object> i:rows){
-			result.add((DRole) i.values());
+		for(Map<String,Object> row:rows){
+//			result.add((DRole) i.values());
+			DRole dRole = new DRole();
+			dRole.setRmemid(Integer.parseInt(row.get("rmemid").toString()));
+			dRole.setRoleid(Integer.parseInt(row.get("roleid").toString()));
+			dRole.setUsersid(Integer.parseInt(row.get("usersid").toString()));
+			result.add(dRole);
 	    }
 //		
 		return (Iterable<DRole>) result;

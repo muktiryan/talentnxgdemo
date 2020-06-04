@@ -45,8 +45,19 @@ public class MRoleDaoImpl implements MRoleDao{
 		List<MRole> result = new ArrayList<MRole>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMRole);
 //		result.addAll((Collection<? extends MRole>) rows);
-		for(Map<String,Object> i:rows){
-			result.add((MRole) i.values());
+		for(Map<String,Object> row:rows){
+//			result.add((MRole) i.values());
+			MRole mRole = new MRole();
+			mRole.setRolesid(Integer.parseInt(row.get("rolesid").toString()));
+			mRole.setRolename((String)row.get("rolename"));
+			mRole.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mRole.setCreatedBy((String)row.get("created_by"));
+			mRole.setCreatedDate((Date)row.get("created_date"));
+			mRole.setUpdatedBy((String)row.get("updated_by"));
+			mRole.setUpdatedDate((Date)row.get("updated_Date"));
+			mRole.setIsadmin(Integer.parseInt(row.get("isadmin").toString()));
+			mRole.setRoleidrtp(Integer.parseInt(row.get("roleidrpt").toString()));
+			result.add(mRole);
 	    }
 		return (Iterable<MRole>) result;
 	}

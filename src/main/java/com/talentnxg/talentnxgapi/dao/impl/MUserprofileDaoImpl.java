@@ -54,8 +54,29 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 		List<MUserprofile> result = new ArrayList<MUserprofile>();
 		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMUserprofile);
 //		result.addAll((Collection <? extends MUserprofile>) rows);
-		for(Map<String,Object> i:rows){
-			result.add((MUserprofile) i.values());
+		for(Map<String,Object> row:rows){
+//			result.add((MUserprofile) i.values());
+			MUserprofile mUserprofile = new MUserprofile();
+			mUserprofile.setUserid(Integer.parseInt(row.get("userid").toString()));
+			mUserprofile.setUsername((String)row.get("username"));
+			mUserprofile.setFullname((String)row.get("fullname"));
+			mUserprofile.setActive(Integer.parseInt(row.get("active").toString()));
+			mUserprofile.setSecretpwd((String)row.get("secretpwd"));
+			mUserprofile.setAvatarname((String)row.get("avatarname"));
+			mUserprofile.setEmail((String)row.get("email"));
+			mUserprofile.setAddress((String)row.get("address"));
+			mUserprofile.setAlias((String)row.get("alias"));
+			mUserprofile.setPhone((String)row.get("phone"));
+			mUserprofile.setMobile((String)row.get("mobile"));
+			mUserprofile.setFax((String)row.get("fax"));
+			mUserprofile.setCity((String)row.get("city"));
+			mUserprofile.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mUserprofile.setEmployeecode((String)row.get("employeecode"));
+			mUserprofile.setCreatedBy((String)row.get("created_by"));
+			mUserprofile.setCreatedDate((Date)row.get("created_date"));
+			mUserprofile.setUpdatedBy((String)row.get("updated_by"));
+			mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(mUserprofile);
 	    }
 		return (Iterable<MUserprofile>) result;
 	}

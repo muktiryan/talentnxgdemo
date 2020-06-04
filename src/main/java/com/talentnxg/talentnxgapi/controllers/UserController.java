@@ -41,7 +41,7 @@ public class UserController {
 	@GetMapping("/getecho")
     @ResponseBody
     public String getAll(Pageable page) {
-        return "{..... Oncom Bandung.......}";
+        return "{== Menggunakan GCP tapi DB di Proj Lain Help ! ==}";
     }
 	
 //	@PostMapping("/authentication")
