@@ -41,7 +41,7 @@ public class UserController {
 	@GetMapping("/getecho")
     @ResponseBody
     public String getAll(Pageable page) {
-        return "{== Changing to Cloud SQL ==}";
+        return "{== Changing to Cloud SQL project sama ==}";
     }
 	
 //	@PostMapping("/authentication")
