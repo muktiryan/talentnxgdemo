@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.talentnxg</groupId>
 	<artifactId>talentnxgdemo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>tnxgdemo</name>
 	<description>Cloud Google API</description>
 
