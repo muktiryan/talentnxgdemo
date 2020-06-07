@@ -11,7 +11,7 @@ public class MRole {
 	private String updatedBy;
 	private Date updatedDate;
 	private Integer isadmin;
-	private Integer roleidrtp;
+	private Integer roleidrpt;
 	
 	public MRole() {
 		// TODO Auto-generated constructor stub
@@ -65,11 +65,13 @@ public class MRole {
 	public void setIsadmin(Integer isadmin) {
 		this.isadmin = isadmin;
 	}
-	public Integer getRoleidrtp() {
-		return roleidrtp;
+
+	public Integer getRoleidrpt() {
+		return roleidrpt;
 	}
-	public void setRoleidrtp(Integer roleidrtp) {
-		this.roleidrtp = roleidrtp;
+
+	public void setRoleidrpt(Integer roleidrpt) {
+		this.roleidrpt = roleidrpt;
 	}
 
 }

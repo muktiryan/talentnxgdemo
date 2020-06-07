@@ -2,7 +2,6 @@ package com.talentnxg.talentnxgapi.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -35,22 +34,17 @@ public class DRoleDaoImpl implements DRoleDao{
 		return dRoleKey.getKey().longValue();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterable<DRole> getDRole() {
 		List<DRole> result = new ArrayList<DRole>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDRole);
-		
-//		result.addAll((Collection<? extends DRole>) rows);
-		for(Map<String,Object> row:rows){
-//			result.add((DRole) i.values());
+		for (Map<String, Object> row: rows) {
 			DRole dRole = new DRole();
 			dRole.setRmemid(Integer.parseInt(row.get("rmemid").toString()));
 			dRole.setRoleid(Integer.parseInt(row.get("roleid").toString()));
 			dRole.setUsersid(Integer.parseInt(row.get("usersid").toString()));
 			result.add(dRole);
-	    }
-//		
+		}
 		return (Iterable<DRole>) result;
 	}
 

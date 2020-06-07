@@ -2,7 +2,6 @@ package com.talentnxg.talentnxgapi.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MProfileDao;
-import com.talentnxg.talentnxgapi.models.DRole;
 import com.talentnxg.talentnxgapi.models.MProfile;
 
 @Repository
@@ -37,14 +35,11 @@ public class MProfileDaoImpl implements MProfileDao{
 		return mProfileKey.getKey().longValue();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterable<MProfile> getMProfile() {
 		List<MProfile> result = new ArrayList<MProfile>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMProfile);
-//		result.addAll((Collection<? extends MProfile>) rows);
-		for(Map<String,Object> row:rows){
-//			result.add((MProfile) i.values());
+		for (Map<String, Object> row: rows) {
 			MProfile mProfile = new MProfile();
 			mProfile.setProfilesid(Integer.parseInt(row.get("profilesid").toString()));
 			mProfile.setProfilesname((String)row.get("profilesname"));
@@ -54,8 +49,7 @@ public class MProfileDaoImpl implements MProfileDao{
 			mProfile.setUpdatedBy((String)row.get("updated_by"));
 			mProfile.setUpdatedDate((Date)row.get("updated_date"));
 			result.add(mProfile);
-	    }
-		
+		}
 		return (Iterable<MProfile>) result;
 	}
 

@@ -1,0 +1,11 @@
+{
+    "baseUrl": "https://davembush.github.io/api",
+    "socketUrl": "http://localhost:4200/",
+    "apiUrl": "http://desktop-uuneu5u:8080/api/v1/",
+    "reportUrl": "http://localhost:8080/report/",
+    "googleRecaptchaSiteKey": "6LekmWQUAAAAAAgw7fPFgjvjuITR4Jhi0TrlQu5U",
+    "ss1":"profiler",
+    "ss2":"controllers",
+    "ss3":"active",
+    "ss4":"oauth"
+}

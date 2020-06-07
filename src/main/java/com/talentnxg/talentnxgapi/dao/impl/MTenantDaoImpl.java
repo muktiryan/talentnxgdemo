@@ -2,7 +2,6 @@ package com.talentnxg.talentnxgapi.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MTenantDao;
-import com.talentnxg.talentnxgapi.models.MRole;
 import com.talentnxg.talentnxgapi.models.MTenant;
 
 @Repository
@@ -39,13 +37,11 @@ public class MTenantDaoImpl implements MTenantDao{
 		return idKey.getKey().longValue();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterable<MTenant> getMTenant() {
 		List<MTenant> result = new ArrayList<MTenant>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMTenant);
-//		result.addAll((Collection<? extends MTenant>) rows);
-		for(Map<String,Object> row:rows){
+		for (Map<String, Object> row : rows) {
 			MTenant mTenant = new MTenant();
 			mTenant.setId(Integer.parseInt(row.get("id").toString()));
 			mTenant.setTenantCode((String)row.get("tenant_code"));
@@ -56,9 +52,7 @@ public class MTenantDaoImpl implements MTenantDao{
 			mTenant.setUpdatedBy((String)row.get("updated_by"));
 			mTenant.setUpdatedDate((Date)row.get("updated_date"));
 			mTenant.setTenantName((String)row.get("tenant_name"));
-
-			result.add(mTenant);
-	    }
+			result.add(mTenant);}
 		return (Iterable<MTenant>) result;
 	}
 

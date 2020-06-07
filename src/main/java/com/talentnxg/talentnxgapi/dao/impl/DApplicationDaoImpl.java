@@ -2,7 +2,6 @@ package com.talentnxg.talentnxgapi.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +36,10 @@ public class DApplicationDaoImpl implements DApplicationDao{
 		return dAppKey.getKey().longValue();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterable<DApplication> getDApplication() {
 		List<DApplication> result = new ArrayList<DApplication>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDApplication);
-//		result.addAll((Collection<? extends DApplication>) rows);
 		for (Map<String, Object> row: rows) {
 			DApplication dApplication = new DApplication();
 			dApplication.setIntegid(Integer.parseInt(row.get("integid").toString()));
@@ -54,10 +51,6 @@ public class DApplicationDaoImpl implements DApplicationDao{
 			dApplication.setUpdatedDate((Date)row.get("updated_date"));
 			result.add(dApplication);
 		}
-		
-		
-		
-		
 		return (Iterable<DApplication>) result;
 	}
 

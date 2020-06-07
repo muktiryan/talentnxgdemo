@@ -2,7 +2,6 @@ package com.talentnxg.talentnxgapi.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MModuleDao;
-import com.talentnxg.talentnxgapi.models.DRole;
 import com.talentnxg.talentnxgapi.models.MModule;
 
 @Repository
@@ -87,31 +85,25 @@ public class MModuleDaoImpl implements MModuleDao{
 	}
 	
 	//retrieve all record
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterable<MModule> getModules() {
 		List<MModule> result = new ArrayList<MModule>();
 		List<Map<String, Object>> rows = (ArrayList<Map<String, Object>>)jdbcTemplate.queryForList(AppConfig.selectModule);
-//		result.addAll((Collection<? extends MModule>) rows);
-		
-		for(Map<String,Object> row:rows){
-//			result.add((MModule) i.values());
-			MModule module = new MModule();
-			module.setModid(Integer.parseInt(row.get("modid").toString()));
-			module.setModname((String)row.get("modname"));
-			module.setModtype(Integer.parseInt(row.get("modtype").toString()));
-			module.setModtitle((String)row.get("modtitle"));
-			module.setModroute((String)row.get("modroute"));
-			module.setModrealpath((String)row.get("modrealpath"));
-			module.setModicon((String)row.get("modicon"));
-			module.setCreatedBy((String)row.get("created_by"));
-			module.setCreatedDate((Date)row.get("created_date"));
-			module.setUpdatedBy((String)row.get("updated_by"));
-			module.setUpdatedDate((Date)row.get("updated_date"));
-			result.add(module);
-	    }
-		
-		
+		for (Map<String, Object> row : rows) {
+			MModule mModule = new MModule();
+			mModule.setModid(Integer.parseInt(row.get("modid").toString()));
+			mModule.setModname((String)row.get("modname"));
+			mModule.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			mModule.setModtitle((String)row.get("modtitle"));
+			mModule.setModroute((String)row.get("modroute"));
+			mModule.setModrealpath((String)row.get("modrealpath"));
+			mModule.setModicon((String)row.get("modicon"));
+			mModule.setCreatedBy((String)row.get("created_by"));
+			mModule.setCreatedDate((Date)row.get("created_date"));
+			mModule.setUpdatedBy((String)row.get("updated_by"));
+			mModule.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(mModule);
+		}
 		return (Iterable<MModule>) result;
 	}
 

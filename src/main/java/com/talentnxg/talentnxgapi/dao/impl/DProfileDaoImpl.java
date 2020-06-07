@@ -2,7 +2,6 @@ package com.talentnxg.talentnxgapi.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -35,12 +34,10 @@ public class DProfileDaoImpl implements DProfileDao{
 		return dProfileKey.getKey().longValue();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Iterable<DProfile> getDProfile() {
 		List<DProfile> result = new ArrayList<DProfile>();
 		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDProfile);
-//		result.addAll((Collection<? extends DProfile>) rows);
 		for (Map<String, Object> row: rows) {
 			DProfile dProfile = new DProfile();
 			dProfile.setObjid(Integer.parseInt(row.get("objid").toString()));

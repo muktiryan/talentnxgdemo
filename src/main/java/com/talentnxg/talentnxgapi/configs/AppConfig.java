@@ -198,6 +198,11 @@ public class AppConfig {
 	 public static final String saveMUserprofile = "INSERT INTO m_userprofile (username, fullname, active, secretpwd, avatarname, email, phone, mobile, fax, tenantid, employeecode, city, created_by, created_date) "
 			 +"VALUES (?, ?, 1, crypt(?, gen_salt('bf')), 'default', ?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp); ";
 	 
+//////////////////////////////////////M User Profile///////////////////////////////////////
+//	 public static final String saveMUserprofile = "INSERT INTO m_userprofile (username, fullname, active, secretpwd, avatarname, email, phone, mobile, fax, tenantid, employeecode, city, created_by, created_date) "
+//+"VALUES (?, ?, 1, crypt(?, gen_salt('bf')), 'default', ?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp); ";
+//	 
+	 
 	 public static final String selectMUserprofile = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by "
 			 + "FROM m_userprofile;";
 	 
@@ -229,4 +234,5 @@ public class AppConfig {
 /////////////////////////////////////////M Company/////////////////////////////////////////////
 	 public static final String saveMCompany = "INSERT INTO m_company (tenant_id, company_name, company_code, bank_account, account_name, tax_number, created_by, created_date) "
 			 + "VALUES (?, ?, ?, ?, ?, ?, 1, current_timestamp);";
+	public static String initialMember1;
 }
