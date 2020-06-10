@@ -7,6 +7,7 @@ public interface MUserprofileDao {
 	long saveMUserProfile(MUserprofile mUserprofile);
 
 	Iterable<MUserprofile> getMUserprofile();
+	Iterable<MUserprofile> getMUserprofileSelected(int idrole);
 
 	MUserprofile findMUserprofileById(Integer userid);
 

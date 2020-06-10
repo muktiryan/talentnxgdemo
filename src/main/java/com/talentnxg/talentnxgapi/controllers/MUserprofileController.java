@@ -34,6 +34,11 @@ public class MUserprofileController {
 		Iterable<MUserprofile> result = mUserprofileDao.getMUserprofile();
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
+	@GetMapping("/muserprofilesSelectedRole/{roleid}")
+	public ResponseEntity<DefaultResponse> getMUserprofileSelectedRole(@PathVariable("roleid") Integer roleid){
+		Iterable<MUserprofile> result = mUserprofileDao.getMUserprofileSelected(roleid);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+	}
 	
 	@GetMapping("/muserprofiles/{userid}")
 	public ResponseEntity<DefaultResponse> findMUserprofile(@PathVariable("userid") Integer userid){

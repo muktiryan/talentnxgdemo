@@ -42,24 +42,48 @@ public class DProfileDaoImpl implements DProfileDao{
 			DProfile dProfile = new DProfile();
 			dProfile.setObjid(Integer.parseInt(row.get("objid").toString()));
 			dProfile.setAppid(Integer.parseInt(row.get("appid").toString()));
+			dProfile.setAppname((String)row.get("appname"));
 			dProfile.setRolesid(Integer.parseInt(row.get("rolesid").toString()));
+			dProfile.setRolename((String)row.get("rolename"));
 			dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
+			dProfile.setProfilename((String)row.get("profilesname"));
 			result.add(dProfile);
 		}
 		return (Iterable<DProfile>) result;
 	}
+	
+//	@Override
+//	public Iterable<DProfile> getDProfileNew() {
+//		List<DProfile> result = new ArrayList<DProfile>();
+//		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectDProfileNew);
+//		for (Map<String, Object> row: rows) {
+//			DProfile dProfile = new DProfile();
+//			dProfile.setObjid(Integer.parseInt(row.get("objid").toString()));
+//			dProfile.setAppid(Integer.parseInt(row.get("appid").toString()));
+//			dProfile.setAppname((String)row.get("appname"));
+//			dProfile.setRolesid(Integer.parseInt(row.get("rolesid").toString()));
+//			dProfile.setRolename((String)row.get("rolename"));
+//			dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
+//			dProfile.setProfilename((String)row.get("profilesname"));
+//			result.add(dProfile);
+//		}
+//		return (Iterable<DProfile>) result;
+//	}
 
 	@Override
-	public DProfile getDProfileById(Integer objid) {
+	public DProfile getDProfileById(Integer profilesid) {
 		DProfile dProfile = new DProfile();
-		Object[] parameter = new Object[] {new Integer(objid)};
+		Object[] parameter = new Object[] {new Integer(profilesid)};
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findDProfileById, parameter);
 		if (rows.size() > 0) {
 			for (Map<String, Object> row: rows) {
 				dProfile.setObjid(Integer.parseInt(row.get("objid").toString()));
 				dProfile.setAppid(Integer.parseInt(row.get("appid").toString()));
+				dProfile.setAppname((String)row.get("appname"));
 				dProfile.setRolesid(Integer.parseInt(row.get("rolesid").toString()));
+				dProfile.setRolename((String)row.get("rolename"));
 				dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
+				dProfile.setProfilename((String)row.get("profilesname"));
 			}
 		}
 		return dProfile;
@@ -82,8 +106,9 @@ public class DProfileDaoImpl implements DProfileDao{
 	@Override
 	public void deleteDProfile(Integer objid) {
 		Object[] parameter = new Object[] {new Integer(objid)};
-		jdbcTemplate.update(AppConfig.deleteMProfile, parameter);
+		jdbcTemplate.update(AppConfig.deleteDProfile, parameter);
 	}
+
 	
 	
 }

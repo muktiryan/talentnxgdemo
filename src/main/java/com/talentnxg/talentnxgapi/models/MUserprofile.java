@@ -22,7 +22,7 @@ public class MUserprofile {
 	private Date createdDate;
 	private String updatedBy;
 	private Date updatedDate;
-	
+	private Integer selectedRole;
 	
 	public MUserprofile() {
 		// TODO Auto-generated constructor stub
@@ -216,6 +216,16 @@ public class MUserprofile {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+
+	public Integer getSelectedRole() {
+		return selectedRole;
+	}
+
+
+	public void setSelectedRole(Integer selectedRole) {
+		this.selectedRole = selectedRole;
 	}
 	
 	

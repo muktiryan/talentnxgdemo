@@ -134,17 +134,28 @@ public class AppConfig {
 	 public static final String saveDProfile = "INSERT INTO d_profiles (appid, rolesid, profileid) "
 			 + "VALUES (?, ?, ?);";
 
-	 public static final String selectDProfile = "SELECT objid, appid, rolesid, profileid "
-			 + "FROM d_profiles;";
+//	 public static final String selectDProfile = "SELECT objid, appid, rolesid, profileid "
+//			 + "FROM d_profiles;";
 
-	 public static final String findDProfileById = "SELECT  objid, appid, rolesid, profileid "
-			 + "FROM d_profiles "
-			 + "WHERE objid=?;";
+//	 public static final String findDProfileById = "SELECT  objid, appid, rolesid, profileid "
+//			 + "FROM d_profiles "
+//			 + "WHERE objid=?;";
 
 	 public static final String updateDProfile = "UPDATE d_profiles SET appid=?, rolesid=?, profileid=? "
 			 + "WHERE objid=?;";
 
 	 public static final String deleteDProfile = "DELETE FROM d_profiles WHERE objid=?;"; 
+	 
+	 public static final String selectDProfile = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
+	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
+	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
+	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid;";
+
+	 public static final String findDProfileById = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
+	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
+	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
+	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid "
+	 		 + "WHERE mp.profilesid=?;";
 	 	 
 /////////////////////////////////////// M ROLES////////////////////////////////////////////
 	 public static final String saveMRole = "INSERT INTO m_roles (rolename, tenantid, created_by, isadmin) "
@@ -205,6 +216,10 @@ public class AppConfig {
 	 
 	 public static final String selectMUserprofile = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by "
 			 + "FROM m_userprofile;";
+	 
+	 public static final String selectMUserprofileByRole = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, COALESCE( dr.roleid, 0 ) isselect " + 
+	 		"FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid;";
+	 
 	 
 	 public static final String findMUserprofileById = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by "
 			 + "FROM m_userprofile "
