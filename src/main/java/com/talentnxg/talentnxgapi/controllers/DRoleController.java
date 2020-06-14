@@ -1,5 +1,7 @@
 package com.talentnxg.talentnxgapi.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.DRoleDao;
 import com.talentnxg.talentnxgapi.models.DRole;
+import com.talentnxg.talentnxgapi.pojos.ReqSaveDRoles;
+import com.talentnxg.talentnxgapi.pojos.ReqSaveDRolesCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
@@ -28,6 +32,23 @@ public class DRoleController {
 	public ResponseEntity<DefaultResponse> saveDRole(@RequestBody DRole dRole){
 		long rmemid = dRoleDao.save(dRole);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", rmemid));
+	}
+	@PostMapping("/drolesarray")
+	public ResponseEntity<DefaultResponse> saveDRoleArray(@RequestBody ReqSaveDRolesCst1 dSRole){
+		ReqSaveDRolesCst1 dRoleCst = dSRole;
+		List<DRole> listObj = dSRole.getDatarequest();
+//		System.out.println("Delete DRole when RoleID : "+dRoleCst.getRoleid());
+		dRoleDao.deleteDRoleByRoleId(dRoleCst.getRoleid());
+		if(listObj.size() > 0) {
+			for (DRole item : listObj) {
+//				System.out.println("User ID "+item.getUsersid());
+				long rmemid = dRoleDao.save(item);
+				
+			}
+//			long rmemid = dRoleDao.save(dRole);
+		}
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", dRoleCst.getRoleid()));
+//		return null;
 	}
 	
 	//retrieve all record

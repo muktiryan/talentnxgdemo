@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MRoleDao;
 import com.talentnxg.talentnxgapi.models.MRole;
+import com.talentnxg.talentnxgapi.models.MRoleCustom1;
 
 @Repository
 public class MRoleDaoImpl implements MRoleDao{
@@ -23,8 +24,9 @@ public class MRoleDaoImpl implements MRoleDao{
 
 	@Override
 	public long save(MRole mRole) {
-		jdbcTemplate.update(AppConfig.initialMember1);
+//		jdbcTemplate.update(AppConfig.initialMember1);
 		KeyHolder mRoleKey = new GeneratedKeyHolder();
+		System.out.println("############ "+mRole.getRolename());
 		jdbcTemplate.update(connection -> {
 			PreparedStatement temp = connection.prepareStatement(AppConfig.saveMRole, new String[]{"rolesid"});
 			temp.setString(1, mRole.getRolename());
@@ -53,6 +55,28 @@ public class MRoleDaoImpl implements MRoleDao{
 			mRole.setRoleidrpt(Integer.parseInt(row.get("roleidrpt").toString()));
 			result.add(mRole);}
 		return (Iterable<MRole>) result;
+	}
+	
+	@Override
+	public Iterable<MRoleCustom1> getMRoleCustom1() {
+		List<MRoleCustom1> result = new ArrayList<MRoleCustom1>();
+		List<Map<String, Object>> rows =  (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMRoleCustom1);
+		for (Map<String, Object> row: rows) {
+			MRoleCustom1 mRole = new MRoleCustom1();
+			mRole.setRolesid(Integer.parseInt(row.get("rolesid").toString()));
+			mRole.setRolename((String)row.get("rolename"));
+			mRole.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mRole.setCreatedBy((String)row.get("created_by"));
+			mRole.setCreatedDate((Date)row.get("created_date"));
+			mRole.setUpdatedBy((String)row.get("updated_by"));
+			mRole.setUpdatedDate((Date)row.get("updated_Date"));
+			mRole.setIsadmin(Integer.parseInt(row.get("isadmin").toString()));
+			mRole.setRoleidrpt(Integer.parseInt(row.get("roleidrpt").toString()));
+			mRole.setTenantname((String)row.get("tenant_name"));
+			mRole.setIsadminStr((String)row.get("isadminstr"));
+			result.add(mRole);
+		}
+		return (Iterable<MRoleCustom1>) result;
 	}
 
 	@Override
@@ -84,7 +108,9 @@ public class MRoleDaoImpl implements MRoleDao{
 			temp.setInt(2, mRole.getTenantid());
 			temp.setString(3,  mRole.getUpdatedBy());
 			temp.setInt(4, mRole.getIsadmin());
-			temp.setInt(5, rolesid);
+			temp.setInt(5, mRole.getRoleidrpt());
+			temp.setInt(6, rolesid);
+			
 			return temp;
 		});
 		MRole result = getMRoleById(rolesid);

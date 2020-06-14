@@ -13,5 +13,7 @@ public interface DRoleDao {
 	DRole updateDRole(DRole dRole, Integer rmemid);
 
 	void deleteDRole(Integer rmemid);
+	
+	void deleteDRoleByRoleId(Integer roleid);
 
 }

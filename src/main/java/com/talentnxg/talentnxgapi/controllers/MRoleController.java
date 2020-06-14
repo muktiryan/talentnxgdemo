@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.MRoleDao;
+import com.talentnxg.talentnxgapi.dao.impl.MRoleDaoImpl;
 import com.talentnxg.talentnxgapi.models.MRole;
+import com.talentnxg.talentnxgapi.models.MRoleCustom1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
@@ -27,6 +29,7 @@ public class MRoleController {
 	//insert
 	@PostMapping("/mroles")
 	public ResponseEntity<DefaultResponse> saveMRole(@RequestBody MRole mRole){
+//		System.out.println("############ "+mRole.getRolename());
 		long rolesid = mRoleDao.save(mRole);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", rolesid));
 	}
@@ -35,6 +38,12 @@ public class MRoleController {
 	@GetMapping("/mroles")
 	public ResponseEntity<DefaultResponse> getMRole(){
 		Iterable<MRole> result = mRoleDao.getMRole();
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+	}
+	
+	@GetMapping("/mrolescst1")
+	public ResponseEntity<DefaultResponse> getMRoleCustom1(){
+		Iterable<MRoleCustom1> result = mRoleDao.getMRoleCustom1();
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
 	}
 	

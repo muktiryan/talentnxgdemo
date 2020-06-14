@@ -80,6 +80,12 @@ public class DRoleDaoImpl implements DRoleDao{
 		Object[] parameter = new Object[] {new Integer(rmemid)};
 		jdbcTemplate.update(AppConfig.deleteDRole, parameter);
 	}
+
+	@Override
+	public void deleteDRoleByRoleId(Integer roleid) {
+		Object[] parameter = new Object[] {new Integer(roleid)};
+		jdbcTemplate.update(AppConfig.deleteDRoleByRoleId, parameter);
+	}
 	
 	
 

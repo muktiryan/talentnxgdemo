@@ -158,17 +158,18 @@ public class AppConfig {
 	 		 + "WHERE mp.profilesid=?;";
 	 	 
 /////////////////////////////////////// M ROLES////////////////////////////////////////////
-	 public static final String saveMRole = "INSERT INTO m_roles (rolename, tenantid, created_by, isadmin) "
+	 public static final String saveMRole = "INSERT INTO m_roles (rolename, tenantid, roleidrpt, isadmin) "
 			 + "VALUES (?, ?, ?, ?);";
 
-	 public static final String selectMRole = "SELECT rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt "
-			 + "FROM m_roles;";
-
+	 public static final String selectMRole = "SELECT rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt FROM m_roles;";
+	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin, " + 
+	 		"case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name FROM m_roles mr INNER JOIN m_tenant mt ON mt.id = mr.tenantid;";
+	 
 	 public static final String findMRoleById = "SELECT  rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt "
 			 + "FROM m_roles "
 			 + "WHERE rolesid=?;";
 
-	 public static final String updateMRole = "UPDATE m_roles SET rolename=?, tenantid=?, updated_by=?, updated_date=current_timestamp, isadmin=? "
+	 public static final String updateMRole = "UPDATE m_roles SET rolename=?, tenantid=?, updated_by=?, updated_date=current_timestamp, isadmin=?, roleidrpt=? "
 			 + "WHERE rolesid=?;";
 
 	 public static final String deleteMRole = "DELETE FROM m_roles WHERE rolesid=?;"; 
@@ -188,6 +189,7 @@ public class AppConfig {
 			 + "WHERE rmemid=?;";
 
 	 public static final String deleteDRole = "DELETE FROM d_roles WHERE rmemid=?;"; 
+	 public static final String deleteDRoleByRoleId = "DELETE FROM d_roles WHERE roleid=?;"; 
 	 
 //////////////////////////////////////M TENANTS/////////////////////////////////////////
 	 public static final String saveMTenant = "INSERT INTO m_tenant (tenant_code, tenant_activation_code, is_active, created_by, tenant_name, created_date) "
