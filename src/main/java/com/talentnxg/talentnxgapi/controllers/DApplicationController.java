@@ -1,5 +1,7 @@
 package com.talentnxg.talentnxgapi.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.DApplicationDao;
 import com.talentnxg.talentnxgapi.models.DApplication;
+import com.talentnxg.talentnxgapi.pojos.ReqSaveDApplicationsCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
@@ -28,6 +31,20 @@ public class DApplicationController {
 	public ResponseEntity<DefaultResponse> saveDApplication(@RequestBody DApplication dApplication){
 		long dAppId = dApplicationDao.save(dApplication);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", dAppId));
+	}
+	
+	//insert array
+	@PostMapping("/dapplicationsarray")
+	public ResponseEntity<DefaultResponse> saveDRoleArray(@RequestBody ReqSaveDApplicationsCst1 dSApplication){
+		ReqSaveDApplicationsCst1 dApplicationCst = dSApplication;
+		List<DApplication> listObj = dSApplication.getDatarequest();
+		dApplicationDao.deleteDApplicationByAppid(dSApplication.getAppid());
+		if (listObj.size() > 0) {
+			for (DApplication item: listObj){
+				long dAppId = dApplicationDao.save(item);
+			}
+		}
+		return ResponseEntity.ok(new DefaultResponse(1, "success", dApplicationCst.getAppid()));
 	}
 	
 	//retrieve all record

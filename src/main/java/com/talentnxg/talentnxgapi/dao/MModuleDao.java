@@ -8,6 +8,7 @@ public interface MModuleDao {
 	public Iterable<MModule> getModules();
 	public MModule getModuleById(Integer modId);
 	public void deleteModule(Integer modId);
+	public Iterable<MModule> getMModulesSelectedApplication(Integer appid);
 
 
 }

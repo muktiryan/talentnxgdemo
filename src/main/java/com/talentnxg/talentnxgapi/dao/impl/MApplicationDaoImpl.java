@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MApplicationDao;
 import com.talentnxg.talentnxgapi.models.MApplication;
+import com.talentnxg.talentnxgapi.models.MApplicationCustom1;
 
 @Repository
 public class MApplicationDaoImpl implements MApplicationDao{
@@ -53,6 +54,26 @@ public class MApplicationDaoImpl implements MApplicationDao{
 			result.add(mApplication);
 		}
 		return (Iterable<MApplication>) result;
+	}
+	
+	@Override
+	public Iterable<MApplicationCustom1> getMApplicationCustom1() {
+		List<MApplicationCustom1> result = new ArrayList<MApplicationCustom1>();
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMApplicationCustom1);
+		for (Map<String, Object> row: rows) {
+			MApplicationCustom1 mApplicationCustom1 = new MApplicationCustom1();
+			mApplicationCustom1.setAppid(Integer.parseInt(row.get("appid").toString()));
+			mApplicationCustom1.setAppname((String)row.get("appname"));
+			mApplicationCustom1.setDescription((String)row.get("description"));
+			mApplicationCustom1.setCreatedBy((String)row.get("created_by"));
+			mApplicationCustom1.setCreatedDate((Date)row.get("created_date"));
+			mApplicationCustom1.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mApplicationCustom1.setUpdatedBy((String)row.get("updated_by"));
+			mApplicationCustom1.setUpdatedDate((Date)row.get("updated_date"));
+			mApplicationCustom1.setTenantname((String)row.get("tenant_name"));
+			result.add(mApplicationCustom1);
+		}
+		return (Iterable<MApplicationCustom1>) result;
 	}
 
 	@Override
@@ -95,5 +116,7 @@ public class MApplicationDaoImpl implements MApplicationDao{
 		Object[] parameter = new Object[] {new Integer(appid)};
 		jdbcTemplate.update(AppConfig.deleteMApplication, parameter);
 	}
+
+
 
 }

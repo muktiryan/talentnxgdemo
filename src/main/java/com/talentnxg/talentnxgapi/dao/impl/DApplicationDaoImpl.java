@@ -93,4 +93,11 @@ public class DApplicationDaoImpl implements DApplicationDao{
 		jdbcTemplate.update(AppConfig.deleteDApplication, parameter);
 	}
 
+	@Override
+	public void deleteDApplicationByAppid(Integer appid) {
+		Object[] parameter = new Object[] {new Integer(appid)};
+		jdbcTemplate.update(AppConfig.deleteDApplicationByAppid, parameter);
+		
+	}
+
 }

@@ -53,7 +53,14 @@ public class AppConfig {
 	 
 //	 public static final String selectTabWorkStructure = "SELECT * from m_modules where modid in (SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid where dp.rolesid in (SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=1));";
 	 
-	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle,modroute, modrealpath from m_modules where modid in (SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid where dp.rolesid in (SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?));";
+	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle, modrealpath "
+		 		+ "from m_modules "
+		 		+ "where modid in "
+		 		+ "(SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid "
+		 		+ "where dp.rolesid in "
+		 		+ "(SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid "
+		 		+ "where up.userid=?))"
+		 		+ "ORDER BY modid;";
 	 
 	 public static final String selectTabEmployee = "SELECT modid, modname, modtitle, modrealpath "
 			 + "FROM public.m_modules "
@@ -73,6 +80,11 @@ public class AppConfig {
 	 public static final String selectModule = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules;";
 	 
+	 public static final String selectMModuleByApplication = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, "
+	 		+ "mm.modicon, mm.created_by, mm.created_date, mm.updated_by, mm.updated_date, COALESCE( da.appid, 0) isselect "
+	 		+ "FROM m_modules mm LEFT JOIN "
+	 		+ "(SELECT * FROM d_applications WHERE appid = ?) da ON da.modid = mm.modid;";
+	 
 	 public static final String findModuleById = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules "
 			 + "WHERE modid=?;";
@@ -88,6 +100,9 @@ public class AppConfig {
 	 
 	 public static final String selectMApplication = "SELECT appid, appname, description, created_by, created_date, tenantid, updated_by, updated_date "
 			 + "FROM m_applications;";
+	 
+	 public static final String selectMApplicationCustom1 = "SELECT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name "
+	 		 + "FROM m_applications ma INNER JOIN m_tenant mt ON ma.tenantid = mt.id;";
 	 
 	 public static final String findMApplicationById = "SELECT  appid, appname, description, created_by, created_date, tenantid, updated_by, updated_date "
 			 + "FROM m_applications "
@@ -113,6 +128,7 @@ public class AppConfig {
 			 + "WHERE integid=?;";
 
 	 public static final String deleteDApplication = "DELETE FROM d_applications WHERE integid=?;"; 
+	 public static final String deleteDApplicationByAppid = "DELETE FROM d_applications WHERE appid=?;"; 
 	 
 /////////////////////////////////////// M PROFILES////////////////////////////////////////////
 	 public static final String saveMProfile = "INSERT INTO m_profiles (profilesname, tenantid, created_by) "
