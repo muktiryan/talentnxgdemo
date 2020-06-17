@@ -1,6 +1,7 @@
 package com.talentnxg.talentnxgapi.dao;
 
 import com.talentnxg.talentnxgapi.models.MApplication;
+import com.talentnxg.talentnxgapi.models.MApplicationCustom1;
 
 public interface MApplicationDao {
 	public long save(MApplication mApplications);
@@ -8,5 +9,6 @@ public interface MApplicationDao {
 	public MApplication getMApplicationById(Integer appid);
 	public MApplication updateMApplication(MApplication mApplication, Integer appid);
 	void deleteMApplication(Integer appid);
+	public Iterable<MApplicationCustom1> getMApplicationCustom1();
 
 }

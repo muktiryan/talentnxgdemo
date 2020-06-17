@@ -106,6 +106,30 @@ public class MModuleDaoImpl implements MModuleDao{
 		}
 		return (Iterable<MModule>) result;
 	}
+	
+	@Override
+	public Iterable<MModule> getMModulesSelectedApplication(Integer appid) {
+		Object[] parameter = new Object[] { new Integer(appid)};
+		List<MModule> result = new ArrayList<MModule>();
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMModuleByApplication, parameter);
+		for (Map<String, Object> row : rows) {
+			MModule mModule = new MModule();
+			mModule.setModid(Integer.parseInt(row.get("modid").toString()));
+			mModule.setModname((String)row.get("modname"));
+			mModule.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			mModule.setModtitle((String)row.get("modtitle"));
+			mModule.setModroute((String)row.get("modroute"));
+			mModule.setModrealpath((String)row.get("modrealpath"));
+			mModule.setModicon((String)row.get("modicon"));
+			mModule.setCreatedBy((String)row.get("created_by"));
+			mModule.setCreatedDate((Date)row.get("created_date"));
+			mModule.setUpdatedBy((String)row.get("updated_by"));
+			mModule.setUpdatedDate((Date)row.get("updated_date"));
+			mModule.setSelectedApplication(Integer.parseInt(row.get("isselect").toString()));
+			result.add(mModule);
+		}
+		return (Iterable<MModule>) result;
+	}
 
 	//delete
 	@Override
@@ -113,6 +137,7 @@ public class MModuleDaoImpl implements MModuleDao{
 		Object[] parameter = new Object[] {new Integer(modId)};
 		jdbcTemplate.update(AppConfig.deleteModuleById, parameter);
 	}
+
 
 
 

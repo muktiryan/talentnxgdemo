@@ -14,6 +14,7 @@ public class MModule {
 	private Date createdDate;
 	private String updatedBy;
 	private Date updatedDate;
+	private Integer selectedApplication;
 	
 	
 	public MModule() {
@@ -97,6 +98,14 @@ public class MModule {
 	}
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public Integer getSelectedApplication() {
+		return selectedApplication;
+	}
+
+	public void setSelectedApplication(Integer selectedApplication) {
+		this.selectedApplication = selectedApplication;
 	}
 	
 

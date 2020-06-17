@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.DRoleDao;
 import com.talentnxg.talentnxgapi.models.DRole;
-import com.talentnxg.talentnxgapi.pojos.ReqSaveDRoles;
 import com.talentnxg.talentnxgapi.pojos.ReqSaveDRolesCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 

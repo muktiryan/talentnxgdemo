@@ -14,4 +14,6 @@ public interface DApplicationDao {
 
 	void deleteDApplication(Integer integid);
 
+	void deleteDApplicationByAppid(Integer appid);
+
 }

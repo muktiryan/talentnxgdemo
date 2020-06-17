@@ -14,12 +14,12 @@ public class DatasourceConfig {
 	public DataSource dataSource() {
 		return DataSourceBuilder.create()
 		          .driverClassName("org.postgresql.Driver")
-		          .url(googleConnectionName)
+//		          .url(googleConnectionName)
 //		          .url("jdbc:postgresql://35.202.17.127:5432/postgres")
-//		          .url("jdbc:postgresql://localhost:5432/tnxg")
+		          .url("jdbc:postgresql://localhost:5432/tnxg")
 		          .username("postgres")
-		          .password("p@ssword.1")
-//		          .password("postgres")
+//		          .password("p@ssword.1")
+		          .password("postgres")
 		          .build(); 
 	}
 }

@@ -45,6 +45,12 @@ public class MModuleController {
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));	
 	}
 	
+	@GetMapping("mmodulesSelectedApplication/{appid}")
+	public ResponseEntity<DefaultResponse> getMModulesSelectedApplication(@PathVariable ("appid") Integer appid){
+		Iterable<MModule> result = moduleDao.getMModulesSelectedApplication(appid);
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+	}
+	
 	//find by id
 	@GetMapping("/mmodules/{modid}")
 	public ResponseEntity<DefaultResponse> getModuleById(@PathVariable ("modid") Integer modId){
