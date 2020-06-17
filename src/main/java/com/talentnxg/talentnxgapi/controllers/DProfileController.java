@@ -41,7 +41,10 @@ public class DProfileController {
 	@GetMapping("/dprofiles/{objid}")
 	public ResponseEntity<DefaultResponse> getDProfileById(@PathVariable("objid") Integer objid){
 		DProfile result = dProfileDao.getDProfileById(objid);
-		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+		if (result!=null) {
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+		}
+		return ResponseEntity.ok(new DefaultResponse(-1, "No Data", result));
 	}
 		
 	//update

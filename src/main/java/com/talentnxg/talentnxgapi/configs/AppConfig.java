@@ -136,6 +136,9 @@ public class AppConfig {
 
 	 public static final String selectMProfile = "SELECT profilesid, profilesname, tenantid, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_profiles;";
+	 
+	 public static final String selectMProfileCustom1 = "SELECT mp.profilesid, mp.profilesname, mp.tenantid, mp.created_by, mp.created_date, mp.updated_by, mp.updated_date, mt.tenant_name "
+	 		+ "FROM m_profiles mp INNER JOIN m_tenant mt ON mp.tenantid = mt.id;";
 
 	 public static final String findMProfileById = "SELECT  profilesid, profilesname, tenantid, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_profiles "

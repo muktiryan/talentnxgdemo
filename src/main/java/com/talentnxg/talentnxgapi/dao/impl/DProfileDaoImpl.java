@@ -85,8 +85,9 @@ public class DProfileDaoImpl implements DProfileDao{
 				dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
 				dProfile.setProfilename((String)row.get("profilesname"));
 			}
+			return dProfile;
 		}
-		return dProfile;
+		return null;
 	}
 
 	@Override

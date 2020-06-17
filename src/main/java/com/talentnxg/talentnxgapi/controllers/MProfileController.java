@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.MProfileDao;
 import com.talentnxg.talentnxgapi.models.MProfile;
+import com.talentnxg.talentnxgapi.models.MProfileCustom1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
@@ -35,6 +36,13 @@ public class MProfileController {
 	public ResponseEntity<DefaultResponse> getMProfile(){
 		Iterable<MProfile> result = mProfileDao.getMProfile();
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+	}
+	
+	//retrieve all record custom
+	@GetMapping("/mprofilescst1")
+	public ResponseEntity<DefaultResponse> getMProfileCst1(){
+		Iterable<MProfileCustom1> result = mProfileDao.getMProfileCst1();
+		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
 		
 	//find by id
