@@ -71,6 +71,7 @@ public class MApplicationDaoImpl implements MApplicationDao{
 			mApplicationCustom1.setUpdatedBy((String)row.get("updated_by"));
 			mApplicationCustom1.setUpdatedDate((Date)row.get("updated_date"));
 			mApplicationCustom1.setTenantname((String)row.get("tenant_name"));
+			mApplicationCustom1.setCompanyname((String)row.get("company_name"));
 			result.add(mApplicationCustom1);
 		}
 		return (Iterable<MApplicationCustom1>) result;

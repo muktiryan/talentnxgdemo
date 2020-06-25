@@ -18,6 +18,7 @@ public class MRoleCustom1 {
 	private String tenantname;
 	private String isadminStr;
 	private Integer roleidrpt;
+	private String companyname;
 	
 	public MRoleCustom1() {
 		// TODO Auto-generated constructor stub
@@ -94,6 +95,14 @@ public class MRoleCustom1 {
 
 	public void setRoleidrpt(Integer roleidrpt) {
 		this.roleidrpt = roleidrpt;
+	}
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
 	}
 
 }

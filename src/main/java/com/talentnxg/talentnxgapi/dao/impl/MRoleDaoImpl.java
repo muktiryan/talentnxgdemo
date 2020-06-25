@@ -74,6 +74,7 @@ public class MRoleDaoImpl implements MRoleDao{
 			mRole.setRoleidrpt(Integer.parseInt(row.get("roleidrpt").toString()));
 			mRole.setTenantname((String)row.get("tenant_name"));
 			mRole.setIsadminStr((String)row.get("isadminstr"));
+			mRole.setCompanyname((String)row.get("company_name"));
 			result.add(mRole);
 		}
 		return (Iterable<MRoleCustom1>) result;

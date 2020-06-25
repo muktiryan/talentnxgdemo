@@ -16,6 +16,7 @@ public class MApplicationCustom1 {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updatedDate;
 	private String tenantname;
+	private String companyname;
 	
 	
 	public MApplicationCustom1() {
@@ -110,6 +111,16 @@ public class MApplicationCustom1 {
 
 	public void setTenantname(String tenantname) {
 		this.tenantname = tenantname;
+	}
+
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
 	}
 	
 

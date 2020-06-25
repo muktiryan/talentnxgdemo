@@ -68,6 +68,7 @@ public class MProfileDaoImpl implements MProfileDao{
 			mProfileCst1.setUpdatedBy((String)row.get("updated_by"));
 			mProfileCst1.setUpdatedDate((Date)row.get("updated_date"));
 			mProfileCst1.setTenantname((String)row.get("tenant_name"));
+			mProfileCst1.setCompanyname((String)row.get("company_name"));
 			result.add(mProfileCst1);	
 		}
 		return (Iterable<MProfileCustom1>) result;

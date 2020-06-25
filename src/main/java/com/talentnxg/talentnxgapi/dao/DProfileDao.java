@@ -8,7 +8,7 @@ public interface DProfileDao {
 
 	Iterable<DProfile> getDProfile();
 
-	DProfile getDProfileById(Integer objid);
+	DProfile getDProfileByProfileid(Integer profileid);
 
 	DProfile updateDProfile(DProfile dProfile, Integer objid);
 

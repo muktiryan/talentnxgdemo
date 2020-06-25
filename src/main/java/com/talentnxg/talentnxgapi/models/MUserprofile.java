@@ -17,12 +17,14 @@ public class MUserprofile {
 	private String fax;
 	private String city;
 	private Integer tenantid;
+	private String tenantname;
 	private String employeecode;
 	private String createdBy;
 	private Date createdDate;
 	private String updatedBy;
 	private Date updatedDate;
 	private Integer selectedRole;
+	private String companyname;
 	
 	public MUserprofile() {
 		// TODO Auto-generated constructor stub
@@ -226,6 +228,26 @@ public class MUserprofile {
 
 	public void setSelectedRole(Integer selectedRole) {
 		this.selectedRole = selectedRole;
+	}
+
+
+	public String getTenantname() {
+		return tenantname;
+	}
+
+
+	public void setTenantname(String tenantName) {
+		this.tenantname = tenantName;
+	}
+
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
 	}
 	
 	
