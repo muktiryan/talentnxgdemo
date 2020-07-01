@@ -17,7 +17,7 @@ public class DatasourceConfig {
 		          .url(googleConnectionName)
 //		          .url("jdbc:postgresql://35.202.17.127:5432/postgres")
 //		          .url("jdbc:postgresql://localhost:5432/tnxg")
-		          .username("postgres1")
+		          .username("postgres")
 		          .password("p@ssword.1")
 		          .build(); 
 	}
