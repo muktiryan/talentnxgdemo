@@ -19,7 +19,7 @@ public class DatasourceConfig {
 		          .url("jdbc:postgresql://localhost:5432/tnxg")
 		          .username("postgres")
 //		          .password("p@ssword.1")
-		          .password("postgres")
+		          .password("123456")
 		          .build(); 
 	}
 }

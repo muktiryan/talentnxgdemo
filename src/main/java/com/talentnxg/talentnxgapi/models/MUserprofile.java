@@ -24,6 +24,7 @@ public class MUserprofile {
 	private String updatedBy;
 	private Date updatedDate;
 	private Integer selectedRole;
+	private Integer companyid;
 	private String companyname;
 	
 	public MUserprofile() {
@@ -248,6 +249,16 @@ public class MUserprofile {
 
 	public void setCompanyname(String companyname) {
 		this.companyname = companyname;
+	}
+
+
+	public Integer getCompanyid() {
+		return companyid;
+	}
+
+
+	public void setCompanyid(Integer companyid) {
+		this.companyid = companyid;
 	}
 	
 	

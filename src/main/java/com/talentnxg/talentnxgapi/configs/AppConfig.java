@@ -23,10 +23,21 @@ public class AppConfig {
 //	 		"tn.id tenantid, tn.tenant_name, up.avatarname " + 
 //	 		"FROM public.userprofile up INNER JOIN public.m_tenant tn ON up.tenantid = tn.id where up.username=? and up.secretpwd=crypt(?, secretpwd);";
 		 
-	 public static final String selectMUserProfileByLogin = "SELECT up.userid, up.username, up.fullname, up.email, up.address, up.alias, up.mobile, "
-		 	+ "up.employeecode, up.avatarname, tn.id, tn.tenant_name, tn.tenant_code, tn.tenant_activation_code "
-		 	+ "FROM public.m_userprofile up INNER JOIN public.m_tenant tn ON up.tenantid = tn.id where up.username=? and up.secretpwd=crypt(?, secretpwd);";
+//	 public static final String selectMUserProfileByLogin = "SELECT up.userid, up.username, up.fullname, up.email, up.address, up.alias, up.mobile, "
+//		 	+ "up.employeecode, up.avatarname, tn.id, tn.tenant_name, tn.tenant_code, tn.tenant_activation_code "
+//		 	+ "FROM public.m_userprofile up INNER JOIN public.m_tenant tn ON up.tenantid = tn.id where up.username=? and up.secretpwd=crypt(?, secretpwd);";
 
+	 public static final String selectMUserProfileByLogin = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, " 
+	 		+ "mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, "  
+	 		+ "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, "  
+	 		+ "mt.tenant_name, mt.companyid, mt.company_name "  
+	 		+ "FROM m_userprofile mu INNER JOIN ( "
+	 		+ "SELECT utc.utcid, utc.userid, utc.tenantid, utc.tenant_name, utc.tenant_code, utc.tenant_activation_code, mc.id companyid, mc.company_name " 
+	 		+ "FROM m_company mc INNER JOIN ( "
+	 		+ "SELECT * FROM m_user_to_company uc INNER JOIN m_tenant mt ON uc.tenantid = mt.id) utc " 
+	 		+ "ON mc.id = utc.companyid) mt ON mu.userid = mt.userid "
+	 		+ "WHERE mu.username=? and mu.secretpwd=crypt(?, secretpwd);";
+	 
 /////////////////////////////////////////////////////////////////////////////////////
 //	 public static final String selectMainMenu = "SELECT appid, appname, description "
 //			 + "FROM public.m_applications "
@@ -256,10 +267,20 @@ public class AppConfig {
 //	 public static final String selectMUserprofile = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mt.tenant_name "
 //			 + "FROM m_userprofile mu INNER JOIN m_tenant mt ON mu.tenantid = mt.id;";
 	 
-	 public static final String selectMUserprofile = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mt.tenant_name, mt.company_name " 
-	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name FROM m_tenant me INNER JOIN m_company mc ON me.id = mc.tenant_id) mt "
-	 		 + "INNER JOIN m_userprofile mu  ON mu.tenantid = mt.id;";
+//	 public static final String selectMUserprofile = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mt.tenant_name, mt.company_name " 
+//	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name FROM m_tenant me INNER JOIN m_company mc ON me.id = mc.tenant_id) mt "
+//	 		 + "INNER JOIN m_userprofile mu  ON mu.tenantid = mt.id;";
 
+	 public static final String selectMUserprofile = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, " 
+	 		 + "mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, " 
+	 		 + "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, " 
+	 		 + "mt.tenantid, mt.tenant_name, mt.companyid, mt.company_name " 
+	 		 + "FROM m_userprofile mu INNER JOIN ( " 
+	 		 + "SELECT utc.utcid, utc.userid, utc.tenantid, utc.tenant_name, mc.id companyid, mc.company_name " 
+	 		 + "FROM m_company mc INNER JOIN ( " 
+	 		 + "SELECT uc.utcid, uc.userid, uc.companyid, uc.tenantid, mt.tenant_name " 
+	 		 + "FROM m_user_to_company uc INNER JOIN m_tenant mt ON uc.tenantid = mt.id) utc " 
+	 		 + "ON mc.id = utc.companyid) mt ON mu.userid = mt.userid;";
 	 
 	 public static final String selectMUserprofileByRole = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, COALESCE( dr.roleid, 0 ) isselect " + 
 	 		"FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid;";
@@ -293,5 +314,52 @@ public class AppConfig {
 /////////////////////////////////////////M Company/////////////////////////////////////////////
 	 public static final String saveMCompany = "INSERT INTO m_company (tenant_id, company_name, company_code, bank_account, account_name, tax_number, created_by, created_date) "
 			 + "VALUES (?, ?, ?, ?, ?, ?, 1, current_timestamp);";
-	public static String initialMember1;
+
+//////////////////////////////////////// M User To Company ////////////////////////////////////
+	 public static final String selectMUserToCompany = "SELECT us.utcid, us.userid, up.username, us.tenantid, us.tenant_name, us.id companyid, us.company_name " 
+	 		 + "FROM m_userprofile up INNER JOIN ("
+	 		 + "SELECT * FROM m_company mc INNER JOIN ( " 
+	 		 + "SELECT uc.utcid, uc.userid, uc.companyid, uc.tenantid, mt.tenant_name "
+	 		 + "FROM m_user_to_company uc INNER JOIN m_tenant mt ON uc.tenantid = mt.id) utc "
+	 		 + "ON mc.id = utc.companyid) "
+	 		 + "us ON up.userid = us.userid;";
+	 
+	 public static final String saveMUserToCompany = "INSERT INTO m_user_to_company (userid, tenantid, companyid) "
+	 		+ "VALUES (?, ?, ?);";
+	 
+	 public static final String findMUserToCompanyById = "SELECT us.utcid, us.userid, up.username, us.tenantid, us.tenant_name, us.id companyid, us.company_name " 
+	 		 + "FROM m_userprofile up INNER JOIN ("
+	 		 + "SELECT * FROM m_company mc INNER JOIN ( " 
+	 		 + "SELECT uc.utcid, uc.userid, uc.companyid, uc.tenantid, mt.tenant_name "
+	 		 + "FROM m_user_to_company uc INNER JOIN m_tenant mt ON uc.tenantid = mt.id) utc "
+	 		 + "ON mc.id = utc.companyid) "
+	 		 + "us ON up.userid = us.userid "
+	 		 + "WHERE us.utcid = ?;";
+	 
+	public static final String updateMUserToCompany = "UPDATE m_user_to_company " 
+			 + "SET userid=?, tenantid=?, companyid=? "  
+			 + "WHERE utcid = ? ;";
+	
+	public static final String deleteMUserToCompany = "DELETE FROM m_user_to_company "
+			 + "WHERE utcid = ?;";
+	
+/////////////////////////////////////////M User Employee////////////////////////////////////////
+	
+	public static final String selectMUserEmployee = "SELECT ueid, userid, employeeid "
+			+ "FROM m_user_employee;";
+	
+	public static final String findMUserEmployeeById = "SELECT ueid, userid. employeeid "
+			+ "FROM m_user_employee "
+			+ "WHERE ueid = ?;";
+	
+	public static final String saveMUserEmployee = "INSERT INTO m_user_employee (userid, employeeid) "
+			+ "VALUES (?, ?);";
+	
+	public static final String updateMUserEmployee = "UPDATE m_user_employee SET userid=?, employeeid=? "
+			+ "WHERE ueid = ?;";
+	
+	public static final String deleteMUserEmployee = "DELETE FROM m_user_employee "
+			+ "WHERE ueid=?;";
+			
+	
 }
