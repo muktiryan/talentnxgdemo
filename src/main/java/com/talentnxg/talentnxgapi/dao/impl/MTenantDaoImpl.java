@@ -47,7 +47,7 @@ public class MTenantDaoImpl implements MTenantDao{
 			mTenant.setTenantCode((String)row.get("tenant_code"));
 			mTenant.setTenantActivationCode((String)row.get("tenant_activation_code"));
 			mTenant.setIsActive((Boolean)row.get("is_active"));
-//			mTenant.setCreatedBy((String)row.get("created_by"));
+			mTenant.setCreatedBy((String)row.get("created_by"));
 			mTenant.setCreatedDate((Date)row.get("created_date"));
 			mTenant.setUpdatedBy((String)row.get("updated_by"));
 			mTenant.setUpdatedDate((Date)row.get("updated_date"));
