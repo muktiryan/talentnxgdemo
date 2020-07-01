@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.DRoleDao;
 import com.talentnxg.talentnxgapi.models.DRole;
-import com.talentnxg.talentnxgapi.pojos.ReqSaveDRoles;
 import com.talentnxg.talentnxgapi.pojos.ReqSaveDRolesCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
@@ -37,11 +36,11 @@ public class DRoleController {
 	public ResponseEntity<DefaultResponse> saveDRoleArray(@RequestBody ReqSaveDRolesCst1 dSRole){
 		ReqSaveDRolesCst1 dRoleCst = dSRole;
 		List<DRole> listObj = dSRole.getDatarequest();
-//		System.out.println("Delete DRole when RoleID : "+dRoleCst.getRoleid());
+		System.out.println("Delete DRole when RoleID : "+dRoleCst.getRoleid());
 		dRoleDao.deleteDRoleByRoleId(dRoleCst.getRoleid());
 		if(listObj.size() > 0) {
 			for (DRole item : listObj) {
-//				System.out.println("User ID "+item.getUsersid());
+				System.out.println("User ID "+item.getUsersid());
 				long rmemid = dRoleDao.save(item);
 				
 			}

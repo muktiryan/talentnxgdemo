@@ -2,7 +2,6 @@ package com.talentnxg.talentnxgapi.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +104,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 //		result.setMenuactive(mainMenu);
 //		return result;
 //	}
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public RespLogin getAuthentication(ReqLogin reqLogin) {
 		// TODO Auto-generated method stub
@@ -122,12 +121,14 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 			result.setStatus(AppConfig.CODE_SUCCESS_MSG);
 			for (Map<String, Object> row : rows) 
 	        {
-				profile.setTenantId(Integer.parseInt(row.get("id").toString()));
+				profile.setTenantId(Integer.parseInt(row.get("tenantid").toString()));
 				profile.setTenantName((String)row.get("tenant_name"));
 				profile.setUserAvatar((String)row.get("avatarname"));
 				profile.setUserId(Integer.parseInt(row.get("userid").toString()));
 				profile.setUserName((String)row.get("username"));
 				profile.setUserFullname((String)row.get("fullname"));
+				profile.setCompanyId(Integer.parseInt(row.get("companyid").toString()));
+				profile.setCompanyName((String)row.get("company_name"));
 	         }
 			
 			Object[] tmpuserid = new Object[] {new Integer(profile.getUserId())};
@@ -241,7 +242,6 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public Iterable<MModule> getMenuAppWorkStructure() {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabWorkStructure));
@@ -267,7 +267,6 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public Iterable<MModule> getMenuAppEmployee() {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabEmployee));
@@ -292,7 +291,6 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public Iterable<MModule> getMenuAppPayroll() {
 		List<MModule> tabMenus = new ArrayList<MModule>();
 		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabPayroll));

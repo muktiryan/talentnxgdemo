@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.MApplicationDao;
 import com.talentnxg.talentnxgapi.models.MApplication;
+import com.talentnxg.talentnxgapi.models.MApplicationCustom1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
@@ -36,6 +37,13 @@ public class MApplicationController {
 	public ResponseEntity<DefaultResponse> getMApplication(){
 		Iterable<MApplication> result = mApplicationDao.getMApplication();
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+	}
+	
+	//retrieve custom record
+	@GetMapping("/mapplicationscst1")
+	public ResponseEntity<DefaultResponse> getMApplicationCustom1(){
+		Iterable<MApplicationCustom1> result = mApplicationDao.getMApplicationCustom1();
+		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
 	
 	//find by id

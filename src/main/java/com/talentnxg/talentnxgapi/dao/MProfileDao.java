@@ -1,6 +1,7 @@
 package com.talentnxg.talentnxgapi.dao;
 
 import com.talentnxg.talentnxgapi.models.MProfile;
+import com.talentnxg.talentnxgapi.models.MProfileCustom1;
 
 public interface MProfileDao {
 
@@ -13,5 +14,7 @@ public interface MProfileDao {
 	MProfile updateMProfile(MProfile mProfile, Integer profilesid);
 
 	void deleteMProfile(Integer profilesid);
+
+	Iterable<MProfileCustom1> getMProfileCst1();
 
 }

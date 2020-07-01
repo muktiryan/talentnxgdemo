@@ -71,9 +71,9 @@ public class DProfileDaoImpl implements DProfileDao{
 //	}
 
 	@Override
-	public DProfile getDProfileById(Integer profilesid) {
+	public DProfile getDProfileByProfileid(Integer profileid) {
 		DProfile dProfile = new DProfile();
-		Object[] parameter = new Object[] {new Integer(profilesid)};
+		Object[] parameter = new Object[] {new Integer(profileid)};
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findDProfileById, parameter);
 		if (rows.size() > 0) {
 			for (Map<String, Object> row: rows) {
@@ -85,8 +85,9 @@ public class DProfileDaoImpl implements DProfileDao{
 				dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
 				dProfile.setProfilename((String)row.get("profilesname"));
 			}
+			return dProfile;
 		}
-		return dProfile;
+		return null;
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class DProfileDaoImpl implements DProfileDao{
 			temp.setInt(4, objid);
 			return temp;
 		});
-		DProfile result = getDProfileById(objid);
+		DProfile result = getDProfileByProfileid(objid);
 		return result;
 	}
 
