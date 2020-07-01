@@ -7,6 +7,9 @@ public class Profile {
 	private Integer tenantId;
 	private String tenantName;
 	private String userAvatar;
+	private Integer companyId;
+	private String companyName;
+	
 	public Profile() {
 		// TODO Auto-generated constructor stub
 	}
@@ -53,6 +56,22 @@ public class Profile {
 
 	public void setUserFullname(String userFullname) {
 		this.userFullname = userFullname;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	
 	

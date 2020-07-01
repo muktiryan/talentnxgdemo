@@ -121,12 +121,14 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 			result.setStatus(AppConfig.CODE_SUCCESS_MSG);
 			for (Map<String, Object> row : rows) 
 	        {
-				profile.setTenantId(Integer.parseInt(row.get("id").toString()));
+				profile.setTenantId(Integer.parseInt(row.get("tenantid").toString()));
 				profile.setTenantName((String)row.get("tenant_name"));
 				profile.setUserAvatar((String)row.get("avatarname"));
 				profile.setUserId(Integer.parseInt(row.get("userid").toString()));
 				profile.setUserName((String)row.get("username"));
 				profile.setUserFullname((String)row.get("fullname"));
+				profile.setCompanyId(Integer.parseInt(row.get("companyid").toString()));
+				profile.setCompanyName((String)row.get("company_name"));
 	         }
 			
 			Object[] tmpuserid = new Object[] {new Integer(profile.getUserId())};

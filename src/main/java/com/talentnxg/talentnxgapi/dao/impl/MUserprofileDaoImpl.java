@@ -99,6 +99,7 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 			mUserprofile.setCreatedDate((Date)row.get("created_date"));
 			mUserprofile.setUpdatedBy((String)row.get("updated_by"));
 			mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+			mUserprofile.setCompanyid(Integer.parseInt(row.get("companyid").toString()));
 			mUserprofile.setCompanyname((String)row.get("company_name"));
 			mUserprofile.setSelectedRole(0);
             result.add(mUserprofile);
