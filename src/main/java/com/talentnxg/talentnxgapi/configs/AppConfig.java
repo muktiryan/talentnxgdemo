@@ -343,14 +343,14 @@ public class AppConfig {
 	public static final String deleteMUserToCompany = "DELETE FROM m_user_to_company "
 			 + "WHERE utcid = ?;";
 	
-/////////////////////////////////////////M User Employee////////////////////////////////////////
-	
-	public static final String selectMUserEmployee = "SELECT ueid, userid, employeeid "
-			+ "FROM m_user_employee;";
+/////////////////////////////////////////M User Employee//////////////////////////////////////////
 	
 	public static final String findMUserEmployeeById = "SELECT ueid, userid. employeeid "
 			+ "FROM m_user_employee "
 			+ "WHERE ueid = ?;";
+	
+	public static final String selectMUserEmployee = "SELECT ueid, userid, employeeid "
+			+ "FROM m_user_employee;";
 	
 	public static final String saveMUserEmployee = "INSERT INTO m_user_employee (userid, employeeid) "
 			+ "VALUES (?, ?);";
@@ -361,5 +361,4 @@ public class AppConfig {
 	public static final String deleteMUserEmployee = "DELETE FROM m_user_employee "
 			+ "WHERE ueid=?;";
 			
-	
 }
