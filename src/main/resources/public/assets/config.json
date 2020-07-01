@@ -1,7 +1,7 @@
 {
     "baseUrl": "https://davembush.github.io/api",
     "socketUrl": "http://localhost:4200/",
-    "apiUrl": "http://desktop-uuneu5u:8080/api/v1/",
+    "apiUrl": "https://dotted-hulling-275514.el.r.appspot.com/api/v1/",
     "apiModuleUrl": "https://demo-dot-dotted-hulling-275514.el.r.appspot.com/",
     "reportUrl": "http://localhost:8080/report/",
     "googleRecaptchaSiteKey": "6LekmWQUAAAAAAgw7fPFgjvjuITR4Jhi0TrlQu5U",
@@ -10,3 +10,5 @@
     "ss3":"active",
     "ss4":"oauth"
 }
+
+
