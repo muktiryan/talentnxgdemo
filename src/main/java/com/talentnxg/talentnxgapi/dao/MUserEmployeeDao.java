@@ -8,4 +8,10 @@ public interface MUserEmployeeDao {
 
 	Integer saveMUserEmployee(MUserEmployee mUseremployee);
 
+	MUserEmployee findMUserEmployee(Integer ueid);
+
+	MUserEmployee updateMUserEmployee(MUserEmployee mUserEmployee, Integer ueid);
+
+	void deleteMUserEmployee(Integer ueid);
+
 }

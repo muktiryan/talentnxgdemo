@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.sun.corba.se.pept.transport.Connection;
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MUserEmployeeDao;
 import com.talentnxg.talentnxgapi.models.MUserEmployee;
@@ -46,6 +47,40 @@ public class MUserEmployeeDaoImpl implements MUserEmployeeDao{
 			return temp;			
 		}, ueid);
 		return ueid.getKey().intValue();
+	}
+
+	@Override
+	public MUserEmployee findMUserEmployee(Integer ueid) {
+		Object [] parameter = new Object[] {new Integer (ueid)};
+		MUserEmployee mUserEmployee = new MUserEmployee();
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findMUserEmployeeById, parameter);
+		if ( rows.size() > 0) {
+			for ( Map<String, Object> row: rows) {
+				mUserEmployee.setUeid(Integer.parseInt(row.get("ueid").toString()));
+				mUserEmployee.setUserid(Integer.parseInt(row.get("userid").toString()));
+				mUserEmployee.setEmployeeid(Integer.parseInt(row.get("employeeid").toString()));
+			}
+		}
+		return mUserEmployee;
+	}
+
+	@Override
+	public MUserEmployee updateMUserEmployee(MUserEmployee mUserEmployee, Integer ueid) {
+		jdbcTemplate.update(connection -> {
+			PreparedStatement temp = connection.prepareStatement(AppConfig.updateMUserEmployee);
+			temp.setInt(1, mUserEmployee.getUserid());
+			temp.setInt(2, mUserEmployee.getEmployeeid());
+			temp.setInt(3, ueid);
+			return temp;
+		});
+		MUserEmployee result = findMUserEmployee(ueid);
+		return result;
+	}
+
+	@Override
+	public void deleteMUserEmployee(Integer ueid) {
+		Object[] parameter = new Object[] { new Integer (ueid)};
+		jdbcTemplate.update(AppConfig.deleteMUserEmployee, parameter);
 	}
 
 

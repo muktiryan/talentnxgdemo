@@ -63,7 +63,7 @@ public class MRoleController {
 		
 	//delete
 	@DeleteMapping("/mroles/{rolesid}")
-	public void deleteMRole(@PathVariable("objid") Integer rolesid) {
+	public void deleteMRole(@PathVariable("rolesid") Integer rolesid) {
 		mRoleDao.deleteMRole(rolesid);
 	}
 

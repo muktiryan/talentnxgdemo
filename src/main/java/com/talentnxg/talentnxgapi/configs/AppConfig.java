@@ -144,6 +144,7 @@ public class AppConfig {
 			 + "WHERE integid=?;";
 
 	 public static final String deleteDApplication = "DELETE FROM d_applications WHERE integid=?;"; 
+	 
 	 public static final String deleteDApplicationByAppid = "DELETE FROM d_applications WHERE appid=?;"; 
 	 
 /////////////////////////////////////// M PROFILES////////////////////////////////////////////
@@ -185,6 +186,8 @@ public class AppConfig {
 
 	 public static final String deleteDProfile = "DELETE FROM d_profiles WHERE objid=?;"; 
 	 
+	 public static final String deleteDProfileByProfileId = "DELETE FROM d_profiles WHERE profileid =? ;";
+	 
 	 public static final String selectDProfile = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
 	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
 	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
@@ -214,7 +217,8 @@ public class AppConfig {
 	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name, mt.company_name " 
 	 		+ "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
 	 		+ "FROM m_tenant me INNER JOIN m_company mc ON me.id = mc.tenant_id) "
-	 		+ "mt INNER JOIN m_roles mr ON mt.id = mr.tenantid;";
+	 		+ "mt INNER JOIN m_roles mr ON mt.id = mr.tenantid "
+	 		+ "ORDER BY mr.rolesid;";
 	 
 	 public static final String findMRoleById = "SELECT  rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt "
 			 + "FROM m_roles "
@@ -349,9 +353,12 @@ public class AppConfig {
 	public static final String deleteMUserToCompany = "DELETE FROM m_user_to_company "
 			 + "WHERE utcid = ?;";
 	
+	public static final String deleteMUserToCompanyByUserid = "DELETE FROM m_user_to_company "
+			 + "WHERE userid = ?;";
+	
 /////////////////////////////////////////M User Employee//////////////////////////////////////////
 	
-	public static final String findMUserEmployeeById = "SELECT ueid, userid. employeeid "
+	public static final String findMUserEmployeeById = "SELECT ueid, userid, employeeid "
 			+ "FROM m_user_employee "
 			+ "WHERE ueid = ?;";
 	

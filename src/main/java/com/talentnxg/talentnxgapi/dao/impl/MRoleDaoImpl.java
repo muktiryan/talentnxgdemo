@@ -121,6 +121,7 @@ public class MRoleDaoImpl implements MRoleDao{
 	@Override
 	public void deleteMRole(Integer rolesid) {
 		Object[] parameter = new Object[] {new Integer(rolesid)};
+		jdbcTemplate.update(AppConfig.deleteDRoleByRoleId, parameter);
 		jdbcTemplate.update(AppConfig.deleteMRole, parameter);
 	}
 	

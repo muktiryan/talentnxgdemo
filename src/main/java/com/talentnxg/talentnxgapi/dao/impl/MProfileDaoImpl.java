@@ -110,6 +110,7 @@ public class MProfileDaoImpl implements MProfileDao{
 	@Override
 	public void deleteMProfile(Integer profilesid) {
 		Object[] parameter = new Object[] {new Integer(profilesid)};
+		jdbcTemplate.update(AppConfig.deleteDProfileByProfileId, parameter);
 		jdbcTemplate.update(AppConfig.deleteMProfile, parameter);
 	}
 

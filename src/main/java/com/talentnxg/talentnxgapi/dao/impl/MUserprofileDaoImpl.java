@@ -167,6 +167,7 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 	public void deleteMUserprofile(Integer userid) {
 		Object[] parameter = new Object[] {new Integer(userid)};
 		jdbcTemplate.update(AppConfig.deleteMUserprofile, parameter);
+		jdbcTemplate.update(AppConfig.deleteMUserToCompanyByUserid, parameter);
 	}
 
 }

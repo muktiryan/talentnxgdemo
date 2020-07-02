@@ -115,6 +115,7 @@ public class MApplicationDaoImpl implements MApplicationDao{
 	@Override
 	public void deleteMApplication(Integer appid) {
 		Object[] parameter = new Object[] {new Integer(appid)};
+		jdbcTemplate.update(AppConfig.deleteDApplicationByAppid, parameter);
 		jdbcTemplate.update(AppConfig.deleteMApplication, parameter);
 	}
 
