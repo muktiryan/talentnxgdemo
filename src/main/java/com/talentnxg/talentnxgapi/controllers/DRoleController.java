@@ -21,7 +21,7 @@ import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(path = "/${v1API}")
+@RequestMapping(path = "${v1API}")
 public class DRoleController {
 	@Autowired
 	private DRoleDao dRoleDao;
