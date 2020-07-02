@@ -39,12 +39,19 @@ public class DProfileController {
 		
 	//find by profile id
 	@GetMapping("/dprofiles/{profileid}")
-	public ResponseEntity<DefaultResponse> getDProfileById(@PathVariable("profileid") Integer profileid){
-		DProfile result = dProfileDao.getDProfileByProfileid(profileid);
+	public ResponseEntity<DefaultResponse> getDProfileByProfileId(@PathVariable("profileid") Integer profileid){
+		Iterable<DProfile> result = dProfileDao.getDProfileByProfileid(profileid);
 		if (result!=null) {
 			return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
 		}
 		return ResponseEntity.ok(new DefaultResponse(-1, "No Data", result));
+	}
+	
+	//find dprofile by objid
+	@GetMapping("/dprofiles/id/{objid}")
+	public ResponseEntity<DefaultResponse> findDProfileById(@PathVariable ("objid") Integer objid){
+		DProfile result = dProfileDao.getDProfileById(objid);
+		return ResponseEntity.ok( new DefaultResponse(1, "success", result));
 	}
 		
 	//update

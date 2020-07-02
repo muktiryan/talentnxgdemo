@@ -8,10 +8,12 @@ public interface DProfileDao {
 
 	Iterable<DProfile> getDProfile();
 
-	DProfile getDProfileByProfileid(Integer profileid);
+	Iterable<DProfile> getDProfileByProfileid(Integer profileid);
 
 	DProfile updateDProfile(DProfile dProfile, Integer objid);
 
 	void deleteDProfile(Integer objid);
+
+	DProfile getDProfileById(Integer objid);
 
 }

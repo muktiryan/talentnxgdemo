@@ -71,9 +71,31 @@ public class DProfileDaoImpl implements DProfileDao{
 //	}
 
 	@Override
-	public DProfile getDProfileByProfileid(Integer profileid) {
-		DProfile dProfile = new DProfile();
+	public Iterable<DProfile> getDProfileByProfileid(Integer profileid) {
+		ArrayList<DProfile> result = new ArrayList<DProfile>();
 		Object[] parameter = new Object[] {new Integer(profileid)};
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findDProfileByProfileId, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row: rows) {
+				DProfile dProfile = new DProfile();
+				dProfile.setObjid(Integer.parseInt(row.get("objid").toString()));
+				dProfile.setAppid(Integer.parseInt(row.get("appid").toString()));
+				dProfile.setAppname((String)row.get("appname"));
+				dProfile.setRolesid(Integer.parseInt(row.get("rolesid").toString()));
+				dProfile.setRolename((String)row.get("rolename"));
+				dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
+				dProfile.setProfilename((String)row.get("profilesname"));
+				result.add(dProfile);
+			}
+			return result;
+		}
+		return null;
+	}
+	
+	@Override
+	public DProfile getDProfileById(Integer objid) {
+		DProfile dProfile = new DProfile();
+		Object [] parameter = new Object [] { new Integer ( objid )};
 		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findDProfileById, parameter);
 		if (rows.size() > 0) {
 			for (Map<String, Object> row: rows) {
@@ -85,9 +107,8 @@ public class DProfileDaoImpl implements DProfileDao{
 				dProfile.setProfileid(Integer.parseInt(row.get("profileid").toString()));
 				dProfile.setProfilename((String)row.get("profilesname"));
 			}
-			return dProfile;
 		}
-		return null;
+		return dProfile;
 	}
 
 	@Override
@@ -100,7 +121,7 @@ public class DProfileDaoImpl implements DProfileDao{
 			temp.setInt(4, objid);
 			return temp;
 		});
-		DProfile result = getDProfileByProfileid(objid);
+		DProfile result = getDProfileById(objid);
 		return result;
 	}
 

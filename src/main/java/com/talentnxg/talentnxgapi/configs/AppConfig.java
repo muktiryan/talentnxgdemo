@@ -190,11 +190,17 @@ public class AppConfig {
 	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
 	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid;";
 
-	 public static final String findDProfileById = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
+	 public static final String findDProfileByProfileId = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
 	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
 	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
 	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid "
 	 		 + "WHERE mp.profilesid=?;";
+	 
+	 public static final String findDProfileById = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
+	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
+	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
+	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid "
+	 		 + "WHERE dp.objid=?;";
 	 	 
 /////////////////////////////////////// M ROLES////////////////////////////////////////////
 	 public static final String saveMRole = "INSERT INTO m_roles (rolename, tenantid, roleidrpt, isadmin) "
