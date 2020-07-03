@@ -89,7 +89,7 @@ public class DProfileDaoImpl implements DProfileDao{
 			}
 			return result;
 		}
-		return null;
+		return result;
 	}
 	
 	@Override
