@@ -16,7 +16,7 @@ public class DatasourceConfig {
 		          .driverClassName("org.postgresql.Driver")
 //		          .url(googleConnectionName)
 		          .url("jdbc:postgresql://35.202.17.127:5432/postgres")
-//		          .url("jdbc:postgresql://localhost:5432/tnxg")
+//		          .url("jdbc:postgresql://localhost:5433/postgres")
 		          .username("postgres")
 		          .password("p@ssword.1")
 		          .build(); 

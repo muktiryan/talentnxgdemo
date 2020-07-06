@@ -300,7 +300,7 @@ public class AppConfig {
 			 + "FROM m_userprofile "
 			 + "WHERE userid=?;";
 	 
-	 public static final String updateMUserprofile = "UPDATE m_userprofile SET username=?, fullname=?, active=?, avatarname=?, email=?, address=?, alias=?, phone=?, mobile=?, fax=?, city=?, tenantid=?, employeecode=?, updated_date=current_timestamp, updated_by=? "
+	 public static final String updateMUserprofile = "UPDATE m_userprofile SET username=?, fullname=?, active=?, email=?, address=?, alias=?, phone=?, mobile=?, fax=?, city=?, tenantid=?, employeecode=?, updated_date=current_timestamp, updated_by=? "
 			 + "WHERE userid=?;";
 	 
 	 public static final String deleteMUserprofile = "DELETE FROM m_userprofile WHERE userid=?;";
@@ -373,5 +373,37 @@ public class AppConfig {
 	
 	public static final String deleteMUserEmployee = "DELETE FROM m_user_employee "
 			+ "WHERE ueid=?;";
+	
+/////////////////////////////////////////M System/////////////////////////////////////////////////
+	
+	public static final String saveMSystem = "INSERT INTO m_system (app_name, language, calendar_fmt, date_in_fmt, date_out_fmt, time_fmt, "
+			+ "decimal_separator, numeric_fmt, row_view, row_filter, pic, page_logging, unique_char, keep_user_log, period_exp_web, "
+			+ "period_exp_mobile, new_device_detect_email, new_device_detect_sms, new_device_detect_google, themes, "
+			+ "effective_start_date, effective_end_date, remark, created_by, created_date) "  
+			+ "VALUES (?, ?, ?, ?, ?, ?, "
+			+ "?, ?, ?, ?, ?, ?, ?, ?, ?, "
+			+ "?, ?, ?, ?, ?, "
+			+ "?, ?, ?, 'SYSTEM', current_timestamp);";
+	
+	public static final String selectMSystem = "SELECT sys_id, app_name, language, calendar_fmt, date_in_fmt, date_out_fmt, time_fmt, decimal_separator, "
+			+ "numeric_fmt, row_view, row_filter, pic, page_logging, unique_char, keep_user_log, period_exp_web, "
+			+ "period_exp_mobile, new_device_detect_email, new_device_detect_sms, new_device_detect_google, themes, "
+			+ "effective_start_date, effective_end_date, remark, created_by, created_date, updated_by, updated_date " 
+			+ "FROM m_system;";
+	
+	public static final String findMSystemById = "SELECT sys_id, app_name, language, calendar_fmt, date_in_fmt, date_out_fmt, time_fmt, decimal_separator, "
+			+ "numeric_fmt, row_view, row_filter, pic, page_logging, unique_char, keep_user_log, period_exp_web, "
+			+ "period_exp_mobile, new_device_detect_email, new_device_detect_sms, new_device_detect_google, themes, "
+			+ "effective_start_date, effective_end_date, remark, created_by, created_date, updated_by, updated_date " 
+			+ "FROM m_system "
+			+ "WHERE sys_id = ?;";
+	
+	public static final String updateMSystemById = "UPDATE m_system SET app_name=?, language=?, calendar_fmt=?, date_in_fmt=?, date_out_fmt=?, time_fmt=?, decimal_separator=?, "
+			+ "numeric_fmt=?, row_view=?, row_filter=?, pic=?, page_logging=?, unique_char=?, keep_user_log=?, period_exp_web=?, "
+			+ "period_exp_mobile=?, new_device_detect_email=?, new_device_detect_sms=?, new_device_detect_google=?, themes=?, "
+			+ "effective_start_date=?, effective_end_date=?, remark=?, updated_by=?, updated_date=? " 
+			+ "WHERE sys_id = ?;";
+	
+	public static final String deleteMSystem = "DELETE FROM m_system WHERE sysid=?;";
 			
 }
