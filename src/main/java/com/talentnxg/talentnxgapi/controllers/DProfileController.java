@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.DProfileDao;
 import com.talentnxg.talentnxgapi.models.DProfile;
+import com.talentnxg.talentnxgapi.models.DProfileCustom1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
@@ -29,6 +30,27 @@ public class DProfileController {
 		long objid = dProfileDao.save(dProfile);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", objid));
 	}
+	
+	@PostMapping("/dprofilesbulk")
+	public ResponseEntity<DefaultResponse> saveDProfileBulk(@RequestBody DProfileCustom1 dProfile){
+		
+//		long objid = dProfileDao.save(dProfile);
+		long objid = 0;
+		for (Integer appid : dProfile.getAppid()) {
+			DProfile obj = new DProfile();
+			obj.setAppid(appid);
+			obj.setAppname(null);
+			obj.setProfileid(dProfile.getProfileid());
+			obj.setProfilename(dProfile.getProfilename());
+			obj.setRolename(null);
+			obj.setRolesid(dProfile.getRolesid());
+			objid = dProfileDao.save(obj);
+		}
+		
+		
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", objid));
+	}
+	
 	
 	//retrieve all record
 	@GetMapping("/dprofiles")
