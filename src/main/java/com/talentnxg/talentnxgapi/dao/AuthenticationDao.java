@@ -16,4 +16,5 @@ public interface AuthenticationDao {
 	public Iterable<MModule> getMenuAppEmployee();
 	public Iterable<MModule> getMenuAppPayroll();
 	public Object[] getNewReqSetup(MCompany mCompany, MUserprofile mUserprofile);
+	public Iterable<MModule> getListModulesByAppid(Integer appid);
 }

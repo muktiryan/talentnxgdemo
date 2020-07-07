@@ -132,21 +132,6 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 	         }
 			
 			Object[] tmpuserid = new Object[] {new Integer(profile.getUserId())};
-			///////////Array list for tabMenu///////////
-			List<MModule> tabMenus = new ArrayList<MModule>();
-			List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.selectTabWorkStructure, tmpuserid));
-//			tabMenus.addAll((Collection<? extends MModule>) temp);
-//			modid, modname,modroute, modtitle, modrealpath
-			for(Map<String,Object> row:temp){
-				MModule module = new MModule();
-				module.setModid(Integer.parseInt(row.get("modid").toString()));
-				module.setModname((String)row.get("modname"));
-				module.setModtitle((String)row.get("modtitle"));
-				module.setModroute((String)row.get("modroute"));
-				module.setModrealpath((String)row.get("modrealpath"));
-				tabMenus.add(module);
-		    }
-			result.setTabmenu(tabMenus);
 			
 			///////////Array list for mainMenu///////////
 			List<MApplication> mainMenus = new ArrayList<MApplication>();
@@ -185,6 +170,21 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 				}
 			}
 			
+			///////////Array list for tabMenu///////////
+			Object [] activeAppid = new Object [] { new Integer (mainMenu.getAppid())};
+			List<MModule> tabMenus = new ArrayList<MModule>();
+			List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.retrieveMenuByAppid, activeAppid));
+			for(Map<String,Object> row:temp){
+				MModule module = new MModule();
+				module.setModid(Integer.parseInt(row.get("modid").toString()));
+				module.setModname((String)row.get("modname"));
+				module.setModtitle((String)row.get("modtitle"));
+				module.setModroute((String)row.get("modroute"));
+				module.setModrealpath((String)row.get("modrealpath"));
+				tabMenus.add(module);
+		    }
+			result.setTabmenu(tabMenus);
+			
 		} else {
 			result.setCode(AppConfig.CODE_FAILED);
 			result.setStatus(AppConfig.CODE_FAILED_MSG);
@@ -195,7 +195,6 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		return result;
 	}
 	
-	// new setup
 	
 	@Override
 	public Object[] getNewReqSetup(MCompany mCompany, MUserprofile mUserprofile) {
@@ -298,6 +297,26 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		for(Map<String,Object> i:temp){
 //			tabMenus.add((MModule) i.values());
 	    }
+		return tabMenus;
+	}
+
+	@Override
+	public Iterable<MModule> getListModulesByAppid(Integer appid) {
+		List<MModule> tabMenus = new ArrayList<MModule>();
+		Object[] parameter = new Object[] { new Integer (appid)} ;
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.retrieveMenuByAppid, parameter));
+		if(rows.size() > 0) {
+			for (Map<String, Object> row : rows) {
+				MModule temp = new MModule();
+				temp.setModid(Integer.parseInt(row.get("modid").toString()));
+				temp.setModname((String)row.get("modname"));
+				temp.setModtitle((String)row.get("modtitle"));
+				temp.setModtype(Integer.parseInt(row.get("modtype").toString()));
+				temp.setModroute((String)row.get("modroute"));
+				temp.setModrealpath((String)row.get("modrealpath"));
+				tabMenus.add(temp);
+			}
+		}
 		return tabMenus;
 	}
 

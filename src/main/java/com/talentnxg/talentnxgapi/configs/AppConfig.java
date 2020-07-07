@@ -58,12 +58,13 @@ public class AppConfig {
 			 + "ORDER BY appid "
 			 + "LIMIT 1;";
 	 
-//	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle, modrealpath "
-//			 + "FROM public.m_modules "
-//			 + "ORDER BY modid;";
+	 public static final String retrieveMenuByAppid = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, mm.modicon " 
+	 		 + "FROM m_modules mm INNER JOIN " 
+	 		 + "(SELECT modid FROM d_applications WHERE appid = ? GROUP BY modid) da "
+	 		 + "ON mm.modid = da.modid "
+	 		 + "ORDER BY mm.modid;";
 	 
-//	 public static final String selectTabWorkStructure = "SELECT * from m_modules where modid in (SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid where dp.rolesid in (SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=1));";
-	 
+
 	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle, modrealpath "
 		 		+ "from m_modules "
 		 		+ "where modid in "
