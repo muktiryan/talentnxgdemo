@@ -215,11 +215,12 @@ public class AppConfig {
 //	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin, " + 
 //	 		"case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name FROM m_roles mr INNER JOIN m_tenant mt ON mt.id = mr.tenantid;";
 	 
-	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name, mt.company_name " 
-	 		+ "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
-	 		+ "FROM m_tenant me INNER JOIN m_company mc ON me.id = mc.tenant_id) "
-	 		+ "mt INNER JOIN m_roles mr ON mt.id = mr.tenantid "
-	 		+ "ORDER BY mr.rolesid;";
+	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name, mt.company_name "
+			 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
+	 		 + "FROM m_tenant me INNER JOIN "
+	 		 + "(SELECT tenant_id, company_name FROM m_company WHERE is_active = true) mc ON me.id = mc.tenant_id) "
+	 		 + "mt INNER JOIN m_roles mr ON mt.id = mr.tenantid "
+	 		 + "ORDER BY mt.company_name;";
 	 
 	 public static final String findMRoleById = "SELECT  rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt "
 			 + "FROM m_roles "
