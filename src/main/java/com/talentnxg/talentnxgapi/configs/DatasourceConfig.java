@@ -13,7 +13,7 @@ public class DatasourceConfig {
 	@Bean
 	public DataSource dataSource() {
 		return DataSourceBuilder.create()
-//		          .driverClassName("org.postgresql.Driver")
+		          .driverClassName("org.postgresql.Driver")
 		          .url(googleConnectionName)
 //		          .url("jdbc:postgresql://35.202.17.127:5432/postgres")
 //		          .url("jdbc:postgresql://localhost:5433/postgres")
