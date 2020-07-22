@@ -118,7 +118,9 @@ public class AppConfig {
 	 
 	 public static final String selectMApplicationCustom1 = "SELECT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name, mt.company_name " 
 	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name " 
-	 		 + "FROM m_tenant me INNER JOIN m_company mc ON me.id = mc.tenant_id) mt " 		
+	 		 + "FROM m_tenant me INNER JOIN " 
+	 		 + "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc "
+	 		 + "ON me.id = mc.tenant_id) mt "
 	 		 + "INNER JOIN m_applications ma ON ma.tenantid = mt.id;";
 	 
 	 public static final String findMApplicationById = "SELECT  appid, appname, description, created_by, created_date, tenantid, updated_by, updated_date "
@@ -159,8 +161,10 @@ public class AppConfig {
 //	 		+ "FROM m_profiles mp INNER JOIN m_tenant mt ON mp.tenantid = mt.id;";
 	 
 	 public static final String selectMProfileCustom1 = "SELECT mp.profilesid, mp.profilesname, mp.tenantid, mp.created_by, mp.created_date, mp.updated_by, mp.updated_date, mt.tenant_name, mt.company_name "  
-	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name FROM m_tenant me INNER JOIN m_company mc ON me.id = mc.tenant_id) mt " 
-	 		 + "INNER JOIN m_profiles mp ON mp.tenantid = mt.id;";
+	 		+ "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
+	 		+ "FROM m_tenant me INNER JOIN "
+	 		+ "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc ON me.id = mc.tenant_id) mt "  
+	 		+ "INNER JOIN m_profiles mp ON mp.tenantid = mt.id;";
 
 	 public static final String findMProfileById = "SELECT  profilesid, profilesname, tenantid, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_profiles "
