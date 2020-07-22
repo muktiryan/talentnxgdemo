@@ -44,8 +44,13 @@ public class AppConfig {
 //			 + "ORDER BY appid;";
 //	 
 	 
-	 public static final String selectMainMenu = "SELECT dp.profileid,dp.appid,ma.appname,ma.description,ma.tenantid from d_profiles dp INNER JOIN m_applications ma ON ma.appid = dp.appid where dp.rolesid in \r\n" + 
-	 		"(SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?);";
+//	 public static final String selectMainMenu = "SELECT dp.profileid,dp.appid,ma.appname,ma.description,ma.tenantid from d_profiles dp INNER JOIN m_applications ma ON ma.appid = dp.appid where dp.rolesid in \r\n" + 
+//	 		"(SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?);";
+	 
+	 public static final String selectMainMenu = "SELECT DISTINCT dp.appid,ma.appname,ma.description,ma.tenantid " 
+	 		 + "FROM d_profiles dp INNER JOIN m_applications ma " 
+	 		 + "ON ma.appid = dp.appid WHERE dp.rolesid in " 
+	 		 + "(SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?);";
 	 
 	 
 	 public static final String selectActiveTab = "SELECT modid, modname, modtitle, modrealpath "
