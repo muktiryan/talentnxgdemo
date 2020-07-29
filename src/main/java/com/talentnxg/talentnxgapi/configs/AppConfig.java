@@ -65,9 +65,9 @@ public class AppConfig {
 	 
 	 public static final String retrieveMenuByAppid = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, mm.modicon " 
 	 		 + "FROM m_modules mm INNER JOIN " 
-	 		 + "(SELECT modid FROM d_applications WHERE appid = ? GROUP BY modid) da "
+	 		 + "(SELECT modid, integid FROM d_applications WHERE appid = ? GROUP BY modid, integid) da "
 	 		 + "ON mm.modid = da.modid "
-	 		 + "ORDER BY mm.modid;";
+	 		 + "ORDER BY da.integid;";
 	 
 
 	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle, modrealpath "
@@ -121,7 +121,7 @@ public class AppConfig {
 //	 public static final String selectMApplicationCustom1 = "SELECT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name "
 //	 		 + "FROM m_applications ma INNER JOIN m_tenant mt ON ma.tenantid = mt.id;";
 	 
-	 public static final String selectMApplicationCustom1 = "SELECT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name, mt.company_name " 
+	 public static final String selectMApplicationCustom1 = "SELECT DISTINCT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name " 
 	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name " 
 	 		 + "FROM m_tenant me INNER JOIN " 
 	 		 + "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc "
@@ -165,7 +165,7 @@ public class AppConfig {
 //	 public static final String selectMProfileCustom1 = "SELECT mp.profilesid, mp.profilesname, mp.tenantid, mp.created_by, mp.created_date, mp.updated_by, mp.updated_date, mt.tenant_name "
 //	 		+ "FROM m_profiles mp INNER JOIN m_tenant mt ON mp.tenantid = mt.id;";
 	 
-	 public static final String selectMProfileCustom1 = "SELECT mp.profilesid, mp.profilesname, mp.tenantid, mp.created_by, mp.created_date, mp.updated_by, mp.updated_date, mt.tenant_name, mt.company_name "  
+	 public static final String selectMProfileCustom1 = "SELECT DISTINCT mp.profilesid, mp.profilesname, mp.tenantid, mp.created_by, mp.created_date, mp.updated_by, mp.updated_date, mt.tenant_name "  
 	 		+ "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
 	 		+ "FROM m_tenant me INNER JOIN "
 	 		+ "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc ON me.id = mc.tenant_id) mt "  
@@ -224,12 +224,17 @@ public class AppConfig {
 //	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin, " + 
 //	 		"case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name FROM m_roles mr INNER JOIN m_tenant mt ON mt.id = mr.tenantid;";
 	 
-	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name, mt.company_name "
-			 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
-	 		 + "FROM m_tenant me INNER JOIN "
-	 		 + "(SELECT tenant_id, company_name FROM m_company WHERE is_active = true) mc ON me.id = mc.tenant_id) "
-	 		 + "mt INNER JOIN m_roles mr ON mt.id = mr.tenantid "
-	 		 + "ORDER BY mt.company_name;";
+//	 public static final String selectMRoleCustom1 = "SELECT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name, mt.company_name "
+//			 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
+//	 		 + "FROM m_tenant me INNER JOIN "
+//	 		 + "(SELECT tenant_id, company_name FROM m_company WHERE is_active = true) mc ON me.id = mc.tenant_id) "
+//	 		 + "mt INNER JOIN m_roles mr ON mt.id = mr.tenantid "
+//	 		 + "ORDER BY mt.company_name;";
+	 
+	 public static final String selectMRoleCustom1 = "SELECT DISTINCT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name " 
+	 		 + "FROM (SELECT * FROM m_tenant me INNER JOIN "  
+	 		 + "(SELECT tenant_id, company_name FROM m_company WHERE is_active = true) mc ON me.id = mc.tenant_id) mt " 
+	 		 + "INNER JOIN m_roles mr ON mt.id = mr.tenantid ;"; 
 	 
 	 public static final String findMRoleById = "SELECT  rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt "
 			 + "FROM m_roles "
