@@ -17,18 +17,18 @@ public class MApplicationCustom1 {
 	private Date updatedDate;
 	private String tenantname;
 	private String companyname;
-	private Integer apptype;
+//	private Integer apptype;
 	
 	
 	
-	public Integer getApptype() {
-		return apptype;
-	}
-
-
-	public void setApptype(Integer apptype) {
-		this.apptype = apptype;
-	}
+//	public Integer getApptype() {
+//		return apptype;
+//	}
+//
+//
+//	public void setApptype(Integer apptype) {
+//		this.apptype = apptype;
+//	}
 
 
 	public MApplicationCustom1() {

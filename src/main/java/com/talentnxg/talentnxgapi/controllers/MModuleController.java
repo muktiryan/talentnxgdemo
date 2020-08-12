@@ -1,5 +1,7 @@
 package com.talentnxg.talentnxgapi.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.MModuleDao;
+import com.talentnxg.talentnxgapi.models.DRole;
 import com.talentnxg.talentnxgapi.models.MModule;
+import com.talentnxg.talentnxgapi.pojos.ReqSaveDRolesCst1;
+import com.talentnxg.talentnxgapi.pojos.ReqSaveMenuCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*")
@@ -27,13 +32,25 @@ public class MModuleController {
 	//insert
 	@PostMapping("/mmodules")
 	public ResponseEntity<DefaultResponse> saveModule (@RequestBody MModule module) {
-		
-		
-		
 		long moduleId = moduleDao.save(module);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", moduleId));
 	}
-	
+	//update
+	@PostMapping("/mmodulesmember")
+	public ResponseEntity<DefaultResponse> updateModuleMember (@RequestBody ReqSaveMenuCst1 mCustMenu){
+			ReqSaveMenuCst1 mModulecust = mCustMenu;
+			
+			List<MModule> listObj = mModulecust.getDatarequest();
+		
+			if(listObj.size() > 0) {
+				for (MModule item : listObj) {
+					System.out.println("Update menu ID "+item.getModid());
+					MModule rmemid = moduleDao.update(item, item.getModid());
+					
+				}
+			}
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", mCustMenu.getRoleid()));
+	}
 	//update
 	@PutMapping("/mmodules/{modid}")
 	public ResponseEntity<DefaultResponse> updateModule (@RequestBody MModule module, @PathVariable ("modid") Integer updatedModId){

@@ -52,7 +52,8 @@ public class MModuleDaoImpl implements MModuleDao{
             temp.setString(5, module.getModrealpath());
             temp.setString(6, module.getModicon());
             temp.setString(7, module.getUpdatedBy());
-            temp.setInt(8, updatedModId);
+            temp.setInt(8, module.getGroupid());
+            temp.setInt(9, updatedModId);
 			return temp;
 		});
 		MModule result = getModuleById(updatedModId);

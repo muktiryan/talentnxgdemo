@@ -95,14 +95,14 @@ public class AppConfig {
 			 + "VALUES (?, ?, ?, ?, ?, ?, ?);";
 	 
 	 public static final String selectModule = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
-			 + "FROM m_modules;";
+			 + "FROM m_modules WHERE modid > 1;";
 	 
 	 public static final String selectModuleByType = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon,groupid, isapprove, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules where modtype = ?;";
 	 public static final String selectModuleByGroupAndType = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon,groupid, isapprove, created_by, created_date, updated_by, updated_date "
-			 + "FROM m_modules where groupid=? and modtype = ? Order by modtype DESC;";
+			 + "FROM m_modules where groupid=? and modtype = ? and modid > 1 Order by modtype DESC;";
 	 public static final String selectModuleByGroupOrType = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon,groupid, isapprove, created_by, created_date, updated_by, updated_date "
-			 + "FROM m_modules where groupid=? or modtype = ? Order by modtype DESC;";
+			 + "FROM m_modules where groupid=? or modtype = ? and modid > 1 Order by modtype DESC;";
 	 
 	 public static final String selectMModuleByApplication = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, "
 	 		+ "mm.modicon, mm.created_by, mm.created_date, mm.updated_by, mm.updated_date, COALESCE( da.appid, 0) isselect "
@@ -113,7 +113,7 @@ public class AppConfig {
 			 + "FROM m_modules "
 			 + "WHERE modid=?;";
 	 
-	 public static final String updateModule = "UPDATE m_modules SET modname=?, modtype=?, modtitle=?, modroute=?, modrealpath=?, modicon=?, updated_by=?, updated_date=current_timestamp "
+	 public static final String updateModule = "UPDATE m_modules SET modname=?, modtype=?, modtitle=?, modroute=?, modrealpath=?, modicon=?, updated_by=?, updated_date=current_timestamp, groupid=? "
 			 + "WHERE modid=?; ";
 	
 	 public static final String deleteModuleById = "DELETE FROM m_modules WHERE modid=?;";

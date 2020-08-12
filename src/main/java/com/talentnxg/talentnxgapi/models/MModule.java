@@ -2,6 +2,8 @@ package com.talentnxg.talentnxgapi.models;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class MModule { 
 	private Integer modid;
 	private String modname;
@@ -13,8 +15,10 @@ public class MModule {
 	private String modrealpath;
 	private String modicon;
 	private String createdBy;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createdDate;
 	private String updatedBy;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updatedDate;
 	private Integer selectedApplication;
 	
