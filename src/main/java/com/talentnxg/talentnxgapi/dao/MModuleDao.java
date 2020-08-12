@@ -9,6 +9,8 @@ public interface MModuleDao {
 	public MModule getModuleById(Integer modId);
 	public void deleteModule(Integer modId);
 	public Iterable<MModule> getMModulesSelectedApplication(Integer appid);
-
+	public Iterable<MModule> getModuleByType(Integer typeId);
+	public Iterable<MModule> getModuleByGroupAndType(Integer groupid, Integer typeId);
+	public Iterable<MModule> getModuleByGroupOrType(Integer groupid, Integer typeId);
 
 }

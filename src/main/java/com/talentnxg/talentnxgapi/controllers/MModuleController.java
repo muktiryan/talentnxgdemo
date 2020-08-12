@@ -27,6 +27,9 @@ public class MModuleController {
 	//insert
 	@PostMapping("/mmodules")
 	public ResponseEntity<DefaultResponse> saveModule (@RequestBody MModule module) {
+		
+		
+		
 		long moduleId = moduleDao.save(module);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", moduleId));
 	}
@@ -42,6 +45,21 @@ public class MModuleController {
 	@GetMapping("/mmodules")
 	public ResponseEntity<DefaultResponse> getModules(){
 		Iterable<MModule> result = moduleDao.getModules();
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));	
+	}
+	@GetMapping("/mmodulesByType/{typeid}")
+	public ResponseEntity<DefaultResponse> getModulesByType(@PathVariable ("typeid") Integer typeid){
+		Iterable<MModule> result = moduleDao.getModuleByType(typeid);
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));	
+	}
+	@GetMapping("/mmodulesByGroupAndType/{groupid}/{typeid}")
+	public ResponseEntity<DefaultResponse> getModulesByGroupType(@PathVariable ("groupid") Integer groupid, @PathVariable ("typeid") Integer typeid){
+		Iterable<MModule> result = moduleDao.getModuleByGroupAndType(groupid, typeid);
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));	
+	}
+	@GetMapping("/mmodulesByGroupOrType/{groupid}/{typeid}")
+	public ResponseEntity<DefaultResponse> getModulesByGroupTypeOr(@PathVariable ("groupid") Integer groupid, @PathVariable ("typeid") Integer typeid){
+		Iterable<MModule> result = moduleDao.getModuleByGroupOrType(groupid, typeid);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));	
 	}
 	

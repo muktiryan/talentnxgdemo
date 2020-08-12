@@ -40,6 +40,12 @@ public class MSystemController {
 		MSystem result = mSystemDao.findMSystemById(sysid);
 		return ResponseEntity.ok( new DefaultResponse(1, "success", result));
 	}
+	@GetMapping("/msystems/tn/{sysid}")
+	public ResponseEntity<DefaultResponse> findMSystemByIdTenant(@PathVariable ("sysid") Integer sysid){
+		MSystem result = mSystemDao.findMSystemById(sysid);
+		return ResponseEntity.ok( new DefaultResponse(1, "success", result));
+	}
+	
 	
 	@PutMapping("/msystems/{sysid}")
 	public ResponseEntity<DefaultResponse> updateMSystem(@RequestBody MSystem mSystem, @PathVariable ("sysid") Integer sysid){

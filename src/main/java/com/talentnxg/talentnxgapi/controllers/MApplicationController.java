@@ -53,6 +53,13 @@ public class MApplicationController {
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
 	}
 	
+	//find by type
+		@GetMapping("/mapplicationsbytype/{typeid}")
+		public ResponseEntity<DefaultResponse> getMApplicationByType(@PathVariable("typeid") Integer typeid){
+			Iterable<MApplicationCustom1> result = mApplicationDao.getMApplicationByType(typeid);
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+		}
+	
 	//update
 	@PutMapping("/mapplications/{appid}")
 	public ResponseEntity<DefaultResponse> updateMApplication(@RequestBody MApplication mApplication, @PathVariable("appid") Integer appid){

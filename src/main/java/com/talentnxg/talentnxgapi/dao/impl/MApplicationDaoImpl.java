@@ -56,6 +56,7 @@ public class MApplicationDaoImpl implements MApplicationDao{
 		return (Iterable<MApplication>) result;
 	}
 	
+
 	@Override
 	public Iterable<MApplicationCustom1> getMApplicationCustom1() {
 		List<MApplicationCustom1> result = new ArrayList<MApplicationCustom1>();
@@ -118,6 +119,31 @@ public class MApplicationDaoImpl implements MApplicationDao{
 		jdbcTemplate.update(AppConfig.deleteDApplicationByAppid, parameter);
 		jdbcTemplate.update(AppConfig.deleteMApplication, parameter);
 	}
+
+	@Override
+	public Iterable<MApplicationCustom1> getMApplicationByType(Integer typeid) {
+		
+		Object[] parameter = new Object[] {new Integer(typeid)};
+		List<MApplicationCustom1> result = new ArrayList<MApplicationCustom1>();
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMApplicationByType, parameter);
+		for (Map<String, Object> row: rows) {
+			MApplicationCustom1 mApplicationCustom1 = new MApplicationCustom1();
+			mApplicationCustom1.setAppid(Integer.parseInt(row.get("appid").toString()));
+			mApplicationCustom1.setAppname((String)row.get("appname"));
+			mApplicationCustom1.setDescription((String)row.get("description"));
+			mApplicationCustom1.setCreatedBy((String)row.get("created_by"));
+			mApplicationCustom1.setCreatedDate((Date)row.get("created_date"));
+			mApplicationCustom1.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mApplicationCustom1.setUpdatedBy((String)row.get("updated_by"));
+			mApplicationCustom1.setUpdatedDate((Date)row.get("updated_date"));
+			mApplicationCustom1.setTenantname((String)row.get("tenant_name"));
+			mApplicationCustom1.setCompanyname((String)row.get("company_name"));
+			result.add(mApplicationCustom1);
+		}
+		return (Iterable<MApplicationCustom1>) result;
+	}
+
+	
 
 
 

@@ -15,8 +15,18 @@ public class MApplication {
 	private String updatedBy;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updatedDate;
+	private Integer apptype;
 	
 	
+	
+	public Integer getApptype() {
+		return apptype;
+	}
+
+	public void setApptype(Integer apptype) {
+		this.apptype = apptype;
+	}
+
 	public MApplication() {
 		// TODO Auto-generated constructor stub
 	}

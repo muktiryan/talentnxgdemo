@@ -106,6 +106,8 @@ public class MModuleDaoImpl implements MModuleDao{
 		}
 		return (Iterable<MModule>) result;
 	}
+
+	
 	
 	@Override
 	public Iterable<MModule> getMModulesSelectedApplication(Integer appid) {
@@ -138,7 +140,86 @@ public class MModuleDaoImpl implements MModuleDao{
 		jdbcTemplate.update(AppConfig.deleteModuleById, parameter);
 	}
 
+	@Override
+	public Iterable<MModule> getModuleByType(Integer typeId) {
+		List<MModule> result = new ArrayList<MModule>();
+		Object[] parameters = new Object[] {new Integer(typeId)};
+//		System.out.println("############# "+AppConfig.selectModuleByType+", "+typeId);
+		List<Map<String, Object>> rows = (ArrayList<Map<String, Object>>)jdbcTemplate.queryForList(AppConfig.selectModuleByType, parameters);
+		for (Map<String, Object> row : rows) {
+			MModule mModule = new MModule();
+			mModule.setModid(Integer.parseInt(row.get("modid").toString()));
+			mModule.setModname((String)row.get("modname"));
+			mModule.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			mModule.setModtitle((String)row.get("modtitle"));
+			mModule.setModroute((String)row.get("modroute"));
+			mModule.setIsapprove(Integer.parseInt(row.get("isapprove").toString()));
+			mModule.setGroupid(Integer.parseInt(row.get("groupid").toString()));
+			mModule.setModrealpath((String)row.get("modrealpath"));
+			mModule.setModicon((String)row.get("modicon"));
+			mModule.setCreatedBy((String)row.get("created_by"));
+			mModule.setCreatedDate((Date)row.get("created_date"));
+			mModule.setUpdatedBy((String)row.get("updated_by"));
+			mModule.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(mModule);
+		}
+		return (Iterable<MModule>) result;
+	}
 
+	
+	@Override
+	public Iterable<MModule> getModuleByGroupAndType(Integer groupid, Integer typeId) {
+		List<MModule> result = new ArrayList<MModule>();
+		Object[] parameters = new Object[] {new Integer(groupid), new Integer(typeId)};
+//		System.out.println("############# "+AppConfig.selectModuleByType+", "+typeId);
+		List<Map<String, Object>> rows = (ArrayList<Map<String, Object>>)jdbcTemplate.queryForList(AppConfig.selectModuleByGroupAndType, parameters);
+		for (Map<String, Object> row : rows) {
+			MModule mModule = new MModule();
+			mModule.setModid(Integer.parseInt(row.get("modid").toString()));
+			mModule.setModname((String)row.get("modname"));
+			mModule.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			mModule.setModtitle((String)row.get("modtitle"));
+			mModule.setModroute((String)row.get("modroute"));
+			mModule.setIsapprove(Integer.parseInt(row.get("isapprove").toString()));
+			mModule.setGroupid(Integer.parseInt(row.get("groupid").toString()));
+			mModule.setModrealpath((String)row.get("modrealpath"));
+			mModule.setModicon((String)row.get("modicon"));
+			mModule.setCreatedBy((String)row.get("created_by"));
+			mModule.setCreatedDate((Date)row.get("created_date"));
+			mModule.setUpdatedBy((String)row.get("updated_by"));
+			mModule.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(mModule);
+		}
+		return (Iterable<MModule>) result;
+	}
+
+	@Override
+	public Iterable<MModule> getModuleByGroupOrType(Integer groupid, Integer typeId) {
+		List<MModule> result = new ArrayList<MModule>();
+		Object[] parameters = new Object[] {new Integer(groupid), new Integer(typeId)};
+//		System.out.println("############# "+AppConfig.selectModuleByType+", "+typeId);
+		List<Map<String, Object>> rows = (ArrayList<Map<String, Object>>)jdbcTemplate.queryForList(AppConfig.selectModuleByGroupOrType, parameters);
+		for (Map<String, Object> row : rows) {
+			MModule mModule = new MModule();
+			mModule.setModid(Integer.parseInt(row.get("modid").toString()));
+			mModule.setModname((String)row.get("modname"));
+			mModule.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			mModule.setModtitle((String)row.get("modtitle"));
+			mModule.setModroute((String)row.get("modroute"));
+			mModule.setIsapprove(Integer.parseInt(row.get("isapprove").toString()));
+			mModule.setGroupid(Integer.parseInt(row.get("groupid").toString()));
+			mModule.setModrealpath((String)row.get("modrealpath"));
+			mModule.setModicon((String)row.get("modicon"));
+			mModule.setCreatedBy((String)row.get("created_by"));
+			mModule.setCreatedDate((Date)row.get("created_date"));
+			mModule.setUpdatedBy((String)row.get("updated_by"));
+			mModule.setUpdatedDate((Date)row.get("updated_date"));
+			result.add(mModule);
+		}
+		return (Iterable<MModule>) result;
+	}
+
+	
 
 
 }

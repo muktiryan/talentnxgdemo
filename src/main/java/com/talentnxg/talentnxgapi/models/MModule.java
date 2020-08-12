@@ -6,6 +6,8 @@ public class MModule {
 	private Integer modid;
 	private String modname;
 	private Integer modtype;
+	private Integer groupid;
+	private Integer isapprove;
 	private String modtitle;
 	private String modroute;
 	private String modrealpath;
@@ -17,6 +19,22 @@ public class MModule {
 	private Integer selectedApplication;
 	
 	
+	public Integer getGroupid() {
+		return groupid;
+	}
+
+	public void setGroupid(Integer groupid) {
+		this.groupid = groupid;
+	}
+
+	public Integer getIsapprove() {
+		return isapprove;
+	}
+
+	public void setIsapprove(Integer isapprove) {
+		this.isapprove = isapprove;
+	}
+
 	public MModule() {
 		// TODO Auto-generated constructor stub
 	}

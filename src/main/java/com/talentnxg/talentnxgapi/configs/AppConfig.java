@@ -97,6 +97,13 @@ public class AppConfig {
 	 public static final String selectModule = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules;";
 	 
+	 public static final String selectModuleByType = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon,groupid, isapprove, created_by, created_date, updated_by, updated_date "
+			 + "FROM m_modules where modtype = ?;";
+	 public static final String selectModuleByGroupAndType = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon,groupid, isapprove, created_by, created_date, updated_by, updated_date "
+			 + "FROM m_modules where groupid=? and modtype = ? Order by modtype DESC;";
+	 public static final String selectModuleByGroupOrType = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon,groupid, isapprove, created_by, created_date, updated_by, updated_date "
+			 + "FROM m_modules where groupid=? or modtype = ? Order by modtype DESC;";
+	 
 	 public static final String selectMModuleByApplication = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, "
 	 		+ "mm.modicon, mm.created_by, mm.created_date, mm.updated_by, mm.updated_date, COALESCE( da.appid, 0) isselect "
 	 		+ "FROM m_modules mm LEFT JOIN "
@@ -117,6 +124,13 @@ public class AppConfig {
 	 
 	 public static final String selectMApplication = "SELECT appid, appname, description, created_by, created_date, tenantid, updated_by, updated_date "
 			 + "FROM m_applications;";
+	 
+	 public static final String selectMApplicationByType = "SELECT DISTINCT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name " 
+	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name " 
+	 		 + "FROM m_tenant me INNER JOIN " 
+	 		 + "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc "
+	 		 + "ON me.id = mc.tenant_id) mt "
+	 		 + "INNER JOIN m_applications ma ON ma.tenantid = mt.id WHERE ma.apptype = ?;";
 	 
 //	 public static final String selectMApplicationCustom1 = "SELECT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name "
 //	 		 + "FROM m_applications ma INNER JOIN m_tenant mt ON ma.tenantid = mt.id;";
