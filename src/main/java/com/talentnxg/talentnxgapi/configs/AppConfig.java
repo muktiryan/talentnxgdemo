@@ -278,7 +278,7 @@ public class AppConfig {
 	 
 //////////////////////////////////////M TENANTS/////////////////////////////////////////
 	 public static final String saveMTenant = "INSERT INTO m_tenant (tenant_code, tenant_activation_code, is_active, created_by, tenant_name, created_date) "
-			 + "VALUES (?, ?, true, 'SYSTEM', ?, current_timestamp);";
+			 + "VALUES (?, ?, true, 1, ?, current_timestamp);";
 	 
 	 public static final String selectMTenant = "SELECT id, tenant_code, tenant_activation_code, is_active, created_by, created_date, updated_by, updated_date, tenant_name "
 			 + "FROM m_tenant;";

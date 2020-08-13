@@ -23,7 +23,6 @@ public class DRoleDaoImpl implements DRoleDao{
 	@Override
 	public long save(DRole dRole) {
 		KeyHolder dRoleKey = new GeneratedKeyHolder();
-		System.out.println("try");
 		jdbcTemplate.update(connection -> {
 			PreparedStatement temp = connection.prepareStatement(AppConfig.saveDRole, new String[]{"rmemid"});
 			temp.setInt(1, dRole.getRoleid());

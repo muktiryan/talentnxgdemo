@@ -201,6 +201,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		KeyHolder tenantIdKey = new GeneratedKeyHolder();
 		KeyHolder userIdKey = new GeneratedKeyHolder();
 		KeyHolder companyIdKey = new GeneratedKeyHolder();
+		KeyHolder userToCompanyIdKey = new GeneratedKeyHolder();
 		jdbcTemplate.update(connection -> {
 			PreparedStatement temp = connection.prepareStatement(AppConfig.saveMTenant, new String[]{"id"});
 			temp.setString(1, mCompany.getCompanyname());
@@ -231,8 +232,17 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 			temp.setString(7, mUserprofile.getFax());
 			temp.setInt(8, tenantIdKey.getKey().intValue());
 			temp.setString(9, mUserprofile.getEmployeecode());
+			temp.setString(10, mUserprofile.getCity());
 			return temp;
 		}, userIdKey);
+		
+		jdbcTemplate.update(connection -> {
+			PreparedStatement temp = connection.prepareStatement(AppConfig.saveMUserToCompany, new String[] {"utcid"});
+			temp.setInt(1, userIdKey.getKey().intValue());
+			temp.setInt(2, tenantIdKey.getKey().intValue());
+			temp.setInt(3, tenantIdKey.getKey().intValue());
+			return temp;
+		}, userToCompanyIdKey);
 		
 		Object[] result = new Object[] { new Integer(tenantIdKey.getKey().intValue()), 
 				new Integer(companyIdKey.getKey().intValue()), 
