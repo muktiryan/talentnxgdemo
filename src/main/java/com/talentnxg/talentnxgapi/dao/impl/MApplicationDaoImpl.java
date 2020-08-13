@@ -119,6 +119,23 @@ public class MApplicationDaoImpl implements MApplicationDao{
 		jdbcTemplate.update(AppConfig.deleteDApplicationByAppid, parameter);
 		jdbcTemplate.update(AppConfig.deleteMApplication, parameter);
 	}
+	
+	@Override
+	public long deletMApplication(Integer appd) {
+		// TODO Auto-generated method stub
+		Object[] parameter = new Object[] {new Integer(appd)};
+		jdbcTemplate.update(AppConfig.deleteDApplicationByAppid, parameter);
+//		jdbcTemplate.update(connection -> {
+//			PreparedStatement temp = connection.prepareStatement(AppConfig.deleteDApplicationByAppid, new String[] {"appid"});
+//			temp.setInt(1, appd);
+//			return temp;
+//		});
+		
+		
+		
+		jdbcTemplate.update(AppConfig.deleteMApplication, parameter);
+		return appd;
+	}
 
 	@Override
 	public Iterable<MApplicationCustom1> getMApplicationByType(Integer typeid) {

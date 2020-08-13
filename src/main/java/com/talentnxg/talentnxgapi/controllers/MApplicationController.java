@@ -69,8 +69,9 @@ public class MApplicationController {
 	
 	//delete
 	@DeleteMapping("/mapplications/{appid}")
-	public void deleteMApplication(@PathVariable("appid") Integer appid) {
-		mApplicationDao.deleteMApplication(appid);
+	public ResponseEntity<DefaultResponse> deleteMApplication(@PathVariable("appid") Integer appid) {
+		long result = mApplicationDao.deletMApplication(appid);
+		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
 	}
 
 }

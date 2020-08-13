@@ -26,6 +26,7 @@ import com.talentnxg.talentnxgapi.models.MUserprofile;
 import com.talentnxg.talentnxgapi.pojos.ReqLogin;
 import com.talentnxg.talentnxgapi.pojos.ReqSetup;
 import com.talentnxg.talentnxgapi.pojos.RespLogin;
+import com.talentnxg.talentnxgapi.pojos.RespLoginCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @CrossOrigin(origins = "*", exposedHeaders = "x-token")
@@ -58,10 +59,12 @@ public class UserController {
 //	    return new ResponseEntity<>(resCust, responseHeaders, HttpStatus.OK);	
 //	}
 	@PostMapping("/authentication")
-	public ResponseEntity<RespLogin> postLogin(@RequestBody ReqLogin reqLogin) {
+//	public ResponseEntity<RespLogin> postLogin(@RequestBody ReqLogin reqLogin) {
+	public ResponseEntity<RespLoginCst1> postLogin(@RequestBody ReqLogin reqLogin) {
 		ObjectMapper Obj = new ObjectMapper();
 		String jsonStr = null;
-		RespLogin resCust = authDao.getAuthentication(reqLogin);
+//		RespLogin resCust = authDao.getAuthentication(reqLogin);
+		RespLoginCst1 resCust = authDao.getAuthentication(reqLogin);
 		try {
 			jsonStr = Obj.writeValueAsString(resCust.getProfile());
 		

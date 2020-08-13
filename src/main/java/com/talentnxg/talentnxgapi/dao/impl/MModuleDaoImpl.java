@@ -59,7 +59,20 @@ public class MModuleDaoImpl implements MModuleDao{
 		MModule result = getModuleById(updatedModId);
 		return result;
 	}
+	
 
+	@Override
+	public long updateByGroupid(Integer groupId) {
+		// TODO Auto-generated method stub
+		jdbcTemplate.update(connection -> {
+			PreparedStatement temp = connection.prepareStatement(AppConfig.updateModuleByGroupid);
+            temp.setInt(1, 0);
+            temp.setInt(2, 0);
+            temp.setInt(3, groupId);
+			return temp;
+		});
+		return 1;
+	}
 
 	//find by id
 	@Override
@@ -139,6 +152,18 @@ public class MModuleDaoImpl implements MModuleDao{
 	public void deleteModule(Integer modId) {
 		Object[] parameter = new Object[] {new Integer(modId)};
 		jdbcTemplate.update(AppConfig.deleteModuleById, parameter);
+	}
+	
+	@Override
+	public long deletModule(Integer modId) {
+		// TODO Auto-generated method stub
+		
+		jdbcTemplate.update(connection -> {
+			PreparedStatement temp = connection.prepareStatement(AppConfig.deleteModuleById);
+            temp.setInt(1, modId);
+			return temp;
+		});
+		return 1;
 	}
 
 	@Override

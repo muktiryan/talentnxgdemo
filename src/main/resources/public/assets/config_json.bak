@@ -9,5 +9,6 @@
     "ss1":"profiler",
     "ss2":"controllers",
     "ss3":"active",
-    "ss4":"oauth"
+    "ss4":"oauth",
+    "dateFormat":"MM/dd/yyyy"
 }

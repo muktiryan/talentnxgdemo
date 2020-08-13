@@ -9,6 +9,7 @@ public interface MApplicationDao {
 	public MApplication getMApplicationById(Integer appid);
 	public MApplication updateMApplication(MApplication mApplication, Integer appid);
 	void deleteMApplication(Integer appid);
+	public long deletMApplication(Integer appd);
 	public Iterable<MApplicationCustom1> getMApplicationCustom1();
 	public Iterable<MApplicationCustom1> getMApplicationByType(Integer typeid);
 

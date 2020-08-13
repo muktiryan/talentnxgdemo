@@ -17,10 +17,12 @@ import com.talentnxg.talentnxgapi.dao.AuthenticationDao;
 import com.talentnxg.talentnxgapi.models.MApplication;
 import com.talentnxg.talentnxgapi.models.MCompany;
 import com.talentnxg.talentnxgapi.models.MModule;
+import com.talentnxg.talentnxgapi.models.MModuleForMenu;
 import com.talentnxg.talentnxgapi.models.Profile;
 import com.talentnxg.talentnxgapi.models.MUserprofile;
 import com.talentnxg.talentnxgapi.pojos.ReqLogin;
 import com.talentnxg.talentnxgapi.pojos.RespLogin;
+import com.talentnxg.talentnxgapi.pojos.RespLoginCst1;
 
 @Repository
 public class AuthenticationDaoImpl implements AuthenticationDao {
@@ -106,9 +108,10 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 //	}
 
 	@Override
-	public RespLogin getAuthentication(ReqLogin reqLogin) {
+	public RespLoginCst1 getAuthentication(ReqLogin reqLogin) {
 		// TODO Auto-generated method stub
-		RespLogin result = new RespLogin();
+//		RespLogin result = new RespLogin();
+		RespLoginCst1 result = new RespLoginCst1();
 		Profile profile = new Profile();
 		MModule activeTab = new MModule();
 		MApplication mainMenu = new MApplication();
@@ -161,7 +164,10 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 				}
 			}
 			///////////////Active Menu///////////////////
-			List<Map<String, Object>> menus = jdbcTemplate.queryForList(AppConfig.selectActiveMenu);
+			
+			int userid = profile.getUserId();
+			Object [] profileuserid = new Object [] { new Integer (userid)};
+			List<Map<String, Object>> menus = jdbcTemplate.queryForList(AppConfig.selectActiveMenuByUser, profileuserid);
 			if (menus.size() > 0) {
 				for (Map<String, Object> menu : menus)
 				{
@@ -169,18 +175,59 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 					mainMenu.setAppname((String)menu.get("appname"));
 				}
 			}
+//			List<Map<String, Object>> menus = jdbcTemplate.queryForList(AppConfig.selectActiveMenu);
+//			if (menus.size() > 0) {
+//				for (Map<String, Object> menu : menus)
+//				{
+//					mainMenu.setAppid(Integer.parseInt(menu.get("appid").toString()));
+//					mainMenu.setAppname((String)menu.get("appname"));
+//				}
+//			}
 			
 			///////////Array list for tabMenu///////////
+//			Object [] activeAppid = new Object [] { new Integer (mainMenu.getAppid())};
+//			List<MModule> tabMenus = new ArrayList<MModule>();
+//			List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.retrieveMenuByAppid, activeAppid));
+//			for(Map<String,Object> row:temp){
+//				MModule module = new MModule();
+//				module.setModid(Integer.parseInt(row.get("modid").toString()));
+//				module.setModname((String)row.get("modname"));
+//				module.setModtitle((String)row.get("modtitle"));
+//				module.setModroute((String)row.get("modroute"));
+//				module.setModrealpath((String)row.get("modrealpath"));
+//				tabMenus.add(module);
+//		    }
+			
 			Object [] activeAppid = new Object [] { new Integer (mainMenu.getAppid())};
-			List<MModule> tabMenus = new ArrayList<MModule>();
+			List<MModuleForMenu> tabMenus = new ArrayList<MModuleForMenu>();
 			List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.retrieveMenuByAppid, activeAppid));
 			for(Map<String,Object> row:temp){
-				MModule module = new MModule();
+				MModuleForMenu module = new MModuleForMenu();
 				module.setModid(Integer.parseInt(row.get("modid").toString()));
 				module.setModname((String)row.get("modname"));
+				module.setModtype(Integer.parseInt(row.get("modtype").toString()));
 				module.setModtitle((String)row.get("modtitle"));
 				module.setModroute((String)row.get("modroute"));
 				module.setModrealpath((String)row.get("modrealpath"));
+				
+				List<MModule> childItem = new ArrayList<MModule>();
+				if(module.getModtype() == 1) {
+					List<Map<String, Object>> itemTemp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.retrieveMenuByGroupid, module.getModid()));
+					for(Map<String,Object> rowChild:itemTemp){
+						MModule childModule = new MModule();
+						childModule.setModid(Integer.parseInt(rowChild.get("modid").toString()));
+						childModule.setModname((String)rowChild.get("modname"));
+						childModule.setModtype(Integer.parseInt(rowChild.get("modtype").toString()));
+						childModule.setModtitle((String)rowChild.get("modtitle"));
+						childModule.setModroute((String)rowChild.get("modroute"));
+						childModule.setModrealpath((String)rowChild.get("modrealpath"));
+						childModule.setGroupid(Integer.parseInt(rowChild.get("groupid").toString()));
+						childItem.add(childModule);
+					}
+					module.setSubitems(childItem);
+				} else {
+					module.setSubitems(childItem);
+				}
 				tabMenus.add(module);
 		    }
 			result.setTabmenu(tabMenus);

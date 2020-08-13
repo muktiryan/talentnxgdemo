@@ -63,12 +63,19 @@ public class AppConfig {
 			 + "ORDER BY appid "
 			 + "LIMIT 1;";
 	 
+//	 SELECT appid, appname FROM public.m_applications where appid in (select appid from d_profiles where rolesid in (select roleid from d_roles where usersid = 3)) ORDER BY appid LIMIT 1;
+	 
+	 
+	 public static final String selectActiveMenuByUser = "SELECT appid, appname FROM public.m_applications where appid in (select appid from d_profiles where rolesid in (select roleid from d_roles where usersid = ?)) ORDER BY appid LIMIT 1";
+	 
+	 
 	 public static final String retrieveMenuByAppid = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, mm.modicon " 
 	 		 + "FROM m_modules mm INNER JOIN " 
 	 		 + "(SELECT modid, integid FROM d_applications WHERE appid = ? GROUP BY modid, integid) da "
 	 		 + "ON mm.modid = da.modid "
 	 		 + "ORDER BY da.integid;";
 	 
+	 public static final String retrieveMenuByGroupid = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, groupid FROM m_modules where groupid=? ORDER BY modname;";
 
 	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle, modrealpath "
 		 		+ "from m_modules "
@@ -104,18 +111,24 @@ public class AppConfig {
 	 public static final String selectModuleByGroupOrType = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon,groupid, isapprove, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules where groupid=? or modtype = ? and modid > 1 Order by modtype DESC;";
 	 
+//	 public static final String selectMModuleByApplication = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, "
+//	 		+ "mm.modicon, mm.created_by, mm.created_date, mm.updated_by, mm.updated_date, COALESCE( da.appid, 0) isselect "
+//	 		+ "FROM m_modules mm LEFT JOIN "
+//	 		+ "(SELECT * FROM d_applications WHERE appid = ?) da ON da.modid = mm.modid;";
 	 public static final String selectMModuleByApplication = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, "
-	 		+ "mm.modicon, mm.created_by, mm.created_date, mm.updated_by, mm.updated_date, COALESCE( da.appid, 0) isselect "
-	 		+ "FROM m_modules mm LEFT JOIN "
-	 		+ "(SELECT * FROM d_applications WHERE appid = ?) da ON da.modid = mm.modid;";
-	 
+		 		+ "mm.modicon, mm.created_by, mm.created_date, mm.updated_by, mm.updated_date, COALESCE( da.appid, 0) isselect "
+		 		+ "FROM m_modules mm LEFT JOIN "
+		 		+ "(SELECT * FROM d_applications WHERE appid = ?) da ON da.modid = mm.modid WHERE mm.modtype < 3;";
+		 
 	 public static final String findModuleById = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules "
 			 + "WHERE modid=?;";
 	 
 	 public static final String updateModule = "UPDATE m_modules SET modname=?, modtype=?, modtitle=?, modroute=?, modrealpath=?, modicon=?, updated_by=?, updated_date=current_timestamp, groupid=? "
 			 + "WHERE modid=?; ";
-	
+	 public static final String updateModuleByGroupid = "UPDATE m_modules SET modtype=?, groupid=? "
+			 + "WHERE groupid=?; ";
+	 
 	 public static final String deleteModuleById = "DELETE FROM m_modules WHERE modid=?;";
 	 
 /////////////////////////////////////// M APPLICATIONS////////////////////////////////////////////

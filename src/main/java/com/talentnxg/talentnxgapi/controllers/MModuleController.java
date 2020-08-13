@@ -57,7 +57,12 @@ public class MModuleController {
 		MModule newModule = moduleDao.update(module, updatedModId);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", newModule));
 	}
-	
+	//update
+		@PutMapping("/mmodulesmember/{groupid}")
+		public ResponseEntity<DefaultResponse> resetModule (@RequestBody Integer idx, @PathVariable ("groupid") Integer groupid){
+			long newModule = moduleDao.updateByGroupid(groupid);
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", newModule));
+		}
 	//retrieve all
 	@GetMapping("/mmodules")
 	public ResponseEntity<DefaultResponse> getModules(){
@@ -98,6 +103,11 @@ public class MModuleController {
 	public void deleteModule (@PathVariable("modid") Integer modId) {
 		moduleDao.deleteModule(modId);
 	}
-
+	//delete
+		@DeleteMapping("/mmodulesgroup/{modid}")
+		public ResponseEntity<DefaultResponse> deleteModuleGroup (@PathVariable("modid") Integer modId) {
+			long result = moduleDao.deletModule(modId);
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+		}
 
 }
