@@ -435,5 +435,30 @@ public class AppConfig {
 			+ "WHERE sys_id = ?;";
 	
 	public static final String deleteMSystem = "DELETE FROM m_system WHERE sysid=?;";
+	
+	/////////////////////////////////////////Log Generic/////////////////////////////////////////////////
+	public static final String saveLogGeneric = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
+			+ "VALUES (current_timestamp, ?, ?, ?, "
+			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+	
+//	public static final String saveUserLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+//			+ "tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
+//			+ "VALUES (current_timestamp, ?, ?, ?, "
+//			+ "?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+//	
+//	public static final String saveEventLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+//			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
+//			+ "VALUES (current_timestamp, ?, ?, ?, "
+//			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+//	
+//	public static final String saveTaskLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+//			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
+//			+ "VALUES (current_timestamp, ?, ?, ?, "
+//			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+	
+	public static final String findLogGenericByTypeId = "SELECT id, log_datetime, log_type_id, log_action_id, user_id, menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date " 
+			+ "FROM log_generic "
+			+ "WHERE log_type_id = ?;";
 			
 }
