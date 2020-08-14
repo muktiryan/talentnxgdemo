@@ -455,20 +455,34 @@ public class AppConfig {
 			+ "VALUES (current_timestamp, ?, ?, ?, "
 			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
 	
-//	public static final String saveUserLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
-//			+ "tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
-//			+ "VALUES (current_timestamp, ?, ?, ?, "
-//			+ "?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
-//	
-//	public static final String saveEventLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
-//			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
-//			+ "VALUES (current_timestamp, ?, ?, ?, "
-//			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
-//	
-//	public static final String saveTaskLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
-//			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
-//			+ "VALUES (current_timestamp, ?, ?, ?, "
-//			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+	public static final String saveUserLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+			+ "tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
+			+ "VALUES (current_timestamp, ?, ?, ?, "
+			+ "?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+	
+	public static final String saveEventLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
+			+ "VALUES (current_timestamp, ?, ?, ?, "
+			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+	
+	public static final String saveTaskLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
+			+ "VALUES (current_timestamp, ?, ?, ?, "
+			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
+	
+	public static final String findLogGenericByTypeIdCustom1 = "SELECT lg.id, lg.log_datetime, lg.log_type_id, lg.log_action_id, mbp.parameter_string as log_action_string, lg.user_id, lg.username, lg.menu_id, lg.trx_id, lg.tenant_id, lg.tenant_name, lg.company_id, lg.description, lg.ipcontroller, lg.location " 
+			+ "FROM m_business_parameter mbp " 
+			+ "inner join " 
+			+ "(select * from " 
+			+ "(select mt.id as tenantid, mt.tenant_name, lg3.id, lg3.log_datetime, lg3.log_type_id, lg3.log_action_id, lg3.user_id, lg3.menu_id, lg3.trx_id, lg3.tenant_id, lg3.company_id, lg3.description, lg3.ipcontroller, lg3.location "
+			+ "from log_generic lg3 "
+			+ "inner join m_tenant mt "  
+			+ "on lg3.tenant_id = mt.id) lg2 "  
+			+ "inner join m_userprofile mu " 
+			+ "on lg2.user_id = mu.userid ) lg " 
+			+ "on lg.log_action_id = mbp.id "  
+			+ "where lg.log_type_id = ? "
+			+ "ORDER BY lg.log_datetime DESC;";
 	
 	public static final String findLogGenericByTypeId = "SELECT id, log_datetime, log_type_id, log_action_id, user_id, menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date " 
 			+ "FROM log_generic "

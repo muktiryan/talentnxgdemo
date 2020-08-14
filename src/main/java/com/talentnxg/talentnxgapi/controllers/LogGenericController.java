@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.LogGenericDao;
 import com.talentnxg.talentnxgapi.models.LogGeneric;
+import com.talentnxg.talentnxgapi.models.LogGenericCustom1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
 @RestController
@@ -29,6 +30,13 @@ public class LogGenericController {
 		return ResponseEntity.ok( new DefaultResponse(1, "success", result));
 	}
 	
+	//retrieve log generic custom by type
+	@GetMapping("/loggenericcst1/{logtypeid}")
+	public ResponseEntity<DefaultResponse> findLogGenericByLogTypeIdCst1(@PathVariable ("logtypeid") Integer logtypeid){
+		Iterable<LogGenericCustom1> result = logGenericDao.findLogGenericByLogTypeIdCst1(logtypeid);
+		return ResponseEntity.ok( new DefaultResponse(1, "success", result));
+	}
+	
 	//insert logger
 	@PostMapping("/loggeneric")
 	public ResponseEntity<DefaultResponse> saveLogGeneric(@RequestBody LogGeneric logGeneric){
@@ -36,25 +44,25 @@ public class LogGenericController {
 		return ResponseEntity.ok(new DefaultResponse(1, "success", id));
 	}
 	
-//	//insert user logger
-//	@PostMapping("/loggeneric/userlogger")
-//	public ResponseEntity<DefaultResponse> saveUserLogger(@RequestBody LogGeneric userLogger){
-//		Integer id = logGenericDao.saveUserLogger(userLogger);
-//		return ResponseEntity.ok(new DefaultResponse(1, "success", id));
-//	}
-//	
-//	//insert event logger
-//	@PostMapping("/loggeneric/eventlogger")
-//	public ResponseEntity<DefaultResponse> saveEventLogger(@RequestBody LogGeneric eventLogger){
-//		Integer id = logGenericDao.saveEventLogger(eventLogger);
-//		return ResponseEntity.ok(new DefaultResponse(1, "success", id));
-//	}
-//	
-//	//insert task logger
-//	@PostMapping("/loggeneric/tasklogger")
-//	public ResponseEntity<DefaultResponse> saveTaskLogger(@RequestBody LogGeneric taskLogger){
-//		Integer id = logGenericDao.saveTaskLogger(taskLogger);
-//		return ResponseEntity.ok(new DefaultResponse(1, "success", id));
-//	}
+	//insert user logger
+	@PostMapping("/loggeneric/userlogger")
+	public ResponseEntity<DefaultResponse> saveUserLogger(@RequestBody LogGeneric userLogger){
+		Integer id = logGenericDao.saveUserLogger(userLogger);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", id));
+	}
+	
+	//insert event logger
+	@PostMapping("/loggeneric/eventlogger")
+	public ResponseEntity<DefaultResponse> saveEventLogger(@RequestBody LogGeneric eventLogger){
+		Integer id = logGenericDao.saveEventLogger(eventLogger);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", id));
+	}
+	
+	//insert task logger
+	@PostMapping("/loggeneric/tasklogger")
+	public ResponseEntity<DefaultResponse> saveTaskLogger(@RequestBody LogGeneric taskLogger){
+		Integer id = logGenericDao.saveTaskLogger(taskLogger);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", id));
+	}
 	
 }
