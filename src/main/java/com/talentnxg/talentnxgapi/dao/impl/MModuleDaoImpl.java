@@ -43,6 +43,9 @@ public class MModuleDaoImpl implements MModuleDao{
 	//update
 	@Override
 	public MModule update(MModule module, Integer updatedModId) {
+		if(module.getGroupid() == null) {
+			module.setGroupid(0);
+		}
 		jdbcTemplate.update(connection -> {
 			PreparedStatement temp = connection.prepareStatement(AppConfig.updateModule, new String[] {"modid"});
             temp.setString(1, module.getModname());
