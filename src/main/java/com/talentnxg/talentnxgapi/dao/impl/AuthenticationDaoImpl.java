@@ -1,5 +1,6 @@
 package com.talentnxg.talentnxgapi.dao.impl;
 
+import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,14 +13,17 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.google.api.client.json.Json;
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.AuthenticationDao;
 import com.talentnxg.talentnxgapi.models.MApplication;
 import com.talentnxg.talentnxgapi.models.MCompany;
 import com.talentnxg.talentnxgapi.models.MModule;
 import com.talentnxg.talentnxgapi.models.MModuleForMenu;
+import com.talentnxg.talentnxgapi.models.MSystem;
 import com.talentnxg.talentnxgapi.models.Profile;
 import com.talentnxg.talentnxgapi.models.MUserprofile;
+import com.talentnxg.talentnxgapi.models.MUserprofileCustom1;
 import com.talentnxg.talentnxgapi.pojos.ReqLogin;
 import com.talentnxg.talentnxgapi.pojos.RespLogin;
 import com.talentnxg.talentnxgapi.pojos.RespLoginCst1;
@@ -377,5 +381,91 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 		return tabMenus;
 	}
 
+	@Override
+	public String emailAuth(String email) {
+		Object [] parameter = new Object [] {new String (email)};
+		String newPassword = "123456$#@$^@1ERF";
+		MUserprofile mUserprofile = new MUserprofile();
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.emailAuth, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row : rows) {
+				mUserprofile.setUserid(Integer.parseInt(row.get("userid").toString()));
+				mUserprofile.setUsername((String)row.get("username"));
+				mUserprofile.setFullname((String)row.get("fullname"));
+				mUserprofile.setActive(Integer.parseInt(row.get("active").toString()));
+				mUserprofile.setSecretpwd((String)row.get("secretpwd"));
+				mUserprofile.setAvatarname((String)row.get("avatarname"));
+				mUserprofile.setEmail((String)row.get("email"));
+				mUserprofile.setAddress((String)row.get("address"));
+				mUserprofile.setAlias((String)row.get("alias"));
+				mUserprofile.setPhone((String)row.get("phone"));
+				mUserprofile.setMobile((String)row.get("mobile"));
+				mUserprofile.setFax((String)row.get("fax"));
+				mUserprofile.setCity((String)row.get("city"));
+				mUserprofile.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+				mUserprofile.setEmployeecode((String)row.get("employeecode"));
+				mUserprofile.setCreatedBy((String)row.get("created_by"));
+				mUserprofile.setCreatedDate((Date)row.get("created_date"));
+				mUserprofile.setUpdatedBy((String)row.get("updated_by"));
+				mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+			}
+			if(mUserprofile.getEmail() != null && mUserprofile.getEmail().equals(email)) {
+				jdbcTemplate.update(connection -> {
+					PreparedStatement temp = connection.prepareStatement(AppConfig.resetPassword);
+					temp.setString(1, newPassword);
+					temp.setString(2, email);
+					return temp;
+				});
+				return newPassword;
+			}
+			else {
+				return null;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public boolean changePassword(MUserprofileCustom1 mUserprofileCst1) {
+		MUserprofile mUserprofile = new MUserprofile();
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.checkPassword, mUserprofileCst1.getUserId(), mUserprofileCst1.getSecretpwd());
+		if (rows.size() > 0) {
+			for (Map<String, Object> row : rows) {
+				mUserprofile.setUserid(Integer.parseInt(row.get("userid").toString()));
+				mUserprofile.setUsername((String)row.get("username"));
+				mUserprofile.setFullname((String)row.get("fullname"));
+				mUserprofile.setActive(Integer.parseInt(row.get("active").toString()));
+				mUserprofile.setSecretpwd((String)row.get("secretpwd"));
+				mUserprofile.setAvatarname((String)row.get("avatarname"));
+				mUserprofile.setEmail((String)row.get("email"));
+				mUserprofile.setAddress((String)row.get("address"));
+				mUserprofile.setAlias((String)row.get("alias"));
+				mUserprofile.setPhone((String)row.get("phone"));
+				mUserprofile.setMobile((String)row.get("mobile"));
+				mUserprofile.setFax((String)row.get("fax"));
+				mUserprofile.setCity((String)row.get("city"));
+				mUserprofile.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+				mUserprofile.setEmployeecode((String)row.get("employeecode"));
+				mUserprofile.setCreatedBy((String)row.get("created_by"));
+				mUserprofile.setCreatedDate((Date)row.get("created_date"));
+				mUserprofile.setUpdatedBy((String)row.get("updated_by"));
+				mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+			}
+			if(mUserprofile.getUserid() != null && mUserprofile.getUserid().equals(mUserprofileCst1.getUserId())) {
+				jdbcTemplate.update(connection -> {
+					PreparedStatement temp = connection.prepareStatement(AppConfig.changePassword);
+					temp.setString(1, mUserprofileCst1.getNewPassword());
+					temp.setInt(2, mUserprofile.getUserid());
+					return temp;
+				});
+				return true;
+			}
+			else {
+
+			}
+			
+		}
+		return false;
+	}
 	
 }

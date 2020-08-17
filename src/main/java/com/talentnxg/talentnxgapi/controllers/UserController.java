@@ -23,6 +23,7 @@ import com.talentnxg.talentnxgapi.dao.AuthenticationDao;
 import com.talentnxg.talentnxgapi.models.MCompany;
 import com.talentnxg.talentnxgapi.models.MModule;
 import com.talentnxg.talentnxgapi.models.MUserprofile;
+import com.talentnxg.talentnxgapi.models.MUserprofileCustom1;
 import com.talentnxg.talentnxgapi.pojos.ReqLogin;
 import com.talentnxg.talentnxgapi.pojos.ReqSetup;
 import com.talentnxg.talentnxgapi.pojos.RespLogin;
@@ -112,6 +113,20 @@ public class UserController {
 	@GetMapping("mmodules/appid/{appid}")
 	public ResponseEntity<DefaultResponse> getListModulesByAppid(@PathVariable ("appid") Integer appid){
 		Iterable<MModule> result = authDao.getListModulesByAppid(appid);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+	}
+	
+	//check email for forgot password
+	@PostMapping("/emailauth/{email}")
+	public ResponseEntity<DefaultResponse> getEmailAuth(@PathVariable ("email") String email){
+		String result = authDao.emailAuth(email);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+	}
+	
+	//change password
+	@PostMapping("/changepassword")
+	public ResponseEntity<DefaultResponse> changePassword(@RequestBody MUserprofileCustom1 mUserprofileCst1){
+		boolean result = authDao.changePassword(mUserprofileCst1);
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
 	

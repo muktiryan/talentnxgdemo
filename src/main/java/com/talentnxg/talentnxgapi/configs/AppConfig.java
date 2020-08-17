@@ -38,6 +38,16 @@ public class AppConfig {
 	 		+ "ON mc.id = utc.companyid) mt ON mu.userid = mt.userid "
 	 		+ "WHERE mu.username=? and mu.secretpwd=crypt(?, secretpwd);";
 	 
+	 public static final String emailAuth = "SELECT * from m_userprofile where email = ?";
+	 
+	 public static final String resetPassword = "UPDATE m_userprofile SET secretpwd = crypt(?, secretpwd) " 
+	 		+ "	WHERE email = ?; ";
+	 
+	 public static final String checkPassword = "SELECT * FROM m_userprofile WHERE userid = ? and secretpwd = crypt(?, secretpwd);";
+	 
+	 public static final String changePassword = "UPDATE m_userprofile SET secretpwd = crypt(?, secretpwd) " 
+		 		+ "	WHERE userid = ?; ";
+	 
 /////////////////////////////////////////////////////////////////////////////////////
 //	 public static final String selectMainMenu = "SELECT appid, appname, description "
 //			 + "FROM public.m_applications "
