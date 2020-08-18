@@ -1,7 +1,7 @@
 {
   "baseUrl": "https://davembush.github.io/api",
   "socketUrl": "http://localhost:4200/",
-  "apiUrl": "https://dotted-hulling-275514.el.r.appspot.com/api/v1/",
+  "apiUrl": "https://valiant-sandbox-286800.uc.r.appspot.com/api/v1/",
   "apiUrl2": "https://demo-dot-dotted-hulling-275514.el.r.appspot.com/",
   "apiModuleUrl": "https://demo-dot-dotted-hulling-275514.el.r.appspot.com/",
   "reportUrl": "https://dotted-hulling-275514.el.r.appspot.com/",
