@@ -9,6 +9,7 @@ public class Profile {
 	private String userAvatar;
 	private Integer companyId;
 	private String companyName;
+	private Integer isAdmin;
 	
 	public Profile() {
 		// TODO Auto-generated constructor stub
@@ -72,6 +73,14 @@ public class Profile {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+
+	public Integer getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Integer isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 	
