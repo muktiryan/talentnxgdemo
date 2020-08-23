@@ -15,8 +15,9 @@ import com.talentnxg.talentnxgapi.dao.LogGenericDao;
 import com.talentnxg.talentnxgapi.models.LogGeneric;
 import com.talentnxg.talentnxgapi.models.LogGenericCustom1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
-@CrossOrigin(origins = "*")
+
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "${v1API}")
 public class LogGenericController {
 	@Autowired

@@ -64,6 +64,7 @@ public class UserController {
 	public ResponseEntity<RespLoginCst1> postLogin(@RequestBody ReqLogin reqLogin) {
 		ObjectMapper Obj = new ObjectMapper();
 		String jsonStr = null;
+		System.out.println("##################### ANJAY");
 //		RespLogin resCust = authDao.getAuthentication(reqLogin);
 		RespLoginCst1 resCust = authDao.getAuthentication(reqLogin);
 		try {
