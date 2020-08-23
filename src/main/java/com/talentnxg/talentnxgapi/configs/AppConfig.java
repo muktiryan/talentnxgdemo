@@ -29,7 +29,7 @@ public class AppConfig {
 
 	 public static final String selectMUserProfileByLogin = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, " 
 	 		+ "mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, "  
-	 		+ "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, "  
+	 		+ "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, "  
 	 		+ "mt.tenant_name, mt.companyid, mt.company_name "  
 	 		+ "FROM m_userprofile mu INNER JOIN ( "
 	 		+ "SELECT utc.utcid, utc.userid, utc.tenantid, utc.tenant_name, utc.tenant_code, utc.tenant_activation_code, mc.id companyid, mc.company_name " 
@@ -316,8 +316,8 @@ public class AppConfig {
 	 public static final String deleteMTenant = "DELETE FROM m_tenant WHERE id=?;";
 	 
 //////////////////////////////////////M User Profile///////////////////////////////////////
-	 public static final String saveMUserprofile = "INSERT INTO m_userprofile (username, fullname, active, secretpwd, avatarname, email, phone, mobile, fax, tenantid, employeecode, city, created_by, created_date) "
-			 +"VALUES (?, ?, 1, crypt(?, gen_salt('bf')), 'default', ?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp); ";
+	 public static final String saveMUserprofile = "INSERT INTO m_userprofile (username, fullname, active, secretpwd, avatarname, email, phone, mobile, fax, tenantid, employeecode, city, created_by, created_date, isadmin) "
+			 +"VALUES (?, ?, 1, crypt(?, gen_salt('bf')), 'default', ?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp, ?); ";
 	 
 //////////////////////////////////////M User Profile///////////////////////////////////////
 //	 public static final String saveMUserprofile = "INSERT INTO m_userprofile (username, fullname, active, secretpwd, avatarname, email, phone, mobile, fax, tenantid, employeecode, city, created_by, created_date) "
@@ -336,7 +336,7 @@ public class AppConfig {
 
 	 public static final String selectMUserprofile = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, " 
 	 		 + "mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, " 
-	 		 + "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, " 
+	 		 + "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, " 
 	 		 + "mt.tenantid, mt.tenant_name, mt.companyid, mt.company_name " 
 	 		 + "FROM m_userprofile mu INNER JOIN ( " 
 	 		 + "SELECT utc.utcid, utc.userid, utc.tenantid, utc.tenant_name, mc.id companyid, mc.company_name " 
@@ -345,15 +345,15 @@ public class AppConfig {
 	 		 + "FROM m_user_to_company uc INNER JOIN m_tenant mt ON uc.tenantid = mt.id) utc " 
 	 		 + "ON mc.id = utc.companyid) mt ON mu.userid = mt.userid;";
 	 
-	 public static final String selectMUserprofileByRole = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, COALESCE( dr.roleid, 0 ) isselect " + 
+	 public static final String selectMUserprofileByRole = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, COALESCE( dr.roleid, 0 ) isselect " + 
 	 		"FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid;";
 	 
 	 
-	 public static final String findMUserprofileById = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by "
+	 public static final String findMUserprofileById = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by, isadmin "
 			 + "FROM m_userprofile "
 			 + "WHERE userid=?;";
 	 
-	 public static final String updateMUserprofile = "UPDATE m_userprofile SET username=?, fullname=?, active=?, email=?, address=?, alias=?, phone=?, mobile=?, fax=?, city=?, tenantid=?, employeecode=?, updated_date=current_timestamp, updated_by=? "
+	 public static final String updateMUserprofile = "UPDATE m_userprofile SET username=?, fullname=?, active=?, email=?, address=?, alias=?, phone=?, mobile=?, fax=?, city=?, tenantid=?, employeecode=?, updated_date=current_timestamp, updated_by=?, isadmin=?  "
 			 + "WHERE userid=?;";
 	 
 	 public static final String deleteMUserprofile = "DELETE FROM m_userprofile WHERE userid=?;";

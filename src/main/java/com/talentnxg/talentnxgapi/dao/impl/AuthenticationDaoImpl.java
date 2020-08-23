@@ -136,6 +136,7 @@ public class AuthenticationDaoImpl implements AuthenticationDao {
 				profile.setUserFullname((String)row.get("fullname"));
 				profile.setCompanyId(Integer.parseInt(row.get("companyid").toString()));
 				profile.setCompanyName((String)row.get("company_name"));
+				profile.setIsAdmin(Integer.parseInt(row.get("isadmin").toString()));
 	         }
 			
 			Object[] tmpuserid = new Object[] {new Integer(profile.getUserId())};

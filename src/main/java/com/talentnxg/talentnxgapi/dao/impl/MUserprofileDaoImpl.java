@@ -36,6 +36,7 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 			temp.setInt(8, mUserprofile.getTenantid().intValue());
 			temp.setString(9, mUserprofile.getEmployeecode());
 			temp.setString(10, mUserprofile.getCity());
+			temp.setInt(11,  mUserprofile.getIsadmin());
 			return temp;
 		}, useridKey);
 		return useridKey.getKey().longValue();
@@ -67,6 +68,7 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 			mUserprofile.setCreatedDate((Date)row.get("created_date"));
 			mUserprofile.setUpdatedBy((String)row.get("updated_by"));
 			mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+			mUserprofile.setIsadmin(Integer.parseInt(row.get("isadmin").toString()));
 			mUserprofile.setSelectedRole(Integer.parseInt(row.get("isselect").toString()));
             result.add(mUserprofile);
         }
@@ -101,6 +103,7 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 			mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
 			mUserprofile.setCompanyid(Integer.parseInt(row.get("companyid").toString()));
 			mUserprofile.setCompanyname((String)row.get("company_name"));
+			mUserprofile.setIsadmin(Integer.parseInt(row.get("isadmin").toString()));
 			mUserprofile.setSelectedRole(0);
             result.add(mUserprofile);
         }
@@ -133,6 +136,7 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 				mUserprofile.setCreatedDate((Date)row.get("created_date"));
 				mUserprofile.setUpdatedBy((String)row.get("updated_by"));
 				mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+				mUserprofile.setIsadmin(Integer.parseInt(row.get("isadmin").toString()));
 			}
 		}		
 		return mUserprofile;
@@ -155,7 +159,8 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 			temp.setInt(11, mUserprofile.getTenantid());
 			temp.setString(12, mUserprofile.getEmployeecode());
 			temp.setString(13, mUserprofile.getUpdatedBy());
-			temp.setInt(14, userid);
+			temp.setInt(14, mUserprofile.getIsadmin());
+			temp.setInt(15, userid);
 			return temp;
 		});
 		MUserprofile result = findMUserprofileById(userid);

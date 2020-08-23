@@ -26,6 +26,8 @@ public class MUserprofile {
 	private Integer selectedRole;
 	private Integer companyid;
 	private String companyname;
+	private Integer isadmin;
+	
 	
 	public MUserprofile() {
 		// TODO Auto-generated constructor stub
@@ -259,6 +261,16 @@ public class MUserprofile {
 
 	public void setCompanyid(Integer companyid) {
 		this.companyid = companyid;
+	}
+
+
+	public Integer getIsadmin() {
+		return isadmin;
+	}
+
+
+	public void setIsadmin(Integer isadmin) {
+		this.isadmin = isadmin;
 	}
 	
 	
