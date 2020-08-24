@@ -11,10 +11,6 @@ public class DatasourceConfig {
 //	jdbc:postgresql:///<DATABASE_NAME>?cloudSqlInstance=<INSTANCE_CONNECTION_NAME>&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=<POSTGRESQL_USER_NAME>&password=<POSTGRESQL_USER_PASSWORD>
 //	String googleConnectionName= "jdbc:postgresql://google/postgres?cloudSqlInstance=dotted-hulling-275514:us-central1:cloud-tnxg-postgres&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=postgres&password=p@ssword.1";
 	String googleConnectionName= "jdbc:postgresql://google/postgres?cloudSqlInstance=valiant-sandbox-286800:us-central1:cloud-tnxg-postgres&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=postgres&password=p@ssword.1";
-	
-	
-	
-	
 	@Bean
 	public DataSource dataSource() {
 		return DataSourceBuilder.create()
