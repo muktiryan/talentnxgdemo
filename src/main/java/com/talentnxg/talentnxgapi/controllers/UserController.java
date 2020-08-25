@@ -26,7 +26,6 @@ import com.talentnxg.talentnxgapi.models.MUserprofile;
 import com.talentnxg.talentnxgapi.models.MUserprofileCustom1;
 import com.talentnxg.talentnxgapi.pojos.ReqLogin;
 import com.talentnxg.talentnxgapi.pojos.ReqSetup;
-import com.talentnxg.talentnxgapi.pojos.RespLogin;
 import com.talentnxg.talentnxgapi.pojos.RespLoginCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 

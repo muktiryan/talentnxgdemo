@@ -73,6 +73,26 @@ public class MProfileDaoImpl implements MProfileDao{
 		}
 		return (Iterable<MProfileCustom1>) result;
 	}
+	
+	@Override
+	public Iterable<MProfileCustom1> getMProfileCst1BySuperAdmin() {
+		List<MProfileCustom1> result = new ArrayList<MProfileCustom1>();
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMProfileCustom1BySuperAdmin);
+		for (Map<String, Object> row: rows) {
+			MProfileCustom1 mProfileCst1 = new MProfileCustom1();
+			mProfileCst1.setProfilesid(Integer.parseInt(row.get("profilesid").toString()));
+			mProfileCst1.setProfilesname((String)row.get("profilesname"));
+			mProfileCst1.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mProfileCst1.setCreatedBy((String)row.get("created_by"));
+			mProfileCst1.setCreatedDate((Date)row.get("created_date"));
+			mProfileCst1.setUpdatedBy((String)row.get("updated_by"));
+			mProfileCst1.setUpdatedDate((Date)row.get("updated_date"));
+			mProfileCst1.setTenantname((String)row.get("tenant_name"));
+			mProfileCst1.setCompanyname((String)row.get("company_name"));
+			result.add(mProfileCst1);	
+		}
+		return (Iterable<MProfileCustom1>) result;
+	}
 
 	@Override
 	public MProfile getMProfileById(Integer profilesid) {

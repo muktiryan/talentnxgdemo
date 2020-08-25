@@ -74,11 +74,79 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
         }
 		return (Iterable<MUserprofile>) result;
 	}
+	
+	@Override
+	public Iterable<MUserprofile> getMUserprofileSelectedBySuperUser(Integer idrole) {
+		Object[] parameter = new Object[] {new Integer(idrole)}; 
+		List<MUserprofile> result = new ArrayList<MUserprofile>();
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMUserprofileByRoleSuperUser, parameter);
+		for (Map<String, Object> row : rows) {
+			MUserprofile mUserprofile = new MUserprofile();
+			mUserprofile.setUserid(Integer.parseInt(row.get("userid").toString()));
+			mUserprofile.setUsername((String)row.get("username"));
+			mUserprofile.setFullname((String)row.get("fullname"));
+			mUserprofile.setActive(Integer.parseInt(row.get("active").toString()));
+			mUserprofile.setSecretpwd((String)row.get("secretpwd"));
+			mUserprofile.setAvatarname((String)row.get("avatarname"));
+			mUserprofile.setEmail((String)row.get("email"));
+			mUserprofile.setAddress((String)row.get("address"));
+			mUserprofile.setAlias((String)row.get("alias"));
+			mUserprofile.setPhone((String)row.get("phone"));
+			mUserprofile.setMobile((String)row.get("mobile"));
+			mUserprofile.setFax((String)row.get("fax"));
+			mUserprofile.setCity((String)row.get("city"));
+			mUserprofile.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mUserprofile.setEmployeecode((String)row.get("employeecode"));
+			mUserprofile.setCreatedBy((String)row.get("created_by"));
+			mUserprofile.setCreatedDate((Date)row.get("created_date"));
+			mUserprofile.setUpdatedBy((String)row.get("updated_by"));
+			mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+			mUserprofile.setIsadmin(Integer.parseInt(row.get("isadmin").toString()));
+			mUserprofile.setSelectedRole(Integer.parseInt(row.get("isselect").toString()));
+            result.add(mUserprofile);
+        }
+		return (Iterable<MUserprofile>) result;
+	}
 
 	@Override
 	public Iterable<MUserprofile> getMUserprofile() {
 		List<MUserprofile> result = new ArrayList<MUserprofile>();
 		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMUserprofile);
+		for (Map<String, Object> row : rows) {
+			MUserprofile mUserprofile = new MUserprofile();
+			mUserprofile.setUserid(Integer.parseInt(row.get("userid").toString()));
+			mUserprofile.setUsername((String)row.get("username"));
+			mUserprofile.setFullname((String)row.get("fullname"));
+			mUserprofile.setActive(Integer.parseInt(row.get("active").toString()));
+			mUserprofile.setSecretpwd((String)row.get("secretpwd"));
+			mUserprofile.setAvatarname((String)row.get("avatarname"));
+			mUserprofile.setEmail((String)row.get("email"));
+			mUserprofile.setAddress((String)row.get("address"));
+			mUserprofile.setAlias((String)row.get("alias"));
+			mUserprofile.setPhone((String)row.get("phone"));
+			mUserprofile.setMobile((String)row.get("mobile"));
+			mUserprofile.setFax((String)row.get("fax"));
+			mUserprofile.setCity((String)row.get("city"));
+			mUserprofile.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mUserprofile.setTenantname((String)row.get("tenant_name"));
+			mUserprofile.setEmployeecode((String)row.get("employeecode"));
+			mUserprofile.setCreatedBy((String)row.get("created_by"));
+			mUserprofile.setCreatedDate((Date)row.get("created_date"));
+			mUserprofile.setUpdatedBy((String)row.get("updated_by"));
+			mUserprofile.setUpdatedDate((Date)row.get("updated_date"));
+			mUserprofile.setCompanyid(Integer.parseInt(row.get("companyid").toString()));
+			mUserprofile.setCompanyname((String)row.get("company_name"));
+			mUserprofile.setIsadmin(Integer.parseInt(row.get("isadmin").toString()));
+			mUserprofile.setSelectedRole(0);
+            result.add(mUserprofile);
+        }
+		return (Iterable<MUserprofile>) result;
+	}
+	
+	@Override
+	public Iterable<MUserprofile> getMUserprofileBySuperAdmin() {
+		List<MUserprofile> result = new ArrayList<MUserprofile>();
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMUserprofileBySuperAdmin);
 		for (Map<String, Object> row : rows) {
 			MUserprofile mUserprofile = new MUserprofile();
 			mUserprofile.setUserid(Integer.parseInt(row.get("userid").toString()));

@@ -1,6 +1,5 @@
 package com.talentnxg.talentnxgapi.dao.impl;
 
-import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,19 +12,16 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.google.api.client.json.Json;
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.AuthenticationDao;
 import com.talentnxg.talentnxgapi.models.MApplication;
 import com.talentnxg.talentnxgapi.models.MCompany;
 import com.talentnxg.talentnxgapi.models.MModule;
 import com.talentnxg.talentnxgapi.models.MModuleForMenu;
-import com.talentnxg.talentnxgapi.models.MSystem;
 import com.talentnxg.talentnxgapi.models.Profile;
 import com.talentnxg.talentnxgapi.models.MUserprofile;
 import com.talentnxg.talentnxgapi.models.MUserprofileCustom1;
 import com.talentnxg.talentnxgapi.pojos.ReqLogin;
-import com.talentnxg.talentnxgapi.pojos.RespLogin;
 import com.talentnxg.talentnxgapi.pojos.RespLoginCst1;
 
 @Repository

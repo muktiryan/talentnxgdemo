@@ -34,10 +34,35 @@ public class MUserprofileController {
 		Iterable<MUserprofile> result = mUserprofileDao.getMUserprofile();
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
+	
+	@GetMapping("/muserprofiles/findRecordByUserAdmin/{isadmin}")
+	public ResponseEntity<DefaultResponse> getMUserprofileByUserAdmin(@PathVariable("isadmin") Integer isadmin){
+		if(isadmin == 1) {
+			Iterable<MUserprofile> result = mUserprofileDao.getMUserprofileBySuperAdmin();
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
+		else {
+			Iterable<MUserprofile> result = mUserprofileDao.getMUserprofile();
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
+	}
+	
 	@GetMapping("/muserprofilesSelectedRole/{roleid}")
 	public ResponseEntity<DefaultResponse> getMUserprofileSelectedRole(@PathVariable("roleid") Integer roleid){
 		Iterable<MUserprofile> result = mUserprofileDao.getMUserprofileSelected(roleid);
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+	}
+	
+	@GetMapping("/muserprofilesSelectedRole/{roleid}/{isadmin}")
+	public ResponseEntity<DefaultResponse> getMUserprofileSelectedRoleByUserAdmin(@PathVariable("roleid") Integer roleid, @PathVariable("isadmin") Integer isadmin){
+		if(isadmin == 1) {
+			Iterable<MUserprofile> result = mUserprofileDao.getMUserprofileSelectedBySuperUser(roleid);
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
+		else {
+			Iterable<MUserprofile> result = mUserprofileDao.getMUserprofileSelected(roleid);
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
 	}
 	
 	@GetMapping("/muserprofiles/{userid}")

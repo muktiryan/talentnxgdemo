@@ -17,4 +17,6 @@ public interface MRoleDao {
 
 	void deleteMRole(Integer rolesid);
 
+	Iterable<MRoleCustom1> getMRoleCustom1BySuperAdmin();
+
 }

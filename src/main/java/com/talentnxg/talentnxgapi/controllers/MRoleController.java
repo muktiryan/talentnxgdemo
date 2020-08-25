@@ -47,6 +47,20 @@ public class MRoleController {
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
 	}
 	
+	//retrieve custom record by admin status
+	@GetMapping("/mrolescst1/findRecordByUserAdmin/{isadmin}")
+	public ResponseEntity<DefaultResponse> getMRoleCustom1ByUserAdmin(@PathVariable("isadmin") Integer isadmin){
+		if(isadmin == 1) {
+			Iterable<MRoleCustom1> result = mRoleDao.getMRoleCustom1BySuperAdmin();
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+		}
+		else {
+			Iterable<MRoleCustom1> result = mRoleDao.getMRoleCustom1();
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
+
+	}
+	
 	//find by id
 	@GetMapping("/mroles/{rolesid}")
 	public ResponseEntity<DefaultResponse> getMRoleById(@PathVariable("rolesid") Integer rolesid){

@@ -120,12 +120,12 @@ public class MApplicationCustom1 {
 		return tenantname;
 	}
 
-
+	
 	public void setTenantname(String tenantname) {
 		this.tenantname = tenantname;
 	}
 
-
+	
 	public String getCompanyname() {
 		return companyname;
 	}

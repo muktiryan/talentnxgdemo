@@ -12,5 +12,6 @@ public interface MApplicationDao {
 	public long deletMApplication(Integer appd);
 	public Iterable<MApplicationCustom1> getMApplicationCustom1();
 	public Iterable<MApplicationCustom1> getMApplicationByType(Integer typeid);
+	public Iterable<MApplicationCustom1> getMApplicationCustom1BySuperAdmin();
 
 }

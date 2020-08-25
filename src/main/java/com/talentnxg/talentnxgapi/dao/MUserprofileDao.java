@@ -15,5 +15,9 @@ public interface MUserprofileDao {
 
 	void deleteMUserprofile(Integer userid);
 
+	Iterable<MUserprofile> getMUserprofileBySuperAdmin();
+
+	Iterable<MUserprofile> getMUserprofileSelectedBySuperUser(Integer roleid);
+
 
 }

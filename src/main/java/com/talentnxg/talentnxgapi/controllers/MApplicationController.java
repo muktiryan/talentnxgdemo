@@ -46,6 +46,19 @@ public class MApplicationController {
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
 	
+	//retrieve custom record by user admin
+	@GetMapping("/mapplicationscst1/{isadmin}")
+	public ResponseEntity<DefaultResponse> getMApplicationCustom1ByUserAdmin(@PathVariable ("isadmin") Integer isadmin){
+		if(isadmin == 1) {
+			Iterable<MApplicationCustom1> result = mApplicationDao.getMApplicationCustom1BySuperAdmin();
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));	
+		}
+		else {
+			Iterable<MApplicationCustom1> result = mApplicationDao.getMApplicationCustom1();
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));	
+		}
+	}
+	
 	//find by id
 	@GetMapping("/mapplications/{appid}")
 	public ResponseEntity<DefaultResponse> getMApplicationById(@PathVariable("appid") Integer appid){

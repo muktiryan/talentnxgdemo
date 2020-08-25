@@ -77,6 +77,27 @@ public class MApplicationDaoImpl implements MApplicationDao{
 		}
 		return (Iterable<MApplicationCustom1>) result;
 	}
+	
+	@Override
+	public Iterable<MApplicationCustom1> getMApplicationCustom1BySuperAdmin() {
+		List<MApplicationCustom1> result = new ArrayList<MApplicationCustom1>();
+		List<Map<String, Object>> rows = (ArrayList<Map<String,Object>>) jdbcTemplate.queryForList(AppConfig.selectMApplicationCustom1BySuperAdmin);
+		for (Map<String, Object> row: rows) {
+			MApplicationCustom1 mApplicationCustom1 = new MApplicationCustom1();
+			mApplicationCustom1.setAppid(Integer.parseInt(row.get("appid").toString()));
+			mApplicationCustom1.setAppname((String)row.get("appname"));
+			mApplicationCustom1.setDescription((String)row.get("description"));
+			mApplicationCustom1.setCreatedBy((String)row.get("created_by"));
+			mApplicationCustom1.setCreatedDate((Date)row.get("created_date"));
+			mApplicationCustom1.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			mApplicationCustom1.setUpdatedBy((String)row.get("updated_by"));
+			mApplicationCustom1.setUpdatedDate((Date)row.get("updated_date"));
+			mApplicationCustom1.setTenantname((String)row.get("tenant_name"));
+			mApplicationCustom1.setCompanyname((String)row.get("company_name"));
+			result.add(mApplicationCustom1);
+		}
+		return (Iterable<MApplicationCustom1>) result;
+	}
 
 	@Override
 	public MApplication getMApplicationById(Integer appid) {

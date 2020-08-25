@@ -44,6 +44,20 @@ public class MProfileController {
 		Iterable<MProfileCustom1> result = mProfileDao.getMProfileCst1();
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
+	
+	//retrieve all record custom by user admin
+	@GetMapping("/mprofilescst1/{isadmin}")
+	public ResponseEntity<DefaultResponse> getMProfileCst1ByUserAdmin(@PathVariable ("isadmin") Integer isadmin){
+		if(isadmin == 1) {
+			Iterable<MProfileCustom1> result = mProfileDao.getMProfileCst1BySuperAdmin();
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
+		else {
+			Iterable<MProfileCustom1> result = mProfileDao.getMProfileCst1();
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
+	}
+		
 		
 	//find by id
 	@GetMapping("/mprofiles/{profilesid}")

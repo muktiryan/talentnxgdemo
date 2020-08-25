@@ -163,7 +163,15 @@ public class AppConfig {
 	 		 + "FROM m_tenant me INNER JOIN " 
 	 		 + "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc "
 	 		 + "ON me.id = mc.tenant_id) mt "
-	 		 + "INNER JOIN m_applications ma ON ma.tenantid = mt.id;";
+	 		 + "INNER JOIN m_applications ma ON ma.tenantid = mt.id "
+	 		 + "WHERE NOT ma.appid = 1; ";
+	 
+	 public static final String selectMApplicationCustom1BySuperAdmin = "SELECT DISTINCT ma.appid, ma.appname, ma.description, ma.created_by, ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, mt.tenant_name " 
+	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name " 
+	 		 + "FROM m_tenant me INNER JOIN " 
+	 		 + "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc "
+	 		 + "ON me.id = mc.tenant_id) mt "
+	 		 + "INNER JOIN m_applications ma ON ma.tenantid = mt.id; ";
 	 
 	 public static final String findMApplicationById = "SELECT  appid, appname, description, created_by, created_date, tenantid, updated_by, updated_date "
 			 + "FROM m_applications "
@@ -206,7 +214,14 @@ public class AppConfig {
 	 		+ "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
 	 		+ "FROM m_tenant me INNER JOIN "
 	 		+ "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc ON me.id = mc.tenant_id) mt "  
-	 		+ "INNER JOIN m_profiles mp ON mp.tenantid = mt.id;";
+	 		+ "INNER JOIN m_profiles mp ON mp.tenantid = mt.id "
+	 		+ "WHERE NOT mp.profilesid = 1;";
+	 
+	 public static final String selectMProfileCustom1BySuperAdmin = "SELECT DISTINCT mp.profilesid, mp.profilesname, mp.tenantid, mp.created_by, mp.created_date, mp.updated_by, mp.updated_date, mt.tenant_name "  
+		 	+ "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name "  
+		 	+ "FROM m_tenant me INNER JOIN "
+		 	+ "(SELECT company_name, tenant_id FROM m_company WHERE is_active=true) mc ON me.id = mc.tenant_id) mt "  
+		 	+ "INNER JOIN m_profiles mp ON mp.tenantid = mt.id;";
 
 	 public static final String findMProfileById = "SELECT  profilesid, profilesname, tenantid, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_profiles "
@@ -269,6 +284,12 @@ public class AppConfig {
 //	 		 + "ORDER BY mt.company_name;";
 	 
 	 public static final String selectMRoleCustom1 = "SELECT DISTINCT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name " 
+	 		 + "FROM (SELECT * FROM m_tenant me INNER JOIN "  
+	 		 + "(SELECT tenant_id, company_name FROM m_company WHERE is_active = true) mc ON me.id = mc.tenant_id) mt " 
+	 		 + "INNER JOIN m_roles mr ON mt.id = mr.tenantid "
+	 		 + "WHERE NOT mr.rolesid = 1 ;"; 
+	 
+	 public static final String selectMRoleCustom1BySuperAdmin = "SELECT DISTINCT mr.rolesid, mr.rolename, mr.tenantid, mr.created_by, mr.created_date, mr.updated_by, mr.updated_date, mr.isadmin,	case when mr.isadmin = 1 then  'Yes' else 'No' end as isadminStr, mr.roleidrpt, mt.tenant_name " 
 	 		 + "FROM (SELECT * FROM m_tenant me INNER JOIN "  
 	 		 + "(SELECT tenant_id, company_name FROM m_company WHERE is_active = true) mc ON me.id = mc.tenant_id) mt " 
 	 		 + "INNER JOIN m_roles mr ON mt.id = mr.tenantid ;"; 
@@ -334,7 +355,7 @@ public class AppConfig {
 //	 		 + "FROM (SELECT me.id, me.tenant_code, me.tenant_activation_code, me.is_active, me.created_by, me.created_date, me.updated_by, me.updated_date, me.tenant_name, mc.company_name FROM m_tenant me INNER JOIN m_company mc ON me.id = mc.tenant_id) mt "
 //	 		 + "INNER JOIN m_userprofile mu  ON mu.tenantid = mt.id;";
 
-	 public static final String selectMUserprofile = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, " 
+	 public static final String selectMUserprofileBySuperAdmin = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, " 
 	 		 + "mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, " 
 	 		 + "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, " 
 	 		 + "mt.tenantid, mt.tenant_name, mt.companyid, mt.company_name " 
@@ -345,9 +366,24 @@ public class AppConfig {
 	 		 + "FROM m_user_to_company uc INNER JOIN m_tenant mt ON uc.tenantid = mt.id) utc " 
 	 		 + "ON mc.id = utc.companyid) mt ON mu.userid = mt.userid;";
 	 
-	 public static final String selectMUserprofileByRole = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, COALESCE( dr.roleid, 0 ) isselect " + 
-	 		"FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid;";
+	 public static final String selectMUserprofile = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, " 
+	 		 + "mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, " 
+	 		 + "mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, " 
+	 		 + "mt.tenantid, mt.tenant_name, mt.companyid, mt.company_name " 
+	 		 + "FROM m_userprofile mu INNER JOIN ( " 
+	 		 + "SELECT utc.utcid, utc.userid, utc.tenantid, utc.tenant_name, mc.id companyid, mc.company_name " 
+	 		 + "FROM m_company mc INNER JOIN ( " 
+	 		 + "SELECT uc.utcid, uc.userid, uc.companyid, uc.tenantid, mt.tenant_name " 
+	 		 + "FROM m_user_to_company uc INNER JOIN m_tenant mt ON uc.tenantid = mt.id) utc " 
+	 		 + "ON mc.id = utc.companyid) mt ON mu.userid = mt.userid "
+	 		 + "WHERE NOT mu.isadmin = 1;" ;
 	 
+	 public static final String selectMUserprofileByRole = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, COALESCE( dr.roleid, 0 ) isselect " + 
+	 		"FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid "
+	 		+ "WHERE NOT mu.userid = 1;";
+	 
+	 public static final String selectMUserprofileByRoleSuperUser = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, COALESCE( dr.roleid, 0 ) isselect " 
+			+ "FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid;";
 	 
 	 public static final String findMUserprofileById = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by, isadmin "
 			 + "FROM m_userprofile "

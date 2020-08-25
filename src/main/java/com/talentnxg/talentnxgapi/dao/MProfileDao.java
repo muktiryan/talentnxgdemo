@@ -17,4 +17,6 @@ public interface MProfileDao {
 
 	Iterable<MProfileCustom1> getMProfileCst1();
 
+	Iterable<MProfileCustom1> getMProfileCst1BySuperAdmin();
+
 }
