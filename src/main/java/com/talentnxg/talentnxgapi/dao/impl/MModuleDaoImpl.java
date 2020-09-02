@@ -286,6 +286,55 @@ public class MModuleDaoImpl implements MModuleDao{
 		return tabMenus;
 	}
 
+	@Override
+	public Long checkModNameForUpdate(MModule module, long modid) {
+		Object[] parameter = new Object[] {new Long(modid)}; 
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findModuleById, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row:rows) {
+				if((String) row.get("modname") == module.getModname()) {
+					return (long) 1;
+				}
+				else {
+					Long id;
+					Object[] parameter1 = new Object[] {new String(module.getModname())}; 
+					List<Map<String, Object>> temps = jdbcTemplate.queryForList(AppConfig.findModuleByModname, parameter1);
+					if (rows.size() > 0) {
+						for (Map<String, Object> temp:temps) {
+							id = (Long) temp.get("modid");
+							if(id == modid){
+								return (long) 1;
+							}
+							else {
+								return (long) 0;
+							}
+						}
+					}
+				}
+			}
+		}
+		return (long) 1;
+	}
+
+	@Override
+	public Long checkModName(MModule module) {
+		Long id;
+		Object[] parameter = new Object[] {new String(module.getModname())}; 
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findModuleByModname, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row:rows) {
+				id = (Long) row.get("modid");
+				if(id > 0 ) {
+					return (long) 0;
+				}
+				else {
+					return (long) 1;
+				}
+			}
+		}
+		return (long) 1;
+	}
+
 	
 
 

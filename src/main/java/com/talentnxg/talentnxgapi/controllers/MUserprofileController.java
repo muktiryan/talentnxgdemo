@@ -25,19 +25,16 @@ public class MUserprofileController {
 	
 	@PostMapping("/muserprofiles")
 	public ResponseEntity<DefaultResponse> save (@RequestBody MUserprofile mUserprofile){
-//		System.out.println("cek valid username");
-//		Boolean validUsername = mUserprofileDao.checkUsername(mUserprofile);
-//		if(validUsername == false) {
-//			System.out.println("username invalid");
-//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already used");
-//		}
-//		else {
-//			System.out.println("username valid");
-//			long userid = mUserprofileDao.saveMUserProfile(mUserprofile);
-//			return ResponseEntity.status(HttpStatus.OK).body("success");
-//		}
-		long userid = mUserprofileDao.saveMUserProfile(mUserprofile);
-		return ResponseEntity.ok(new DefaultResponse(1, "succes", userid));
+		Long validUsername = mUserprofileDao.checkUsername(mUserprofile);
+		if(validUsername == 0) {
+			return ResponseEntity.ok(new DefaultResponse(0, "username already used", validUsername));
+		}
+		else {
+			long userid = mUserprofileDao.saveMUserProfile(mUserprofile);
+			return ResponseEntity.ok(new DefaultResponse(1, "succes", userid));
+		}
+//		long userid = mUserprofileDao.saveMUserProfile(mUserprofile);
+//		return ResponseEntity.ok(new DefaultResponse(1, "succes", userid));
 	}
 	
 	
@@ -85,8 +82,17 @@ public class MUserprofileController {
 	
 	@PutMapping("/muserprofiles/{userid}")
 	public ResponseEntity<DefaultResponse> updateMUserprofile(@RequestBody MUserprofile mUserprofile, @PathVariable("userid") Integer userid){
-		MUserprofile result = mUserprofileDao.updateMUserprofile(mUserprofile, userid);
-		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		long id = userid;
+		Long validUsername = mUserprofileDao.checkUsernameForUpdate(mUserprofile, id);
+		if(validUsername == 0) {
+			return ResponseEntity.ok(new DefaultResponse(0, "username already used", validUsername));
+		}
+		else {
+			MUserprofile result = mUserprofileDao.updateMUserprofile(mUserprofile, userid);
+			return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+		}
+//		MUserprofile result = mUserprofileDao.updateMUserprofile(mUserprofile, userid);
+//		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
 	
 	@DeleteMapping("/muserprofiles/{userid}")

@@ -31,8 +31,16 @@ public class MModuleController {
 	//insert
 	@PostMapping("/mmodules")
 	public ResponseEntity<DefaultResponse> saveModule (@RequestBody MModule module) {
-		long moduleId = moduleDao.save(module);
-		return ResponseEntity.ok(new DefaultResponse(1, "Success", moduleId));
+		Long validUsername = moduleDao.checkModName(module);
+		if(validUsername == 0) {
+			return ResponseEntity.ok(new DefaultResponse(0, "mod name already used", validUsername));
+		}
+		else {
+			long moduleId = moduleDao.save(module);
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", moduleId));
+		}
+//		long moduleId = moduleDao.save(module);
+//		return ResponseEntity.ok(new DefaultResponse(1, "Success", moduleId));
 	}
 	//update
 	@PostMapping("/mmodulesmember")
@@ -53,8 +61,17 @@ public class MModuleController {
 	//update
 	@PutMapping("/mmodules/{modid}")
 	public ResponseEntity<DefaultResponse> updateModule (@RequestBody MModule module, @PathVariable ("modid") Integer updatedModId){
-		MModule newModule = moduleDao.update(module, updatedModId);
-		return ResponseEntity.ok(new DefaultResponse(1, "Success", newModule));
+		long modid = updatedModId;
+		Long validUsername = moduleDao.checkModNameForUpdate(module, modid);
+		if(validUsername == 0) {
+			return ResponseEntity.ok(new DefaultResponse(0, "mod name already used", validUsername));
+		}
+		else {
+			MModule newModule = moduleDao.update(module, updatedModId);
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", newModule));
+		}
+//		MModule newModule = moduleDao.update(module, updatedModId);
+//		return ResponseEntity.ok(new DefaultResponse(1, "Success", newModule));
 	}
 	//update
 		@PutMapping("/mmodulesmember/{groupid}")

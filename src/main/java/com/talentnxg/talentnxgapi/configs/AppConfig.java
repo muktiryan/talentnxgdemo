@@ -134,6 +134,10 @@ public class AppConfig {
 			 + "FROM m_modules "
 			 + "WHERE modid=?;";
 	 
+	 public static final String findModuleByModname = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
+			 + "FROM m_modules "
+			 + "WHERE modname=?;";
+	 
 	 public static final String updateModule = "UPDATE m_modules SET modname=?, modtype=?, modtitle=?, modroute=?, modrealpath=?, modicon=?, updated_by=?, updated_date=current_timestamp, groupid=? "
 			 + "WHERE modid=?; ";
 	 public static final String updateModuleByGroupid = "UPDATE m_modules SET modtype=?, groupid=? "

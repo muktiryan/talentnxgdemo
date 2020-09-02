@@ -42,25 +42,54 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 		return useridKey.getKey().longValue();
 	}
 	
-//	@Override
-//	public boolean checkUsername(MUserprofile mUserprofile) {
-//		Object[] parameter = new Object[] {new String(mUserprofile.getUsername())}; 
-//		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findMUserprofileByUsername, parameter);
-//		if (rows.size() > 0) {
-//			for (Map<String, Object> row:rows) {
-//				System.out.println("row : " + row);
-//				if(row.size() > 0  ) {
-//					System.out.println("username sudah ada");
-//					return false;
-//				}
-//				else {
-//					System.out.println("username belum ada");
-//					return true;
-//				}
-//			}
-//		}
-//		return true;
-//	}
+	@Override
+	public long checkUsername(MUserprofile mUserprofile) {
+		Long id;
+		Object[] parameter = new Object[] {new String(mUserprofile.getUsername())}; 
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findMUserprofileByUsername, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row:rows) {
+				id = (Long) row.get("userid");
+				if(id > 0 ) {
+					return 0;
+				}
+				else {
+					return 1;
+				}
+			}
+		}
+		return 1;
+	}
+	
+	@Override
+	public Long checkUsernameForUpdate(MUserprofile mUserprofile, Long userid) {
+		Object[] parameter = new Object[] {new Long(userid)}; 
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findMUserprofileById, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row:rows) {
+				if((String) row.get("username") == mUserprofile.getUsername()) {
+					return (long) 1;
+				}
+				else {
+					Long id;
+					Object[] parameter1 = new Object[] {new String(mUserprofile.getUsername())}; 
+					List<Map<String, Object>> temps = jdbcTemplate.queryForList(AppConfig.findMUserprofileByUsername, parameter1);
+					if (temps.size() > 0) {
+						for (Map<String, Object> temp:temps) {
+							id = (Long) temp.get("userid");
+							if(id == userid){
+								return (long) 1;
+							}
+							else {
+								return (long) 0;
+							}
+						}
+					}
+				}
+			}
+		}
+		return (long) 1;
+	}
 	
 
 	@Override

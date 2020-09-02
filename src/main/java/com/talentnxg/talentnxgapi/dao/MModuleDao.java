@@ -16,5 +16,7 @@ public interface MModuleDao {
 	public Iterable<MModule> getModuleByGroupAndType(Integer groupid, Integer typeId);
 	public Iterable<MModule> getModuleByGroupOrType(Integer groupid, Integer typeId);
 	public Iterable<MModuleForMenu> getListMenuByAppid(Integer appid);
+	public Long checkModName(MModule module);
+	public Long checkModNameForUpdate(MModule module, long modid);
 
 }
