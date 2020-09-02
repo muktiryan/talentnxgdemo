@@ -389,6 +389,10 @@ public class AppConfig {
 			 + "FROM m_userprofile "
 			 + "WHERE userid=?;";
 	 
+	 public static final String findMUserprofileByUsername = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by, isadmin "
+			 + "FROM m_userprofile "
+			 + "WHERE username=?;";
+	 
 	 public static final String updateMUserprofile = "UPDATE m_userprofile SET username=?, fullname=?, active=?, email=?, address=?, alias=?, phone=?, mobile=?, fax=?, city=?, tenantid=?, employeecode=?, updated_date=current_timestamp, updated_by=?, isadmin=?  "
 			 + "WHERE userid=?;";
 	 

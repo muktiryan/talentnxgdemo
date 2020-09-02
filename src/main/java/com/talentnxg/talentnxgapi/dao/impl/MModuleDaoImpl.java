@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.talentnxg.talentnxgapi.configs.AppConfig;
 import com.talentnxg.talentnxgapi.dao.MModuleDao;
 import com.talentnxg.talentnxgapi.models.MModule;
+import com.talentnxg.talentnxgapi.models.MModuleForMenu;
 
 @Repository
 public class MModuleDaoImpl implements MModuleDao{
@@ -246,6 +247,43 @@ public class MModuleDaoImpl implements MModuleDao{
 			result.add(mModule);
 		}
 		return (Iterable<MModule>) result;
+	}
+
+	@Override
+	public Iterable<MModuleForMenu> getListMenuByAppid(Integer appid) {
+		Object [] activeAppid = new Object [] { new Integer (appid)};
+		List<MModuleForMenu> tabMenus = new ArrayList<MModuleForMenu>();
+		List<Map<String, Object>> temp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.retrieveMenuByAppid, activeAppid));
+		for(Map<String,Object> row:temp){
+			MModuleForMenu module = new MModuleForMenu();
+			module.setModid(Integer.parseInt(row.get("modid").toString()));
+			module.setModname((String)row.get("modname"));
+			module.setModtype(Integer.parseInt(row.get("modtype").toString()));
+			module.setModtitle((String)row.get("modtitle"));
+			module.setModroute((String)row.get("modroute"));
+			module.setModrealpath((String)row.get("modrealpath"));
+			
+			List<MModule> childItem = new ArrayList<MModule>();
+			if(module.getModtype() == 1) {
+				List<Map<String, Object>> itemTemp = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(AppConfig.retrieveMenuByGroupid, module.getModid()));
+				for(Map<String,Object> rowChild:itemTemp){
+					MModule childModule = new MModule();
+					childModule.setModid(Integer.parseInt(rowChild.get("modid").toString()));
+					childModule.setModname((String)rowChild.get("modname"));
+					childModule.setModtype(Integer.parseInt(rowChild.get("modtype").toString()));
+					childModule.setModtitle((String)rowChild.get("modtitle"));
+					childModule.setModroute((String)rowChild.get("modroute"));
+					childModule.setModrealpath((String)rowChild.get("modrealpath"));
+					childModule.setGroupid(Integer.parseInt(rowChild.get("groupid").toString()));
+					childItem.add(childModule);
+				}
+				module.setSubitems(childItem);
+			} else {
+				module.setSubitems(childItem);
+			}
+			tabMenus.add(module);
+	    }
+		return tabMenus;
 	}
 
 	

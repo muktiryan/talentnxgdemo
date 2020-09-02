@@ -41,6 +41,27 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 		}, useridKey);
 		return useridKey.getKey().longValue();
 	}
+	
+//	@Override
+//	public boolean checkUsername(MUserprofile mUserprofile) {
+//		Object[] parameter = new Object[] {new String(mUserprofile.getUsername())}; 
+//		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findMUserprofileByUsername, parameter);
+//		if (rows.size() > 0) {
+//			for (Map<String, Object> row:rows) {
+//				System.out.println("row : " + row);
+//				if(row.size() > 0  ) {
+//					System.out.println("username sudah ada");
+//					return false;
+//				}
+//				else {
+//					System.out.println("username belum ada");
+//					return true;
+//				}
+//			}
+//		}
+//		return true;
+//	}
+	
 
 	@Override
 	public Iterable<MUserprofile> getMUserprofileSelected(int idrole) {
@@ -241,5 +262,8 @@ public class MUserprofileDaoImpl implements MUserprofileDao{
 		jdbcTemplate.update(AppConfig.deleteMUserprofile, parameter);
 		jdbcTemplate.update(AppConfig.deleteMUserToCompanyByUserid, parameter);
 	}
+
+
+
 
 }

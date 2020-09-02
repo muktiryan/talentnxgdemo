@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.talentnxg.talentnxgapi.dao.MModuleDao;
 import com.talentnxg.talentnxgapi.models.MModule;
+import com.talentnxg.talentnxgapi.models.MModuleForMenu;
 import com.talentnxg.talentnxgapi.pojos.ReqSaveMenuCst1;
 import com.talentnxg.talentnxgapi.response.DefaultResponse;
 
@@ -94,6 +95,13 @@ public class MModuleController {
 	public ResponseEntity<DefaultResponse> getModuleById(@PathVariable ("modid") Integer modId){
 		MModule result = moduleDao.getModuleById(modId);
 		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+	}
+	
+	//retrieve list of menu and group menu by appid
+	@GetMapping("mmodulesByAppid/{appid}")
+	public ResponseEntity<DefaultResponse> getListMenuByAppid(@PathVariable ("appid") Integer appid){
+		Iterable<MModuleForMenu> result = moduleDao.getListMenuByAppid(appid);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
 	
 	//delete

@@ -25,9 +25,21 @@ public class MUserprofileController {
 	
 	@PostMapping("/muserprofiles")
 	public ResponseEntity<DefaultResponse> save (@RequestBody MUserprofile mUserprofile){
+//		System.out.println("cek valid username");
+//		Boolean validUsername = mUserprofileDao.checkUsername(mUserprofile);
+//		if(validUsername == false) {
+//			System.out.println("username invalid");
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already used");
+//		}
+//		else {
+//			System.out.println("username valid");
+//			long userid = mUserprofileDao.saveMUserProfile(mUserprofile);
+//			return ResponseEntity.status(HttpStatus.OK).body("success");
+//		}
 		long userid = mUserprofileDao.saveMUserProfile(mUserprofile);
-		return ResponseEntity.ok(new DefaultResponse(1, "success", userid));
+		return ResponseEntity.ok(new DefaultResponse(1, "succes", userid));
 	}
+	
 	
 	@GetMapping("/muserprofiles")
 	public ResponseEntity<DefaultResponse> getMUserprofile(){

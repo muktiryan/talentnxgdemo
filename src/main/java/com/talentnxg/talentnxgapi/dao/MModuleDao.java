@@ -1,6 +1,7 @@
 package com.talentnxg.talentnxgapi.dao;
 
 import com.talentnxg.talentnxgapi.models.MModule;
+import com.talentnxg.talentnxgapi.models.MModuleForMenu;
 
 public interface MModuleDao {
 	public long save(MModule module);
@@ -14,5 +15,6 @@ public interface MModuleDao {
 	public Iterable<MModule> getModuleByType(Integer typeId);
 	public Iterable<MModule> getModuleByGroupAndType(Integer groupid, Integer typeId);
 	public Iterable<MModule> getModuleByGroupOrType(Integer groupid, Integer typeId);
+	public Iterable<MModuleForMenu> getListMenuByAppid(Integer appid);
 
 }

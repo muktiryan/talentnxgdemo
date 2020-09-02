@@ -19,5 +19,8 @@ public interface MUserprofileDao {
 
 	Iterable<MUserprofile> getMUserprofileSelectedBySuperUser(Integer roleid);
 
+//	boolean checkUsername(MUserprofile mUserprofile);
+
+
 
 }
