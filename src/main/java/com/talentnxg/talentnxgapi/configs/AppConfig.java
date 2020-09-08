@@ -136,7 +136,7 @@ public class AppConfig {
 	 
 	 public static final String findModuleByModname = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules "
-			 + "WHERE modname=?;";
+			 + "WHERE upper(modname)=upper(?);";
 	 
 	 public static final String updateModule = "UPDATE m_modules SET modname=?, modtype=?, modtitle=?, modroute=?, modrealpath=?, modicon=?, updated_by=?, updated_date=current_timestamp, groupid=? "
 			 + "WHERE modid=?; ";
@@ -301,6 +301,10 @@ public class AppConfig {
 	 public static final String findMRoleById = "SELECT  rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt "
 			 + "FROM m_roles "
 			 + "WHERE rolesid=?;";
+	 
+	 public static final String findMRoleByRolename = "SELECT  rolesid, rolename, tenantid, created_by, created_date, updated_by, updated_date, isadmin, roleidrpt "
+			 + "FROM m_roles "
+			 + "WHERE upper(rolename)=upper(?);";
 
 	 public static final String updateMRole = "UPDATE m_roles SET rolename=?, tenantid=?, updated_by=?, updated_date=current_timestamp, isadmin=?, roleidrpt=? "
 			 + "WHERE rolesid=?;";
@@ -317,6 +321,10 @@ public class AppConfig {
 	 public static final String findDRoleById = "SELECT  rmemid, roleid, usersid "
 			 + "FROM d_roles "
 			 + "WHERE rmemid=?;";
+	 
+	 public static final String findDRoleByRoleId = "SELECT  rmemid, roleid, usersid "
+			 + "FROM d_roles "
+			 + "WHERE roleid=?;";
 
 	 public static final String updateDRole = "UPDATE d_roles SET roleid=?, usersid=? "
 			 + "WHERE rmemid=?;";
@@ -395,7 +403,7 @@ public class AppConfig {
 	 
 	 public static final String findMUserprofileByUsername = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by, isadmin "
 			 + "FROM m_userprofile "
-			 + "WHERE username=?;";
+			 + "WHERE upper(username)=upper(?);";
 	 
 	 public static final String updateMUserprofile = "UPDATE m_userprofile SET username=?, fullname=?, active=?, email=?, address=?, alias=?, phone=?, mobile=?, fax=?, city=?, tenantid=?, employeecode=?, updated_date=current_timestamp, updated_by=?, isadmin=?  "
 			 + "WHERE userid=?;";

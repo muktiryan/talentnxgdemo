@@ -147,6 +147,72 @@ public class MRoleDaoImpl implements MRoleDao{
 		jdbcTemplate.update(AppConfig.deleteDRoleByRoleId, parameter);
 		jdbcTemplate.update(AppConfig.deleteMRole, parameter);
 	}
+
+	@Override
+	public Long checkRoleName(MRole mRole) {
+		Long id;
+		Object[] parameter = new Object[] {new String(mRole.getRolename())}; 
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findMRoleByRolename, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row:rows) {
+				id = (Long) row.get("rolesid");
+				if(id > 0 ) {
+					return (long) 0;
+				}
+				else {
+					return (long) 1;
+				}
+			}
+		}
+		return (long) 1;
+	}
+
+	@Override
+	public Long checkRoleNameForUpdate(MRole mRole, long updatedRolesid) {
+		Object[] parameter = new Object[] {new Long(updatedRolesid)}; 
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findMRoleById, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row:rows) {
+				if((String) row.get("rolename") == mRole.getRolename()) {
+					return (long) 1;
+				}
+				else {
+					Long id;
+					Object[] parameter1 = new Object[] {new String(mRole.getRolename())}; 
+					List<Map<String, Object>> temps = jdbcTemplate.queryForList(AppConfig.findMRoleByRolename, parameter1);
+					if (rows.size() > 0) {
+						for (Map<String, Object> temp:temps) {
+							id = (Long) temp.get("rolesid");
+							if(id == updatedRolesid){
+								return (long) 1;
+							}
+							else {
+								return (long) 0;
+							}
+						}
+					}
+				}
+			}
+		}
+		return (long) 1;
+	}
+
+	@Override
+	public Long checkRoleMember(long checkrolesid) {
+		Object[] parameter = new Object[] {new Integer ((int) checkrolesid)}; 
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(AppConfig.findDRoleByRoleId, parameter);
+		if (rows.size() > 0) {
+			for (Map<String, Object> row:rows) {
+				Long id = (Long) row.get("rolesid");
+				if(id == null ) {
+					return (long) 0;
+				}
+				else {
+				}
+			}
+		}
+		return (long) 1;
+	}
 	
 
 }

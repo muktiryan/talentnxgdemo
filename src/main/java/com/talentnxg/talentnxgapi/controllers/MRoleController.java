@@ -28,9 +28,16 @@ public class MRoleController {
 	//insert
 	@PostMapping("/mroles")
 	public ResponseEntity<DefaultResponse> saveMRole(@RequestBody MRole mRole){
-//		System.out.println("############ "+mRole.getRolename());
-		long rolesid = mRoleDao.save(mRole);
-		return ResponseEntity.ok(new DefaultResponse(1, "Success", rolesid));
+		Long validRolename = mRoleDao.checkRoleName(mRole);
+		if(validRolename == 0) {
+			return ResponseEntity.ok(new DefaultResponse(0, "role name already used", validRolename));
+		}
+		else {
+			long rolesid = mRoleDao.save(mRole);
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", rolesid));
+		}
+//		long rolesid = mRoleDao.save(mRole);
+//		return ResponseEntity.ok(new DefaultResponse(1, "Success", rolesid));
 	}
 	
 	//retrieve all record
@@ -71,14 +78,32 @@ public class MRoleController {
 	//update
 	@PutMapping("/mroles/{rolesid}")
 	public ResponseEntity<DefaultResponse> updateMRole(@RequestBody MRole mRole, @PathVariable("rolesid") Integer rolesid){
-		MRole result = mRoleDao.updateMRole(mRole, rolesid);
-		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+		long updatedRolesid = rolesid;
+		Long validRolename = mRoleDao.checkRoleNameForUpdate(mRole, updatedRolesid);
+		if(validRolename == 0) {
+			return ResponseEntity.ok(new DefaultResponse(0, "role name already used", validRolename));
+		}
+		else {
+			MRole result = mRoleDao.updateMRole(mRole, rolesid);
+			return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
+		}
+//		MRole result = mRoleDao.updateMRole(mRole, rolesid);
+//		return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
 	}
 		
 	//delete
 	@DeleteMapping("/mroles/{rolesid}")
-	public void deleteMRole(@PathVariable("rolesid") Integer rolesid) {
-		mRoleDao.deleteMRole(rolesid);
+	public ResponseEntity<DefaultResponse> deleteMRole(@PathVariable("rolesid") Integer rolesid) {
+		long checkrolesid = rolesid;
+		Long canDeleteRole = mRoleDao.checkRoleMember(checkrolesid);
+		if(canDeleteRole == 0) {
+			return ResponseEntity.ok(new DefaultResponse(0, "This user group have member ", rolesid));
+		}
+		else {
+			mRoleDao.deleteMRole(rolesid);
+			return ResponseEntity.ok(new DefaultResponse(1, "success", rolesid));
+		}
+//		mRoleDao.deleteMRole(rolesid);
 	}
 
 }

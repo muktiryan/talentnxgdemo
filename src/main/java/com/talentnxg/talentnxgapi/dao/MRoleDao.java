@@ -19,4 +19,10 @@ public interface MRoleDao {
 
 	Iterable<MRoleCustom1> getMRoleCustom1BySuperAdmin();
 
+	Long checkRoleName(MRole mRole);
+
+	Long checkRoleNameForUpdate(MRole mRole, long updatedRolesid);
+
+	Long checkRoleMember(long checkrolesid);
+
 }
