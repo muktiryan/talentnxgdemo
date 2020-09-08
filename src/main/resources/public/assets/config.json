@@ -1,7 +1,7 @@
 {
   "baseUrl": "https://davembush.github.io/api",
   "socketUrl": "https://valiant-sandbox-286800.uc.r.appspot.com/api/v1/#http://localhost:4200/",
-  "apiUrl": "https://valiant-sandbox-286800.uc.r.appspot.com/api/v1/",
+  "apiUrl": "http://34.101.172.125:8080/api/v1/",
   "apiUrl2": "https://demo-dot-valiant-sandbox-286800.uc.r.appspot.com/",
   "apiModuleUrl": "https://demo-dot-valiant-sandbox-286800.uc.r.appspot.com/",
   "reportUrl": "https://demo-dot-valiant-sandbox-286800.uc.r.appspot.com/",
