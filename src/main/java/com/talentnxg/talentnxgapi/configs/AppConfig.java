@@ -550,4 +550,25 @@ public class AppConfig {
 			+ "FROM log_generic "
 			+ "WHERE log_type_id = ?;";
 			
+	///////////////////////////////////////// Menu Admin To User/////////////////////////////////////////////////
+	public static final String saveMMenuAdminToUser = "INSERT INTO m_menu_admin_to_user " 
+			+ "(user_id, menu_admin_id, created_by, created_date) " 
+			+ "VALUES(?, ?, 1, CURRENT_TIMESTAMP);";
+			
+	public static final String selectMMenuAdminToUser = "SELECT mmatu.id, mmatu.user_id, mmatu.menu_admin_id, mma.menu_admin_name, mmatu.created_by, mmatu.created_date, mmatu.updated_by, mmatu.updated_date "
+			+ "FROM m_menu_admin_to_user mmatu inner join " 
+			+ "m_menu_admin mma " 
+			+ "on mma.id = mmatu.menu_admin_id;";
+
+	public static final String findMMenuAdminToUserByUserId = "SELECT mmatu.id, mmatu.user_id, mmatu.menu_admin_id, mma.menu_admin_name, mmatu.created_by, mmatu.created_date, mmatu.updated_by, mmatu.updated_date "
+			+ "FROM m_menu_admin_to_user mmatu inner join " 
+			+ "m_menu_admin mma " 
+			+ "on mma.id = mmatu.menu_admin_id "
+			+ "where mmatu.user_id = ?;";
+	
+	public static final String findMMenuAdminToUserByGroupName = "SELECT id, menu_admin_name, menu_admin_group, created_by, created_date, updated_by, updated_date "
+			+ "FROM m_menu_admin "
+			+ "where upper(menu_admin_group) = upper(?);";
+	
+	 public static final String deleteMenuAdminById = "DELETE FROM m_menu_admin_to_user WHERE user_id=?;"; 
 }
