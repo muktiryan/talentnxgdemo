@@ -23,5 +23,7 @@ public class MSystemLicenseController {
 		Integer result = mSystemLicenseDao.saveMSystemLicense(mUserLicense);
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
+	
+	
 
 }
