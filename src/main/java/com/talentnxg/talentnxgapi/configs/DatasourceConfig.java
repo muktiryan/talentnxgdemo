@@ -15,8 +15,8 @@ public class DatasourceConfig {
 	public DataSource dataSource() {
 		return DataSourceBuilder.create()
 //		          .driverClassName("org.postgresql.Driver")
-		          .url(googleConnectionName)
-//		          .url("jdbc:postgresql://34.121.112.120:5432/postgres")
+//		          .url(googleConnectionName)
+		          .url("jdbc:postgresql://34.121.112.120:5432/postgres")
 //		          .url("jdbc:postgresql://localhost:5433/postgres")
 //		          .url("jdbc:postgresql://localhost:5432/newtnxg")
 		          .username("postgres")

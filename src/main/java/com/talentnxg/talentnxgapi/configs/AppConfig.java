@@ -570,5 +570,15 @@ public class AppConfig {
 			+ "FROM m_menu_admin "
 			+ "where upper(menu_admin_group) = upper(?);";
 	
-	 public static final String deleteMenuAdminById = "DELETE FROM m_menu_admin_to_user WHERE user_id=?;"; 
+	public static final String deleteMenuAdminById = "DELETE FROM m_menu_admin_to_user WHERE user_id=?;"; 
+	 
+	/////////////////////////////////////// LICENSE //////////////////////////////////////////////////////////////
+	//insert
+	public static final String saveMSystemLicense = "INSERT INTO public.m_system_license " 
+			+ "(company_code, company_name, contact_person, contact_person_phone, company_license, license_code, expired_date, "
+			+ "active_employee, hcm_user, registered_active_employee, registered_hcm_user, status_record, remarks, "
+			+ "effective_start_date, effective_end_date, created_by, created_date "
+			+ "VALUES(?, ?, ?, ?, ?, ?, ?, "
+			+ "?, ?, ?, ?, 1, ?, "
+			+ "?, ?, ?, current_timestamp";
 }
