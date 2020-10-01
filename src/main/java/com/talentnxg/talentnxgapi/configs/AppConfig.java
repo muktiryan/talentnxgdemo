@@ -575,10 +575,53 @@ public class AppConfig {
 	/////////////////////////////////////// LICENSE //////////////////////////////////////////////////////////////
 	//insert
 	public static final String saveMSystemLicense = "INSERT INTO public.m_system_license " 
-			+ "(company_code, company_name, contact_person, contact_person_phone, company_license, license_code, expired_date, "
+			+ "(tenant_id, company_id, contact_person, contact_person_phone, company_license, license_code, expired_date, "
 			+ "active_employee, hcm_user, registered_active_employee, registered_hcm_user, status_record, remarks, "
-			+ "effective_start_date, effective_end_date, created_by, created_date "
+			+ "effective_start_date, effective_end_date, created_by, created_date)"
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, "
 			+ "?, ?, ?, ?, 1, ?, "
-			+ "?, ?, ?, current_timestamp";
+			+ "?, ?, ?, current_timestamp);";
+	
+	public static final String selectMSystemLicense = "select sl.id, sl.tenant_id, sl.company_id, sl.contact_person, sl.contact_person_phone, sl.company_license, sl.license_code, sl.expired_date, sl.active_employee, sl.hcm_user, sl.registered_active_employee, sl.registered_hcm_user, sl.status_record, sl.remarks, sl.effective_start_date, sl.effective_end_date, sl.created_by, sl.created_date, sl.company_code, sl.company_name, tn.tenant_name "
+			+ "from ("
+			+ "select msl.id, msl.tenant_id, msl.company_id, msl.contact_person, msl.contact_person_phone, msl.company_license, msl.license_code, msl.expired_date, msl.active_employee, msl.hcm_user, msl.registered_active_employee, msl.registered_hcm_user, msl.status_record, msl.remarks, msl.effective_start_date, msl.effective_end_date, msl.created_by, msl.created_date, mc.company_code, mc.company_name "
+			+ "from m_system_license msl " 
+			+ "inner join m_company mc " 
+			+ "on msl.company_id = mc.header_id) sl "
+			+ "inner join m_tenant tn "
+			+ "on sl.tenant_id = tn.id;";
+	
+	public static final String findMSystemLicenseById = "select * from m_system_license where id = ?;";
+	
+	public static final String updateMSystemLicenseById = "UPDATE public.m_system_license " 
+			+ "SET tenant_id=?, company_id=?, contact_person=?, contact_person_phone=?, company_license=?, license_code=?, "
+			+ "expired_date=?, active_employee=?, hcm_user=?, registered_active_employee=?, registered_hcm_user=?, "
+			+ "remarks=?, effective_start_date=?, effective_end_date=?, updated_by=?, updated_date=current_timestamp " 
+			+ "WHERE id = ?;";
+	
+	public static final String deleteMSystemLicenseById = "delete from m_system_license where id = ?;";
+	
+	/////////////////////////////////////// D LICENSE /////////////////////////////////////////////////////////////
+	public static final String selectDSystemLicense = "select * from d_system_license;";
+	
+	public static final String findDSystemLicenseById = "select * from d_system_license where id = ?;";
+	
+	public static final String findDSystemLicenseByLicenseId = "SELECT ma.appid, ma.appname, ma.description, ma.created_by, "
+			+ "ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, "
+			+ "ma.apptype, dsl.license_id " 
+			+ "	FROM public.m_applications ma " 
+			+ "left join (select * from d_system_license where license_id = ?) dsl " 
+			+ "on ma.appid = dsl.module_id " 
+			+ "WHERE NOT ma.appid = 1;";
+	
+	public static final String deleteDSystemLicenseById = "delete from d_system_license where id = ?;";
+	
+	public static final String deleteDSystemLicenseByLicenseId = "delete from d_system_license where license_id = ?;";
+	
+	public static final String saveDSystemLicense = "INSERT INTO public.d_system_license "
+			+ "(license_id, module_id) "
+			+ "VALUES(?, ?);";
+	
+	
+	
 }

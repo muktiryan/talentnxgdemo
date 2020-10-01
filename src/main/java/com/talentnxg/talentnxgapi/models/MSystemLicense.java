@@ -8,33 +8,36 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class MSystemLicense {
 	private Integer id;
+	private Long tenantId;
+	private Long companyId;
 	private String companyCode;
 	private String companyName;
 	private String contactPerson;
 	private String contactPersonPhone;
-	private Integer companyLicense;
+	private Long companyLicense;
 	private String licenseCode;
 	@JsonFormat(pattern = "MM/dd/yyyy")
-	private Date expireDate;
-	private Integer activeEmployee;
-	private Integer hcmUser;
-	private Integer registeredActiveEmployee;
-	private Integer registeredHcmUser;
+	private Date expiredDate;
+	private Long activeEmployee;
+	private Long hcmUser;
+	private Long registeredActiveEmployee;
+	private Long registeredHcmUser;
 	private String remarks;
 	@NotNull
 	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date effectiveStartDate;
 	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date effectiveEndDate;
-	private Integer createdBy;
+	private Long createdBy;
 	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date createdDate;
-	private Integer updatedBy;
+	private Long updatedBy;
 	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date updatedDate;
-	private Integer deletedBy;
+	private Long deletedBy;
 	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date deletedDate;
+	private String tenantName;
 	
 	
 	public MSystemLicense() {
@@ -52,23 +55,23 @@ public class MSystemLicense {
 	}
 
 
-	public String getCompanyCode() {
-		return companyCode;
+	public Long getTenantId() {
+		return tenantId;
 	}
 
 
-	public void setCompanyCode(String companyCode) {
-		this.companyCode = companyCode;
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
 	}
 
 
-	public String getCompanyName() {
-		return companyName;
+	public Long getCompanyId() {
+		return companyId;
 	}
 
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
 	}
 
 
@@ -92,12 +95,12 @@ public class MSystemLicense {
 	}
 
 
-	public Integer getCompanyLicense() {
+	public Long getCompanyLicense() {
 		return companyLicense;
 	}
 
 
-	public void setCompanyLicense(Integer companyLicense) {
+	public void setCompanyLicense(Long companyLicense) {
 		this.companyLicense = companyLicense;
 	}
 
@@ -112,52 +115,52 @@ public class MSystemLicense {
 	}
 
 
-	public Date getExpireDate() {
-		return expireDate;
+	public Date getExpiredDate() {
+		return expiredDate;
 	}
 
 
-	public void setExpireDate(Date expireDate) {
-		this.expireDate = expireDate;
+	public void setExpiredDate(Date expiredDate) {
+		this.expiredDate = expiredDate;
 	}
 
 
-	public Integer getActiveEmployee() {
+	public Long getActiveEmployee() {
 		return activeEmployee;
 	}
 
 
-	public void setActiveEmployee(Integer activeEmployee) {
+	public void setActiveEmployee(Long activeEmployee) {
 		this.activeEmployee = activeEmployee;
 	}
 
 
-	public Integer getHcmUser() {
+	public Long getHcmUser() {
 		return hcmUser;
 	}
 
 
-	public void setHcmUser(Integer hcmUser) {
+	public void setHcmUser(Long hcmUser) {
 		this.hcmUser = hcmUser;
 	}
 
 
-	public Integer getRegisteredActiveEmployee() {
+	public Long getRegisteredActiveEmployee() {
 		return registeredActiveEmployee;
 	}
 
 
-	public void setRegisteredActiveEmployee(Integer registeredActiveEmployee) {
+	public void setRegisteredActiveEmployee(Long registeredActiveEmployee) {
 		this.registeredActiveEmployee = registeredActiveEmployee;
 	}
 
 
-	public Integer getRegisteredHcmUser() {
+	public Long getRegisteredHcmUser() {
 		return registeredHcmUser;
 	}
 
 
-	public void setRegisteredHcmUser(Integer registeredHcmUser) {
+	public void setRegisteredHcmUser(Long registeredHcmUser) {
 		this.registeredHcmUser = registeredHcmUser;
 	}
 
@@ -192,12 +195,12 @@ public class MSystemLicense {
 	}
 
 
-	public Integer getCreatedBy() {
+	public Long getCreatedBy() {
 		return createdBy;
 	}
 
 
-	public void setCreatedBy(Integer createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -212,12 +215,12 @@ public class MSystemLicense {
 	}
 
 
-	public Integer getUpdatedBy() {
+	public Long getUpdatedBy() {
 		return updatedBy;
 	}
 
 
-	public void setUpdatedBy(Integer updatedBy) {
+	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
@@ -232,12 +235,12 @@ public class MSystemLicense {
 	}
 
 
-	public Integer getDeletedBy() {
+	public Long getDeletedBy() {
 		return deletedBy;
 	}
 
 
-	public void setDeletedBy(Integer deletedBy) {
+	public void setDeletedBy(Long deletedBy) {
 		this.deletedBy = deletedBy;
 	}
 
@@ -250,5 +253,36 @@ public class MSystemLicense {
 	public void setDeletedDate(Date deletedDate) {
 		this.deletedDate = deletedDate;
 	}
-	
+
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+
+	public String getTenantName() {
+		return tenantName;
+	}
+
+
+	public void setTenantName(String tenantName) {
+		this.tenantName = tenantName;
+	}
+
+
 }
