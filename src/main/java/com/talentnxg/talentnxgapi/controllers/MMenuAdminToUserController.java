@@ -77,5 +77,6 @@ public class MMenuAdminToUserController {
 		Iterable<MMenuAdmin> result = mMenuAdminToUserDao.findMMenuAdminToUserByGroupName(groupName);
 		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
 	}
+	
 
 }

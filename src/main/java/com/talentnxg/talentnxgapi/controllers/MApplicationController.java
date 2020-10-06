@@ -72,6 +72,13 @@ public class MApplicationController {
 			Iterable<MApplicationCustom1> result = mApplicationDao.getMApplicationByType(typeid);
 			return ResponseEntity.ok(new DefaultResponse(1, "Success", result));
 		}
+		
+	//find by role id
+	@GetMapping("/mapplicationbyrole/{roleid}")
+	public ResponseEntity<DefaultResponse> getMApplicationByRoleId(@PathVariable("roleid") Integer roleid){
+		Iterable<MApplication> result = mApplicationDao.getMApplicationByRoleId(roleid);
+		return ResponseEntity.ok(new DefaultResponse(1, "success", result));
+	}
 	
 	//update
 	@PutMapping("/mapplications/{appid}")

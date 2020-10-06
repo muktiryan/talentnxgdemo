@@ -6,7 +6,7 @@ public class MMenuAdminToUser {
 	private Integer id;
 	private Integer userId;
 	private String username;
-	private Integer menuAdminId;
+	private Integer menuId;
 	private String menuAdminName;
 	private Integer createdBy;
 	private Date createdDate;
@@ -34,13 +34,15 @@ public class MMenuAdminToUser {
 		this.userId = userId;
 	}
 
-	public Integer getMenuAdminId() {
-		return menuAdminId;
+	public Integer getMenuId() {
+		return menuId;
 	}
 
-	public void setMenuAdminId(Integer menuAdminId) {
-		this.menuAdminId = menuAdminId;
+
+	public void setMenuId(Integer menuId) {
+		this.menuId = menuId;
 	}
+
 
 	public Integer getCreatedBy() {
 		return createdBy;

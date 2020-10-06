@@ -177,6 +177,10 @@ public class AppConfig {
 	 		 + "ON me.id = mc.tenant_id) mt "
 	 		 + "INNER JOIN m_applications ma ON ma.tenantid = mt.id; ";
 	 
+	 public static final String selectMApplicationByRoleId = "SELECT DISTINCT dp.appid,ma.appname,ma.description,ma.tenantid " 
+			 + "FROM d_profiles dp INNER JOIN m_applications ma " 
+			 + "ON ma.appid = dp.appid WHERE dp.rolesid = ?;";
+	 
 	 public static final String findMApplicationById = "SELECT  appid, appname, description, created_by, created_date, tenantid, updated_by, updated_date "
 			 + "FROM m_applications "
 			 + "WHERE appid=?;";
@@ -552,18 +556,18 @@ public class AppConfig {
 			
 	///////////////////////////////////////// Menu Admin To User/////////////////////////////////////////////////
 	public static final String saveMMenuAdminToUser = "INSERT INTO m_menu_admin_to_user " 
-			+ "(user_id, menu_admin_id, created_by, created_date) " 
+			+ "(user_id, menu_id, created_by, created_date) " 
 			+ "VALUES(?, ?, 1, CURRENT_TIMESTAMP);";
 			
-	public static final String selectMMenuAdminToUser = "SELECT mmatu.id, mmatu.user_id, mmatu.menu_admin_id, mma.menu_admin_name, mmatu.created_by, mmatu.created_date, mmatu.updated_by, mmatu.updated_date "
+	public static final String selectMMenuAdminToUser = "SELECT mmatu.id, mmatu.user_id, mmatu.menu_id, mma.menu_admin_name, mmatu.created_by, mmatu.created_date, mmatu.updated_by, mmatu.updated_date "
 			+ "FROM m_menu_admin_to_user mmatu inner join " 
 			+ "m_menu_admin mma " 
-			+ "on mma.id = mmatu.menu_admin_id;";
+			+ "on mma.id = mmatu.menu_id;";
 
-	public static final String findMMenuAdminToUserByUserId = "SELECT mmatu.id, mmatu.user_id, mmatu.menu_admin_id, mma.menu_admin_name, mmatu.created_by, mmatu.created_date, mmatu.updated_by, mmatu.updated_date "
+	public static final String findMMenuAdminToUserByUserId = "SELECT mmatu.id, mmatu.user_id, mmatu.menu_id, mma.menu_admin_name, mmatu.created_by, mmatu.created_date, mmatu.updated_by, mmatu.updated_date "
 			+ "FROM m_menu_admin_to_user mmatu inner join " 
 			+ "m_menu_admin mma " 
-			+ "on mma.id = mmatu.menu_admin_id "
+			+ "on mma.id = mmatu.menu_id "
 			+ "where mmatu.user_id = ?;";
 	
 	public static final String findMMenuAdminToUserByGroupName = "SELECT id, menu_admin_name, menu_admin_group, created_by, created_date, updated_by, updated_date "

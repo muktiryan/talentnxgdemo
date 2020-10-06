@@ -13,5 +13,6 @@ public interface MApplicationDao {
 	public Iterable<MApplicationCustom1> getMApplicationCustom1();
 	public Iterable<MApplicationCustom1> getMApplicationByType(Integer typeid);
 	public Iterable<MApplicationCustom1> getMApplicationCustom1BySuperAdmin();
+	public Iterable<MApplication> getMApplicationByRoleId(Integer roleid);
 
 }

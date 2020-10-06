@@ -181,6 +181,23 @@ public class MApplicationDaoImpl implements MApplicationDao{
 		return (Iterable<MApplicationCustom1>) result;
 	}
 
+	@Override
+	public Iterable<MApplication> getMApplicationByRoleId(Integer roleid) {
+		String sql = AppConfig.selectMApplicationByRoleId;
+		Object[] parameter = new Object [] {new Integer (roleid)};
+		List<MApplication> result = new ArrayList<MApplication>();
+		List<Map<String, Object>> temporary = (ArrayList<Map<String,Object>>)(jdbcTemplate.queryForList(sql, parameter));
+		for(Map<String,Object> row:temporary){
+			MApplication mApplication = new MApplication();
+			mApplication.setAppid(Integer.parseInt(row.get("appid").toString()));
+			mApplication.setAppname((String)row.get("appname"));
+			mApplication.setDescription((String)row.get("description"));
+			mApplication.setTenantid(Integer.parseInt(row.get("tenantid").toString()));
+			result.add(mApplication);
+	    }
+		return result;
+	}
+
 	
 
 

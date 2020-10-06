@@ -28,7 +28,7 @@ public class MMenuAdminToUserDaoImpl implements MMenuAdminToUserDao{
 		jdbcTemplate.update(connection -> {
 			PreparedStatement temp = connection.prepareStatement(AppConfig.saveMMenuAdminToUser, new String[]{"id"});
 			temp.setInt(1, mMenuAdminToUser.getUserId());
-			temp.setInt(2, mMenuAdminToUser.getMenuAdminId());
+			temp.setInt(2, mMenuAdminToUser.getMenuId());
 			return temp;
 		}, idKey);
 		
@@ -43,7 +43,7 @@ public class MMenuAdminToUserDaoImpl implements MMenuAdminToUserDao{
 			MMenuAdminToUser mMenuAdminToUser = new MMenuAdminToUser();
 			mMenuAdminToUser.setId(Integer.parseInt(row.get("id").toString()));
 			mMenuAdminToUser.setUserId(Integer.parseInt(row.get("user_id").toString()));
-			mMenuAdminToUser.setMenuAdminId(Integer.parseInt(row.get("menu_admin_id").toString()));
+			mMenuAdminToUser.setMenuId(Integer.parseInt(row.get("menu_id").toString()));
 			mMenuAdminToUser.setMenuAdminName((String)row.get("menu_admin_name"));
 			mMenuAdminToUser.setCreatedBy(Integer.parseInt(row.get("created_by").toString()));
 			mMenuAdminToUser.setCreatedDate((Date)row.get("created_date"));
@@ -63,7 +63,7 @@ public class MMenuAdminToUserDaoImpl implements MMenuAdminToUserDao{
 			MMenuAdminToUser mMenuAdminToUser = new MMenuAdminToUser();
 			mMenuAdminToUser.setId(Integer.parseInt(row.get("id").toString()));
 			mMenuAdminToUser.setUserId(Integer.parseInt(row.get("user_id").toString()));
-			mMenuAdminToUser.setMenuAdminId(Integer.parseInt(row.get("menu_admin_id").toString()));
+			mMenuAdminToUser.setMenuId(Integer.parseInt(row.get("menu_id").toString()));
 			mMenuAdminToUser.setMenuAdminName((String)row.get("menu_admin_name"));
 			mMenuAdminToUser.setCreatedBy(Integer.parseInt(row.get("created_by").toString()));
 			mMenuAdminToUser.setCreatedDate((Date)row.get("created_date"));
