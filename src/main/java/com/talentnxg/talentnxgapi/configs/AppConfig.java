@@ -58,9 +58,9 @@ public class AppConfig {
 //	 		"(SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?);";
 	 
 	 public static final String selectMainMenu = "SELECT DISTINCT dp.appid,ma.appname,ma.description,ma.tenantid " 
-	 		 + "FROM d_profiles dp INNER JOIN m_applications ma " 
+	 		 + "FROM m_profiles_detail dp INNER JOIN m_applications ma " 
 	 		 + "ON ma.appid = dp.appid WHERE dp.rolesid in " 
-	 		 + "(SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid where up.userid=?);";
+	 		 + "(SELECT dr.roleid FROM public.m_userprofile up Inner join m_roles_detail dr ON dr.usersid = up.userid where up.userid=?);";
 	 
 	 
 	 public static final String selectActiveTab = "SELECT modid, modname, modtitle, modrealpath "
@@ -76,12 +76,12 @@ public class AppConfig {
 //	 SELECT appid, appname FROM public.m_applications where appid in (select appid from d_profiles where rolesid in (select roleid from d_roles where usersid = 3)) ORDER BY appid LIMIT 1;
 	 
 	 
-	 public static final String selectActiveMenuByUser = "SELECT appid, appname FROM public.m_applications where appid in (select appid from d_profiles where rolesid in (select roleid from d_roles where usersid = ?)) ORDER BY appid LIMIT 1";
+	 public static final String selectActiveMenuByUser = "SELECT appid, appname FROM public.m_applications where appid in (select appid from m_profiles_detail where rolesid in (select roleid from m_roles_detail where usersid = ?)) ORDER BY appid LIMIT 1";
 	 
 	 
 	 public static final String retrieveMenuByAppid = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, mm.modicon " 
 	 		 + "FROM m_modules mm INNER JOIN " 
-	 		 + "(SELECT modid, integid FROM d_applications WHERE appid = ? GROUP BY modid, integid) da "
+	 		 + "(SELECT modid, integid FROM m_applications_detail WHERE appid = ? GROUP BY modid, integid) da "
 	 		 + "ON mm.modid = da.modid "
 	 		 + "ORDER BY da.integid;";
 	 
@@ -90,9 +90,9 @@ public class AppConfig {
 	 public static final String selectTabWorkStructure = "SELECT modid, modname, modtitle, modrealpath "
 		 		+ "from m_modules "
 		 		+ "where modid in "
-		 		+ "(SELECT da.modid from d_profiles dp INNER JOIN d_applications da ON da.appid = dp.appid "
+		 		+ "(SELECT da.modid from m_profiles_detail dp INNER JOIN m_applications_detail da ON da.appid = dp.appid "
 		 		+ "where dp.rolesid in "
-		 		+ "(SELECT dr.roleid FROM public.m_userprofile up Inner join d_roles dr ON dr.usersid = up.userid "
+		 		+ "(SELECT dr.roleid FROM public.m_userprofile up Inner join m_roles_detail dr ON dr.usersid = up.userid "
 		 		+ "where up.userid=?))"
 		 		+ "ORDER BY modid;";
 	 
@@ -128,7 +128,7 @@ public class AppConfig {
 	 public static final String selectMModuleByApplication = "SELECT mm.modid, mm.modname, mm.modtype, mm.modtitle, mm.modroute, mm.modrealpath, "
 		 		+ "mm.modicon, mm.created_by, mm.created_date, mm.updated_by, mm.updated_date, COALESCE( da.appid, 0) isselect "
 		 		+ "FROM m_modules mm LEFT JOIN "
-		 		+ "(SELECT * FROM d_applications WHERE appid = ?) da ON da.modid = mm.modid WHERE mm.modtype < 3;";
+		 		+ "(SELECT * FROM m_applications_detail WHERE appid = ?) da ON da.modid = mm.modid WHERE mm.modtype < 3;";
 		 
 	 public static final String findModuleById = "SELECT modid, modname, modtype, modtitle, modroute, modrealpath, modicon, created_by, created_date, updated_by, updated_date "
 			 + "FROM m_modules "
@@ -178,7 +178,7 @@ public class AppConfig {
 	 		 + "INNER JOIN m_applications ma ON ma.tenantid = mt.id; ";
 	 
 	 public static final String selectMApplicationByRoleId = "SELECT DISTINCT dp.appid,ma.appname,ma.description,ma.tenantid " 
-			 + "FROM d_profiles dp INNER JOIN m_applications ma " 
+			 + "FROM m_profiles_detail dp INNER JOIN m_applications ma " 
 			 + "ON ma.appid = dp.appid WHERE dp.rolesid = ?;";
 	 
 	 public static final String findMApplicationById = "SELECT  appid, appname, description, created_by, created_date, tenantid, updated_by, updated_date "
@@ -191,22 +191,22 @@ public class AppConfig {
 	 public static final String deleteMApplication = "DELETE FROM m_applications WHERE appid=?;"; 
 	 
 /////////////////////////////////////// D APPLICATIONS////////////////////////////////////////////
-	 public static final String saveDApplication = "INSERT INTO d_applications (appid, modid, created_by) "
+	 public static final String saveDApplication = "INSERT INTO m_applications_detail (appid, modid, created_by) "
 			 + "VALUES (?, ?, ?);";
 
 	 public static final String selectDApplication = "SELECT integid, appid, modid, created_by, created_date, updated_by, updated_date "
 			 + "FROM d_applications;";
 
 	 public static final String findDApplicationById = "SELECT  integid, appid, modid, created_by, created_date, updated_by, updated_date "
-			 + "FROM d_applications "
+			 + "FROM m_applications_detail "
 			 + "WHERE integid=?;";
 
-	 public static final String updateDApplication = "UPDATE d_applications SET appid=?, modid=?, updated_by=?, updated_date=current_timestamp "
+	 public static final String updateDApplication = "UPDATE m_applications_detail SET appid=?, modid=?, updated_by=?, updated_date=current_timestamp "
 			 + "WHERE integid=?;";
 
-	 public static final String deleteDApplication = "DELETE FROM d_applications WHERE integid=?;"; 
+	 public static final String deleteDApplication = "DELETE FROM m_applications_detail WHERE integid=?;"; 
 	 
-	 public static final String deleteDApplicationByAppid = "DELETE FROM d_applications WHERE appid=?;"; 
+	 public static final String deleteDApplicationByAppid = "DELETE FROM m_applications_detail WHERE appid=?;"; 
 	 
 /////////////////////////////////////// M PROFILES////////////////////////////////////////////
 	 public static final String saveMProfile = "INSERT INTO m_profiles (profilesname, tenantid, created_by) "
@@ -241,7 +241,7 @@ public class AppConfig {
 	 public static final String deleteMProfile = "DELETE FROM m_profiles WHERE profilesid=?;"; 
 	 
 /////////////////////////////////////// D PROFILES////////////////////////////////////////////
-	 public static final String saveDProfile = "INSERT INTO d_profiles (appid, rolesid, profileid) "
+	 public static final String saveDProfile = "INSERT INTO m_profiles_detail (appid, rolesid, profileid) "
 			 + "VALUES (?, ?, ?);";
 
 //	 public static final String selectDProfile = "SELECT objid, appid, rolesid, profileid "
@@ -251,26 +251,26 @@ public class AppConfig {
 //			 + "FROM d_profiles "
 //			 + "WHERE objid=?;";
 
-	 public static final String updateDProfile = "UPDATE d_profiles SET appid=?, rolesid=?, profileid=? "
+	 public static final String updateDProfile = "UPDATE m_profiles_detail SET appid=?, rolesid=?, profileid=? "
 			 + "WHERE objid=?;";
 
-	 public static final String deleteDProfile = "DELETE FROM d_profiles WHERE objid=?;"; 
+	 public static final String deleteDProfile = "DELETE FROM m_profiles_detail WHERE objid=?;"; 
 	 
-	 public static final String deleteDProfileByProfileId = "DELETE FROM d_profiles WHERE profileid =? ;";
+	 public static final String deleteDProfileByProfileId = "DELETE FROM m_profiles_detail WHERE profileid =? ;";
 	 
 	 public static final String selectDProfile = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
-	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
+	 		 + "FROM m_applications ma INNER JOIN m_profiles_detail dp ON ma.appid=dp.appid "
 	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
 	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid;";
 
 	 public static final String findDProfileByProfileId = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
-	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
+	 		 + "FROM m_applications ma INNER JOIN m_profiles_detail dp ON ma.appid=dp.appid "
 	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
 	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid "
 	 		 + "WHERE mp.profilesid=?;";
 	 
 	 public static final String findDProfileById = "SELECT dp.objid, dp.profileid, mp.profilesname, dp.appid, ma.appname, dp.rolesid, mr.rolename " 
-	 		 + "FROM m_applications ma INNER JOIN d_profiles dp ON ma.appid=dp.appid "
+	 		 + "FROM m_applications ma INNER JOIN m_profiles_detail dp ON ma.appid=dp.appid "
 	 		 + "INNER JOIN m_roles mr ON dp.rolesid=mr.rolesid "
 	 		 + "INNER JOIN m_profiles mp ON mp.profilesid=dp.profileid "
 	 		 + "WHERE dp.objid=?;";
@@ -316,25 +316,25 @@ public class AppConfig {
 	 public static final String deleteMRole = "DELETE FROM m_roles WHERE rolesid=?;"; 
 
 //////////////////////////////////D ROLES////////////////////////////////////////////
-	 public static final String saveDRole = "INSERT INTO d_roles (roleid, usersid) "
+	 public static final String saveDRole = "INSERT INTO m_roles_detail (roleid, usersid) "
 			 + "VALUES (?, ?);";
 
 	 public static final String selectDRole = "SELECT rmemid, roleid, usersid "
-			 + "FROM d_roles;";
+			 + "FROM m_roles_detail;";
 
 	 public static final String findDRoleById = "SELECT  rmemid, roleid, usersid "
-			 + "FROM d_roles "
+			 + "FROM m_roles_detail "
 			 + "WHERE rmemid=?;";
 	 
 	 public static final String findDRoleByRoleId = "SELECT  rmemid, roleid, usersid "
-			 + "FROM d_roles "
+			 + "FROM m_roles_detail "
 			 + "WHERE roleid=?;";
 
-	 public static final String updateDRole = "UPDATE d_roles SET roleid=?, usersid=? "
+	 public static final String updateDRole = "UPDATE m_roles_detail SET roleid=?, usersid=? "
 			 + "WHERE rmemid=?;";
 
-	 public static final String deleteDRole = "DELETE FROM d_roles WHERE rmemid=?;"; 
-	 public static final String deleteDRoleByRoleId = "DELETE FROM d_roles WHERE roleid=?;"; 
+	 public static final String deleteDRole = "DELETE FROM m_roles_detail WHERE rmemid=?;"; 
+	 public static final String deleteDRoleByRoleId = "DELETE FROM m_roles_detail WHERE roleid=?;"; 
 	 
 //////////////////////////////////////M TENANTS/////////////////////////////////////////
 	 public static final String saveMTenant = "INSERT INTO m_tenant (tenant_code, tenant_activation_code, is_active, created_by, tenant_name, created_date) "
@@ -395,11 +395,11 @@ public class AppConfig {
 	 		 + "WHERE NOT mu.isadmin = 1;" ;
 	 
 	 public static final String selectMUserprofileByRole = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, COALESCE( dr.roleid, 0 ) isselect " + 
-	 		"FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid "
+	 		"FROM m_userprofile mu LEFT JOIN (select * from m_roles_detail where roleid = ?) dr ON dr.usersid = mu.userid "
 	 		+ "WHERE NOT mu.userid = 1;";
 	 
 	 public static final String selectMUserprofileByRoleSuperUser = "SELECT mu.userid, mu.username, mu.fullname, mu.active, mu.secretpwd, mu.avatarname, mu.email, mu.address, mu.alias, mu.phone, mu.mobile, mu.fax, mu.city, mu.tenantid, mu.employeecode, mu.created_by, mu.created_date, mu.updated_date, mu.updated_by, mu.isadmin, COALESCE( dr.roleid, 0 ) isselect " 
-			+ "FROM m_userprofile mu LEFT JOIN (select * from d_roles where roleid = ?) dr ON dr.usersid = mu.userid;";
+			+ "FROM m_userprofile mu LEFT JOIN (select * from m_roles_detail where roleid = ?) dr ON dr.usersid = mu.userid;";
 	 
 	 public static final String findMUserprofileById = "SELECT userid, username, fullname, active, secretpwd, avatarname, email, address, alias, phone, mobile, fax, city, tenantid, employeecode, created_by, created_date, updated_date, updated_by, isadmin "
 			 + "FROM m_userprofile "
@@ -516,22 +516,22 @@ public class AppConfig {
 	public static final String deleteMSystem = "DELETE FROM m_system WHERE sysid=?;";
 	
 	/////////////////////////////////////////Log Generic/////////////////////////////////////////////////
-	public static final String saveLogGeneric = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+	public static final String saveLogGeneric = "INSERT INTO m_log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
 			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
 			+ "VALUES (current_timestamp, ?, ?, ?, "
 			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
 	
-	public static final String saveUserLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+	public static final String saveUserLogger = "INSERT INTO m_log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
 			+ "tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
 			+ "VALUES (current_timestamp, ?, ?, ?, "
 			+ "?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
 	
-	public static final String saveEventLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+	public static final String saveEventLogger = "INSERT INTO m_log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
 			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
 			+ "VALUES (current_timestamp, ?, ?, ?, "
 			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
 	
-	public static final String saveTaskLogger = "INSERT INTO log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
+	public static final String saveTaskLogger = "INSERT INTO m_log_generic (	log_datetime, log_type_id, log_action_id, user_id, "
 			+ "menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date) "  
 			+ "VALUES (current_timestamp, ?, ?, ?, "
 			+ "?, ?, ?, ?, ?, ?, ?, 'SYSTEM', current_timestamp);";
@@ -541,7 +541,7 @@ public class AppConfig {
 			+ "inner join " 
 			+ "(select * from " 
 			+ "(select mt.id as tenantid, mt.tenant_name, lg3.id, lg3.log_datetime, lg3.log_type_id, lg3.log_action_id, lg3.user_id, lg3.menu_id, lg3.trx_id, lg3.tenant_id, lg3.company_id, lg3.description, lg3.ipcontroller, lg3.location "
-			+ "from log_generic lg3 "
+			+ "from m_log_generic lg3 "
 			+ "inner join m_tenant mt "  
 			+ "on lg3.tenant_id = mt.id) lg2 "  
 			+ "inner join m_userprofile mu " 
@@ -551,7 +551,7 @@ public class AppConfig {
 			+ "ORDER BY lg.log_datetime DESC;";
 	
 	public static final String findLogGenericByTypeId = "SELECT id, log_datetime, log_type_id, log_action_id, user_id, menu_id, trx_id, tenant_id, company_id, description, ipcontroller, location, created_by, created_date " 
-			+ "FROM log_generic "
+			+ "FROM m_log_generic "
 			+ "WHERE log_type_id = ?;";
 			
 	///////////////////////////////////////// Menu Admin To User/////////////////////////////////////////////////
@@ -608,21 +608,21 @@ public class AppConfig {
 	/////////////////////////////////////// D LICENSE /////////////////////////////////////////////////////////////
 	public static final String selectDSystemLicense = "select * from d_system_license;";
 	
-	public static final String findDSystemLicenseById = "select * from d_system_license where id = ?;";
+	public static final String findDSystemLicenseById = "select * from m_system_license_detail where id = ?;";
 	
 	public static final String findDSystemLicenseByLicenseId = "SELECT ma.appid, ma.appname, ma.description, ma.created_by, "
 			+ "ma.created_date, ma.tenantid, ma.updated_by, ma.updated_date, "
 			+ "ma.apptype, dsl.license_id " 
 			+ "	FROM public.m_applications ma " 
-			+ "left join (select * from d_system_license where license_id = ?) dsl " 
+			+ "left join (select * from m_system_license_detail where license_id = ?) dsl " 
 			+ "on ma.appid = dsl.module_id " 
 			+ "WHERE NOT ma.appid = 1;";
 	
-	public static final String deleteDSystemLicenseById = "delete from d_system_license where id = ?;";
+	public static final String deleteDSystemLicenseById = "delete from m_system_license_detail where id = ?;";
 	
-	public static final String deleteDSystemLicenseByLicenseId = "delete from d_system_license where license_id = ?;";
+	public static final String deleteDSystemLicenseByLicenseId = "delete from m_system_license_detail where license_id = ?;";
 	
-	public static final String saveDSystemLicense = "INSERT INTO public.d_system_license "
+	public static final String saveDSystemLicense = "INSERT INTO public.m_system_license_detail "
 			+ "(license_id, module_id) "
 			+ "VALUES(?, ?);";
 	
